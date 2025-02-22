@@ -1,0 +1,86 @@
+/* Root Variables */
+:root {
+    --primary: #1672C8;
+
+}
+a{
+    text-decoration: none;
+}
+.f-12{
+    font-size: 12px;
+}
+.borderless td, .borderless th {
+    border: none;
+}
+.rounded-circle{
+    object-fit: cover;
+}
+.alert__closed{
+    background-color: rgb(229, 253, 219);
+}
+.sidebar-nav ul .sidebar-item.selected>.sidebar-link, .sidebar-nav ul .sidebar-item.selected>.sidebar-link.active, .sidebar-nav ul .sidebar-item>.sidebar-link.active{
+    background-color: var(--primary);
+}
+.bg-success{
+    background-color: var(--primary) !important;
+}
+.btn-primary{
+    background-color: var(--primary);
+}
+.btn-outline-primary{
+    color: var(--primary);
+    border-color: var(--primary);
+}
+.btn-outline-primary:hover{
+    background-color: var(--primary); 
+    color: white;
+}
+.b-s-none{
+    box-shadow: none ;
+}
+.select2-container--default .select2-selection--single{
+    height: 40px !important;
+    display: block !important;
+    width: 100% !important;
+    padding: 8px 16px !important;
+    font-size: 0.875rem !important;
+    font-weight: 400 !important;
+    line-height: 1.5 !important;
+    color: #5A6A85 !important;
+    background-color: transparent !important;
+    background-clip: padding-box !important;
+    border: var(--bs-border-width) solid #DFE5EF !important;
+    -webkit-appearance: none !important;
+    -moz-appearance: none !important;
+    appearance: none !important;
+    border-radius: 7px !important;
+    -webkit-box-shadow: inset 0 1px 2px rgba(var(--bs-body-color-rgb), 0.075) !important;
+    box-shadow: inset 0 1px 2px rgba(var(--bs-body-color-rgb), 0.075) !important;
+    -webkit-transition: border-color 0.15s ease-in-out, -webkit-box-shadow 0.15s ease-in-out !important;
+    transition: border-color 0.15s ease-in-out, -webkit-box-shadow 0.15s ease-in-out !important;
+    transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out !important;
+    transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out, -webkit-box-shadow 0.15s ease-in-out !important;
+}
+.select2-container--default .select2-selection--single .select2-selection__arrow{
+    height: 40px !important;
+}
+.select2-container{
+    width: 100% !important;
+}
+
+/* TINF */
+
+.tinf__container{
+    background-color: yellow;
+    display: flex;
+    justify-content: center;
+
+}
+
+.tif__container_cards{
+    display: block;
+}
+.tinf__card{
+    max-width: 480px;
+    background-color: red;
+}

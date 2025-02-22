@@ -1,0 +1,11 @@
+<?php
+
+return [
+    'gral_created'                  => 'Elemento creado correctamente',
+    'gral_update'                   => 'Elemento actualizado correctamente',
+
+    'file_deleted'                  => 'Archivo eliminado correctamente',
+        
+    'auth_password_updated'         => 'Contraseña actualizada correctamente',
+    'auth_photo_updated'            => 'Foto de perfil actualizada correctamente',
+];
