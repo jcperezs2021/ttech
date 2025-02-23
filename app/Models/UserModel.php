@@ -23,12 +23,10 @@ class UserModel extends Model{
     public function getUsers($id = null)
     {
 
-        // Hacer join con la tabla ocupations y solo obtiene name de ocupations como ocupation_name
         $this->join('ocupations', 'ocupations.id = users.ocupation')
              ->join('users as parent', 'parent.id = users.parent', 'left')
              ->select('users.*, ocupations.name as ocupation_name, CONCAT(parent.name, " ", parent.lastname) as parent_name, CONCAT(users.name, " ", users.lastname) as complete_name');
         
-
         if($id !== null){
             return $this->find($id);
         }

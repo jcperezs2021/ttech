@@ -19,10 +19,10 @@ class Alert extends BaseController
                 .view('shared/sidebar')
                 .view('shared/navbar')
                 .view('pages/shared/alerts/alerts',        [
-                                                        'csrfName'  => csrf_token(),
-                                                        'csrfHash'  => csrf_hash(),
-                                                        'alerts'    => $this->alertModel->getAlerts(session()->get('user')->id)
-                                                    ])
+                                                                'csrfName'  => csrf_token(),
+                                                                'csrfHash'  => csrf_hash(),
+                                                                'alerts'    => $this->alertModel->getAlerts(session()->get('user')->id)
+                                                            ])
                 .view('shared/footer');
     }
 

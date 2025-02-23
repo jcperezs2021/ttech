@@ -13,7 +13,7 @@ class Auth extends BaseController
     {
         $this->lang             = \Config\Services::language();
         $this->lang             ->setLocale('es');
-        $this->userModel = new UserModel();
+        $this->userModel        = new UserModel();
     }
 
     public function index(): string

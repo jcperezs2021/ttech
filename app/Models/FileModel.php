@@ -29,6 +29,14 @@ class FileModel extends Model{
         return $this->orderBy('created_at', 'DESC')->findAll();
     }
 
+    public function getFileByPath($path)
+    {
+        $sanitizedPath  = $this->db->escapeString($path);
+        $resp           = $this->where('path', $sanitizedPath)->first();
+        
+        return $resp;
+    }
+
     public function createFile($name, $path, $type, $size)
     {
         $data = [

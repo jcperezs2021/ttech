@@ -8,9 +8,13 @@
       <!--Modal -->
       <?php include('trantor-informa-modal.php'); ?>
 
-      <!-- Card -->
-      <?php include('trantor-informa-card.php'); ?>
-            
+      <!-- Feed -->
+      <?php foreach($feed as $f): ?>
+        <?php 
+          $currentFeed = $f;
+          include('trantor-informa-card.php'); 
+        ?>
+      <?php endforeach; ?>
     </div>
   </div>
 </div>

@@ -1,7 +1,7 @@
 <div class="tinf__card">
     <div class="tinf__header">
         <div class="tinf__profile">
-            <img src="http://localhost/ttech/public/uploads/images/profiles/batman.jpg" alt="picture">
+            <img src="<?= session('user')->photo ?>" alt="<?= session('user')->name ?>">
             <div class="tinf_profile_info w-100">
                 <div class="tinf__publiate" type="button" data-bs-toggle="modal" data-bs-target="#createFeed">
                     Crear una publicación

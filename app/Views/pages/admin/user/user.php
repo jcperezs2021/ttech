@@ -80,11 +80,11 @@
                       <p class="mb-0 fw-normal">
                         <?php
                           if ($user->rol == 'admin') {
-                          echo 'Administrador';
+                            echo 'Administrador';
                           } elseif ($user->rol == 'extern-zpl') {
-                          echo 'Externo ZPL';
+                            echo 'Externo ZPL';
                           } else {
-                          echo 'Usuario';
+                            echo 'Usuario';
                           }
                         ?>
                       </p>

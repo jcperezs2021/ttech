@@ -24,10 +24,10 @@ class Ocupation extends BaseController
                 .view('shared/sidebar')
                 .view('shared/navbar')
                 .view('pages/admin/ocupation/ocupation',            [
-                                                        'csrfName'      => csrf_token(),    
-                                                        'csrfHash'      => csrf_hash(),
-                                                        'ocupations'    => $ocupations
-                                                    ])
+                                                                        'csrfName'      => csrf_token(),    
+                                                                        'csrfHash'      => csrf_hash(),
+                                                                        'ocupations'    => $ocupations
+                                                                    ])
                 .view('shared/footer');
     }
 
@@ -46,10 +46,10 @@ class Ocupation extends BaseController
 
         if ($data['ocupation']) {
             return   
-                view('shared/header',                   ['title'        => "Editar Puesto"])
+                view('shared/header',                           ['title'        => "Editar Puesto"])
                .view('shared/sidebar')
                .view('shared/navbar')
-               .view('pages/admin/ocupation/ocupation-edit',  ['data'        => $data])
+               .view('pages/admin/ocupation/ocupation-edit',    ['data'        => $data])
                .view('shared/footer');
         } else {
             return redirect()->to('/ocupation');

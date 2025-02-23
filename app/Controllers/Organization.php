@@ -17,9 +17,9 @@ class Organization extends BaseController
     public function index(): string
     {
         
-        return   view('shared/header',                          ['title'        => 'Organigrama'])
+        return   view('shared/header',                              ['title'        => 'Organigrama'])
                 .view('shared/sidebar')
-                .view('pages/admin/organization/organization',    ['org'          => $this->userModel->getOrganization()])
+                .view('pages/admin/organization/organization',      ['org'          => $this->userModel->getOrganization()])
                 .view('shared/footer');
     }
 }

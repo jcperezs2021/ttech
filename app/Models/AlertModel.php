@@ -25,7 +25,7 @@ class AlertModel extends Model{
         if($offset == null && $limit == null)
             return $this->where('user', $user)->orderBy('created_at', 'DESC')->findAll();
         else
-        return $this->where('user', $user)->orderBy('created_at', 'DESC')->findAll($limit, $offset);
+            return $this->where('user', $user)->orderBy('created_at', 'DESC')->findAll($limit, $offset);
     }
 
     public function getUnreadAlerts($user)

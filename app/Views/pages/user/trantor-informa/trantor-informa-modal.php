@@ -8,7 +8,7 @@
             <div class="modal-body feed">
                 <div class="tinf__header">
                     <div class="tinf__profile">
-                        <img src="http://localhost/ttech/public/uploads/images/profiles/batman.jpg" alt="picture">
+                        <img src="<?= session('user')->photo ?>" alt="<?= session('user')->name ?>">
                         <div class="tinf_profile_info">
                             <div>
                                 <p>La Guía Del Varón</p>
@@ -74,9 +74,6 @@
 
 <script>
     $(document).ready(function() {
-
-        var csrfName    = '<?= $csrfName ?>';
-        var csrfHash    = '<?= $csrfHash ?>';
 
         $('#btnUploadFile').click(function() {
             $('#uploadImageContainer').hide();

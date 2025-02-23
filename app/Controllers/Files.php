@@ -6,7 +6,6 @@ use App\Models\FileModel;
 
 class Files extends BaseController
 {
-
     protected $fileModel;
 
     public function __construct()
@@ -16,7 +15,6 @@ class Files extends BaseController
 
     public function handleUpload()
     {
-
         $files = $this->request->getFiles();
 
         foreach ($files['images'] as $file) {
@@ -64,42 +62,43 @@ class Files extends BaseController
                 ]);
             }
         }
-
     }
-
 
     public function handleDelete()
     {
-        $fileName = $this->request->getBody(); // FilePond sends the file name in the request body
-    
-        // Busca el archivo en la base de datos
-        $file = $this->fileModel->where('path', $fileName)->first();
-    
+        $fileName = $this->request->getBody(); 
+
+        $fileName = str_replace('"', '', $fileName);
+        $fileName = str_replace('\\', '/', $fileName);
+
+        $file = $this->fileModel->getFileByPath($fileName);
+
         if ($file) {
-            $filePath = ROOTPATH . 'public/uploads/files/' . $fileName;
-    
+
+            $filePath = ROOTPATH . 'public' . $fileName;
+
             if (file_exists($filePath)) {
-                unlink($filePath); // Elimina el archivo del sistema de archivos
-    
-                // Elimina el registro de la base de datos
-                $this->fileModel->delete($file['id']);
-    
+                unlink($filePath);
+
+                $this->fileModel->delete($file->id);
                 return $this->response->setJSON([
                     'status' => 'success',
                     'message' => 'Archivo eliminado correctamente',
                 ]);
+
             } else {
+
                 return $this->response->setJSON([
                     'status' => 'error',
                     'message' => 'Archivo no encontrado',
                 ]);
             }
         } else {
+            
             return $this->response->setJSON([
                 'status' => 'error',
                 'message' => 'Archivo no encontrado en la base de datos',
             ]);
         }
     }
-
 }

@@ -1,12 +1,18 @@
+<?php
+    if (!isset($currentFeed)) {
+        return;
+    }
+    $contentWithBreaks = nl2br(htmlspecialchars($currentFeed->body_content));
+?>
 <div class="tinf__card">
     <!-- Header -->
     <div class="tinf__header">
         <div class="tinf__profile">
-            <img src="http://localhost/ttech/public/uploads/images/profiles/batman.jpg" alt="picture">
+            <img src="<?= $currentFeed->author_photo ?>" alt="<?= $currentFeed->author_name ?>">
             <div class="tinf_profile_info">
                 <div>
-                    <p>La Guía Del Varón</p>
-                    <span>hace 1 hora</span>
+                    <p><?= $currentFeed->author_name ?></p>
+                    <span><?= $currentFeed->author_name ?></span>
                 </div>
             </div>
         </div>
@@ -14,11 +20,20 @@
     <!-- Body -->
     <div class="tinf__body">
         <div class="text">
-            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Accusantium accusamus, eum voluptatibus qui ipsum sunt atque molestiae perspiciatis ipsam voluptate ea, eius placeat quidem adipisci maiores! Iure perferendis facere eum?</p>
+            <p><?= $currentFeed->body_content ?></p>
         </div>
-        <div class="image">
-            <img class="img-fluid" src="https://placehold.co/600x600" alt="image">
-        </div>
+        <?php
+            $image_path = json_decode($currentFeed->image_path);
+            if (is_array($image_path) && count($image_path) > 0):
+            foreach ($image_path as $image):
+        ?>
+                <div class="image">
+                    <img class="img-fluid" src="<?= base_url($image) ?>" alt="image">
+                </div>
+        <?php
+            endforeach;
+            endif;
+        ?>
     </div>
     <!-- Footer -->
     <div class="tinf__footer">

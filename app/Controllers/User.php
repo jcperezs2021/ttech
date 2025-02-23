@@ -20,19 +20,19 @@ class User extends BaseController
     public function index(): string
     {
         $users   = $this->userModel->getUsers();
-        return   view('shared/header',          ['title'        => 'Usuarios'])
+        return   view('shared/header',                  ['title'        => 'Usuarios'])
                 .view('shared/sidebar')
                 .view('shared/navbar')
-                .view('pages/admin/user/user',        ['users'        => $users])
+                .view('pages/admin/user/user',          ['users'        => $users])
                 .view('shared/footer');
     }
    
     public function newUser(): string
     {
-        return   view('shared/header',          ['title'        => 'Nuevo usuario'])
+        return   view('shared/header',                  ['title'        => 'Nuevo usuario'])
                 .view('shared/sidebar')
                 .view('shared/navbar')
-                .view('pages/admin/user/user-new',    [
+                .view('pages/admin/user/user-new',      [ 
                                                             'ocupations'   => $this->ocupationModel->getOcupations(),
                                                             'users'        => $this->userModel->getUsers(),
                                                             'csrfName'     => csrf_token(),
@@ -51,10 +51,10 @@ class User extends BaseController
         
         if ($data['user']) {
             return   
-                view('shared/header',          ['title'        => "Editar usuario"])
+                view('shared/header',                       ['title'        => "Editar usuario"])
                .view('shared/sidebar')
                .view('shared/navbar')
-               .view('pages/admin/user/user-edit',   ['data'        => $data])
+               .view('pages/admin/user/user-edit',          ['data'        => $data])
                .view('shared/footer');
         } else {
             return redirect()->to('/user');
@@ -64,7 +64,7 @@ class User extends BaseController
     public function profile(): string
     {
         $users   = $this->userModel->getUsers();
-        return   view('shared/header',              ['title'        => 'Mi perfil'])
+        return   view('shared/header',                     ['title'        => 'Mi perfil'])
                 .view('shared/sidebar')
                 .view('shared/navbar')
                 .view('pages/shared/profile/profile-home', [

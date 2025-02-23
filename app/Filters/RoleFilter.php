@@ -21,8 +21,8 @@ class RoleFilter implements FilterInterface
 
             // Verificar si el rol del usuario está permitido
             if (!in_array($userRole, $arguments)) {
-            // Si el rol no está permitido, redirigir a la página de error 404
-            return redirect()->to('/404');
+                // Si el rol no está permitido, redirigir a la página de error 404
+                return redirect()->to('/404');
             }
         } else {
             // Si no hay usuario en la sesión o no tiene rol, redirigir a la página de inicio de sesión
