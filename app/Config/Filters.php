@@ -82,6 +82,7 @@ class Filters extends BaseFilters
             'csrf' => [
                 'except' => [
                     'extern/mo',
+                    'files/*',
                 ]
             ],
             // 'invalidchars',

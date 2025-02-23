@@ -1,7 +1,13 @@
 /* Root Variables */
 :root {
     --primary: #1672C8;
+    --gray: #F2F4F7;
+    --gray-2: #cfcfcf;
+    --white: #fff;
 
+}
+body{
+    background-color: var(--gray);
 }
 a{
     text-decoration: none;
@@ -71,7 +77,6 @@ a{
 /* TINF */
 
 .tinf__container{
-    background-color: yellow;
     display: flex;
     justify-content: center;
 
@@ -81,6 +86,119 @@ a{
     display: block;
 }
 .tinf__card{
-    max-width: 480px;
-    background-color: red;
+    background-color: var(--white);
+    max-width: 580px;
+    margin-bottom: 1rem;
+    border-radius: 10px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1), 0 3px 10px rgba(0, 0, 0, 0.1);
+}
+.tinf__header .tinf__profile{
+    display: flex;
+    padding: 20px 20px 0 20px;
+}
+.tinf__header .tinf__profile img{
+    height: 40px;
+    width: 40px;
+    border-radius: 50%;
+    object-fit: cover;
+    margin-right: 15px;
+}
+.tinf__header{
+    margin-bottom: 15px;
+}
+.tinf__header .tinf__profile .tinf_profile_info{
+    line-height: 18px;
+    display: flex;
+    align-items: center;
+}
+.tinf__header .tinf__profile .tinf_profile_info>div>p{
+    font-weight: bold;
+    margin-bottom: 0px;
+}
+.tinf__header .tinf__profile .tinf_profile_info>div>span{
+    font-size: 12px;
+}
+.tinf__body .text{
+    padding: 0px 20px;
+}
+.tinf__body .image{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    max-height: 600px;
+    overflow: hidden;
+}
+.tinf__footer{
+    margin-top: 10px;
+}
+.tinf__footer .results{
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 5px;
+}
+.tinf__footer .action__container{
+    border-top: 1px solid var(--gray-2);
+}
+.tinf__footer .action{
+    display: flex;
+    height: 40px;
+}
+.tinf__footer .action button:hover{
+    background-color: var(--gray);
+    transition: 0.2s;
+}
+.tinf__footer .action button{
+    width: 50%;
+    border: none;
+    background-color: var(--white);
+}
+.tinf__publiate{
+    cursor: pointer;
+    padding: 0 10px;
+    display: flex;
+    align-items: center;
+    background-color: var(--gray);
+    width: 100%;
+    height: 100%;
+    border-radius: 10px;
+}
+.feed .tinf__header .tinf__profile{
+    padding: 0;
+}
+.feed textarea{
+    border: none;
+    font-size: 20px;
+    resize: none;
+}
+.tinf__add{
+    user-select: none;
+    border-radius: 8px;
+    margin-top: 10px;
+    display: flex;
+    align-items: center;
+    padding: 10px;
+    border: 1px solid var(--gray-2);
+}
+.tinf__add span{
+    font-weight: bold;
+}
+.menu__list{
+    display: flex;
+    justify-content: flex-end;
+    margin: 0;
+}                               
+.menu__list .menu__list_item{
+    cursor: pointer;
+    border-radius: 8px;
+    padding: 8px;
+    height: 100%;
+}
+.menu__list .menu__list_item:hover{
+    background-color: var(--gray);
+    transition: 0.2ms;
+    color: var(--primary);
+}
+.tinf__body small{
+    font-size: 12px;
+    font-weight: bold;
 }

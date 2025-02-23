@@ -78,5 +78,12 @@ $routes->group('', ['filter' => 'auth:admin'], function($routes) {
     
     /* Documents */
     $routes->get('/documents', 'Documents::documents');
+
+     /* Files */
+    $routes->post('/files/upload', 'Files::handleUpload');
+    $routes->delete('/files/revert', 'Files::handleDelete');
+
+     /* TrantorInforma */
+    $routes->post('/trantor-informa/new', 'TrantorInforma::store');
     
 });
