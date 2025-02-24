@@ -5,9 +5,7 @@
                 <h1 class="modal-title fs-5" id="commentList">Comentarios</h1>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
-            <div class="modal-body feed">
-                
-            </div>
+            <div class="modal-body feed" id="commentListContainer"></div>
         </div>
     </div>
 </div>

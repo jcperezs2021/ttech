@@ -49,4 +49,53 @@ $(document).ready(function() {
     }).fail(() => showMessage('alert-danger', 'Error en la solicitud.'));
   });
 
+  // Get Comments
+  $('.comments__action').on('click', function(e) {
+    e.preventDefault();
+
+    let feedId = $(this).attr('feedId');
+    $('#commentListContainer').html(`<div class="d-flex justify-content-center mb-4"><div class="loader" id="commentListLoader"><div class="spinner-border text-primary" role="status"><span class="visually-hidden">Loading...</span></div></div></div>`);
+    
+    $.get(base_url + 'trantor-informa/feed/comments/' + feedId, { feed: feedId }, function(resp){
+      if(resp.ok){
+        $('#commentListContainer').html(resp.comments);
+      }
+      if (resp.csrf_name && resp.csrf_token) {
+        actualizarCsrfTokenAjax(resp.csrf_name, resp.csrf_token);
+      }
+    }
+    ).fail(() => showMessage('alert-danger', 'Error en la solicitud.'));
+  });
+
+  $('#btnUploadFile').click(function() {
+    $('#uploadImageContainer').hide();
+    $('#uploadFileContainer').fadeIn();
+    $('#images').val('');
+  });
+
+  $('#btnUploadImage').click(function() {
+    $('#uploadFileContainer').hide();
+    $('#uploadImageContainer').fadeIn();
+    $('#file').val('');
+  });
+
+  // FilePond
+  FilePond.registerPlugin(FilePondPluginImagePreview);
+  FilePond.create(document.getElementById('images'), {
+    credits: false, 
+    acceptedFileTypes: ['image/*'],
+    allowMultiple: true,
+    maxFiles: 4,
+    server: {
+      url: base_url + '/files',
+      process: {
+        url: '/upload',
+        method: 'POST',
+      },
+      revert:{
+        url: '/revert',
+        method: 'DELETE',
+      }
+    }
+  });
 });

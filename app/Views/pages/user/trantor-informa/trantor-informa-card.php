@@ -42,7 +42,7 @@
                             <img src="<?= base_url("assets/images/icons/like.svg") ?>" alt="like" width="18" height="18" class="me-1"> 
                             <span class="<?= "feedLike-" . htmlspecialchars($currentFeed->id) ?>"><?= htmlspecialchars($currentFeed->likes_count) ?></span>
                         </div>
-                        <div class="comments d-flex">
+                        <div class="comments__action comments d-flex" type="button" data-bs-toggle="modal" data-bs-target="#commentList" feedId="<?= htmlspecialchars($currentFeed->id) ?>">
                             <div class="me-1 <?= "feedCommentsValue-" . htmlspecialchars($currentFeed->id) ?>"><?= htmlspecialchars($currentFeed->comments_count) ?></div> 
                             <?= $currentFeed->comments_count == "1" ? 'comentario' : 'comentarios' ?>
                         </div>
@@ -75,8 +75,3 @@
         </div>
     </div>
 </div>
-
-<script>
-  var csrfName = '<?= $csrfName ?>';
-  var csrfHash = '<?= $csrfHash ?>';
-</script>

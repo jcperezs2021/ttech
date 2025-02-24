@@ -211,3 +211,12 @@ a{
     display: flex;
     align-items: center;
 }
+.results .comments:hover{
+    cursor: pointer;
+    text-decoration: underline;
+    color: var(--primary);
+}
+#commentListContainer{
+    max-height: 80vh;
+    overflow: auto;
+}
