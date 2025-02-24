@@ -4,7 +4,6 @@
     --gray: #F2F4F7;
     --gray-2: #cfcfcf;
     --white: #fff;
-
 }
 body{
     background-color: var(--gray);
@@ -73,15 +72,12 @@ a{
 .select2-container{
     width: 100% !important;
 }
-
 /* TINF */
-
 .tinf__container{
     display: flex;
     justify-content: center;
 
 }
-
 .tif__container_cards{
     display: block;
 }
@@ -201,4 +197,7 @@ a{
 .tinf__body small{
     font-size: 12px;
     font-weight: bold;
+}
+.btnRemoveLike{
+    color: #1672C8;
 }

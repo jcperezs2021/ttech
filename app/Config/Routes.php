@@ -25,9 +25,6 @@ $routes->group('', ['filter' => 'auth:admin,user'], function($routes) {
     /* Auth */
     $routes->get('/auth/logout', 'Auth::logout');
 
-    /* TrantorInforma */
-    $routes->get('/trantor-informa', 'TrantorInforma::index');
-
     /* Alerts */
     $routes->get('/alerts', 'Alert::index');
     $routes->get('/alerts/unread', 'Alert::getUnreadAlerts');
@@ -46,6 +43,13 @@ $routes->group('', ['filter' => 'auth:admin,user'], function($routes) {
     
     /* Documentos */
     $routes->get('/documentos', 'Documents::index');
+
+    /* TrantorInforma */
+    $routes->get('/trantor-informa', 'TrantorInforma::index');
+    $routes->post('/trantor-informa/new', 'TrantorInforma::store');
+
+    $routes->post('/trantor-informa/like/add', 'TrantorInforma::newFeedLike');
+    $routes->post('/trantor-informa/like/remove', 'TrantorInforma::removeFeedLike');
     
 });
 

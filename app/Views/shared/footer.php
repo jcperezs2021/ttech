@@ -35,5 +35,10 @@
     <script src="<?= base_url('assets/js/profile.js') ?>"></script>
   <?php endif; ?>
 
+  <?php if (strpos(uri_string(), 'trantor-informa') !== false): ?>
+    <!-- Trantor Informa -->
+    <script src="<?= base_url('assets/js/trantor-informa.js') ?>"></script>
+  <?php endif; ?>
+
   </body> 
 </html>

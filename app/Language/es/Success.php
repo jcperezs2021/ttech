@@ -8,4 +8,7 @@ return [
         
     'auth_password_updated'         => 'Contraseña actualizada correctamente',
     'auth_photo_updated'            => 'Foto de perfil actualizada correctamente',
+
+    'like_created'                  => 'Me gusta creado correctamente',
+    'like_removed'                  => 'Me gusta removido correctamente',
 ];

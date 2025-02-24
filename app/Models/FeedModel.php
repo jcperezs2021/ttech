@@ -11,7 +11,7 @@ class FeedModel extends Model{
     protected $useAutoIncrement   = true;
     protected $returnType         = "object";
     protected $useSoftDeletes     = true;
-    protected $allowedFields      = ['author', 'body_content', 'file_path', 'image_path'];
+    protected $allowedFields      = ['author', 'body_content', 'file_path', 'image_path', 'likes_count', 'likes_detail'];
     protected $useTimestamps      = true;
     protected $createdField       = 'created_at';
     protected $updatedField       = 'updated_at';
@@ -22,15 +22,17 @@ class FeedModel extends Model{
     
     public function getFeeds($id = null)
     {
-        $this->select('feed.*, CONCAT(users.name, " ", users.lastname) as author_name, users.photo as author_photo');
+        $this->select('feed.*, CONCAT(users.name, " ", users.lastname) as author_name, users.photo as author_photo, ocupations.name as author_ocupation');
         $this->join('users', 'users.id = feed.author');
+        $this->join('ocupations', 'ocupations.id = users.ocupation');
 
-        if($id !== null){
+        if ($id !== null) {
             return $this->where('feed.id', $id)->first();
         }
 
         return $this->orderBy('feed.created_at', 'DESC')->findAll();
     }
+
     public function createFeed($author, $body_content, $file_path = null, $image_path = null)
     {
         $data = [
@@ -45,6 +47,8 @@ class FeedModel extends Model{
     
     public function deleteFeed($id)
     {
-        return $this->delete(['id' => $id]);
+        $sql = "DELETE FROM feed WHERE id = :id:";
+        $this->db->query($sql, ['id' => $id]);
+        return $this->db->affectedRows();
     }
 }
