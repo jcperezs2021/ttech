@@ -50,6 +50,7 @@ $routes->group('', ['filter' => 'auth:admin,user'], function($routes) {
 
     $routes->post('/trantor-informa/like/add', 'TrantorInforma::newFeedLike');
     $routes->post('/trantor-informa/like/remove', 'TrantorInforma::removeFeedLike');
+    $routes->post('/trantor-informa/comment/add', 'TrantorInforma::createComment');
     
 });
 

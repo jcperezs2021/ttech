@@ -11,8 +11,8 @@
                         <img src="<?= session('user')->photo ?>" alt="<?= session('user')->name ?>">
                         <div class="tinf_profile_info">
                             <div>
-                                <p>La Guía Del Varón</p>
-                                <span>hace 1 hora</span>
+                                <p><?= session('user')->name ?> <?= session('user')->lastname ?></p>
+                                <span>Activo ahora</span>
                             </div>
                         </div>
                     </div>
@@ -20,7 +20,7 @@
                 <form id="feedForm" enctype="multipart/form-data" action="<?= base_url('trantor-informa/new') ?>" method="POST">
                     <?php echo csrf_field(); ?>
                     <div class="tinf__body">
-                        <textarea rows="10" class="form-control" placeholder="Comienza a escribir aquí" name="publication" id="publication"></textarea>
+                        <textarea rows="6" class="form-control" placeholder="Comienza a escribir aquí" name="publication" id="publication"></textarea>
                     </div>
                     <div class="tinf__body" id="uploadFileContainer" style="display:none">
                         <small>

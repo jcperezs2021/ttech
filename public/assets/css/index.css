@@ -130,10 +130,11 @@ a{
 .tinf__footer .results{
     display: flex;
     justify-content: space-between;
-    margin-bottom: 5px;
+    margin-bottom: 10px;
 }
 .tinf__footer .action__container{
     border-top: 1px solid var(--gray-2);
+    padding: 5px 0;
 }
 .tinf__footer .action{
     display: flex;
@@ -200,4 +201,13 @@ a{
 }
 .btnRemoveLike{
     color: #1672C8;
+}
+.comment_area{
+    padding: 6px;
+    background-color: var(--gray);
+    border-radius: 7px;
+}
+.results .likes{
+    display: flex;
+    align-items: center;
 }

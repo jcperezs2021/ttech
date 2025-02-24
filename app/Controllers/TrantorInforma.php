@@ -166,6 +166,38 @@ class TrantorInforma extends BaseController
             'ok'     => false,
             'error'  => lang('Errors.error_try_again_later'),
         ]);
-        
+    }
+
+    public function createComment()
+    {
+        $author         = session()->get('user')->id;
+        $feed           = $this->request->getPost('feed');
+        $content        = $this->request->getPost('content');
+
+        // Valida que los campos no vengan vacios
+        if(!$this->checkEmptyField([$author, $feed, $content])){
+            return $this->respondWithCsrf([
+                'ok'     => false,
+                'error'  => lang('Errors.missing_fields'),
+            ]);
+        }
+
+        // Crear comentario
+        $comment = $this->feedCommentModel->createFeedComment($author, $feed, $content);
+
+        if($comment){
+            return $this->respondWithCsrf([
+                'ok'              => true,
+                'message'         => lang('Success.comment_created'),
+                'comments_count'  => $this->feedCommentModel->getFeedCommentsCount($feed),
+                'comment'         => view('pages/user/trantor-informa/trantor-informa-comment', ['comment' => $this->feedCommentModel->getFeedComment($comment)])
+            ]);
+        }
+
+        // Error al crear registro
+        return $this->respondWithCsrf([
+            'ok'     => false,
+            'error'  => lang('Errors.error_try_again_later'),
+        ]);
     }
 }

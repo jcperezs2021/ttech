@@ -15,7 +15,7 @@
                 <div class="col-md-6 col-12 offset-md-6">
                     <div class="action">
                         <button><i class="ti ti-heart"></i> Me gusta</button>
-                        <button><i class="ti ti-speakerphone"></i> Comentar</button>
+                        <button><i class="ti ti-speakerphone"></i> Publicar</button>
                     </div>
                 </div>
             </div>

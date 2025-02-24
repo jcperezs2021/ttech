@@ -11,4 +11,6 @@ return [
 
     'like_created'                  => 'Me gusta creado correctamente',
     'like_removed'                  => 'Me gusta removido correctamente',
+
+    'comment_created'               => 'Comentario creado correctamente',
 ];

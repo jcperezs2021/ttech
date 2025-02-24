@@ -22,9 +22,11 @@ class FeedModel extends Model{
     
     public function getFeeds($id = null)
     {
-        $this->select('feed.*, CONCAT(users.name, " ", users.lastname) as author_name, users.photo as author_photo, ocupations.name as author_ocupation');
+        $this->select('feed.*, CONCAT(users.name, " ", users.lastname) as author_name, users.photo as author_photo, ocupations.name as author_ocupation, COUNT(feed_comments.id) as comments_count');
         $this->join('users', 'users.id = feed.author');
         $this->join('ocupations', 'ocupations.id = users.ocupation');
+        $this->join('feed_comments', 'feed_comments.feed = feed.id', 'left');
+        $this->groupBy('feed.id');
 
         if ($id !== null) {
             return $this->where('feed.id', $id)->first();
