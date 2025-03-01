@@ -109,8 +109,8 @@
                     <label class="form-label">Selecciona jefe directo</label>
                     <select class="form-select select2" name="parent" required>
                       <option value="<?= $user->parent ?>"><?= $user->parent_name ?></option>
-                      <?php foreach($users as $user): ?>
-                        <option value="<?= $user->id ?>"><?= $user->complete_name ?></option>
+                      <?php foreach($users as $user_local): ?>
+                        <option value="<?= $user_local->id ?>"><?= $user_local->complete_name ?></option>
                       <?php endforeach; ?>
                     </select>
                   </div>

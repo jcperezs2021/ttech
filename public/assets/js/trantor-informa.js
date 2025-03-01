@@ -1,5 +1,24 @@
 $(document).ready(function() {
 
+  // Image preview
+  $('.image__link').on('click', function(e) {
+    e.preventDefault();
+    let imageSrc = $(this).attr('src');
+    $('#imageFull').attr('src', imageSrc);
+  });
+
+  // Block or unblock publicationInput button
+  $('#publicationInput').on('input', function() {
+    let publicationInput = $('#publicationInput').val();
+    let publicationButton = $('#handleCreatePublication');
+    if (publicationInput.trim().length > 0) {
+      publicationButton.removeAttr('disabled');
+    }
+    else {
+      publicationButton.attr('disabled', 'disabled');
+    }
+  });
+
   // Create or remove like
   $('.btnCreateLike, .btnRemoveLike').on('click', function(e) {
     e.preventDefault();
@@ -67,21 +86,27 @@ $(document).ready(function() {
     ).fail(() => showMessage('alert-danger', 'Error en la solicitud.'));
   });
 
-  $('#btnUploadFile').click(function() {
+  // Upload file
+  $('#btnUploadFile, #btnHandleFile').click(function() {
     $('#uploadImageContainer').hide();
     $('#uploadFileContainer').fadeIn();
     $('#images').val('');
   });
 
-  $('#btnUploadImage').click(function() {
+  // Upload image
+  $('#btnUploadImage, #btnHandleImage').click(function() {
     $('#uploadFileContainer').hide();
     $('#uploadImageContainer').fadeIn();
     $('#file').val('');
   });
 
-  // FilePond
+  // FilePond configuration
   FilePond.registerPlugin(FilePondPluginImagePreview);
-  FilePond.create(document.getElementById('images'), {
+  FilePond.registerPlugin(FilePondPluginFileValidateType);
+  FilePond.registerPlugin(FilePondPluginFileValidateSize);
+
+  // Images
+  FilePond.create(document.getElementById('imagesInput'), {
     credits: false, 
     acceptedFileTypes: ['image/*'],
     allowMultiple: true,
@@ -90,6 +115,25 @@ $(document).ready(function() {
       url: base_url + '/files',
       process: {
         url: '/upload',
+        method: 'POST',
+      },
+      revert:{
+        url: '/revert',
+        method: 'DELETE',
+      }
+    }
+  });
+
+  // Files
+  FilePond.create(document.getElementById('fileInput'), {
+    credits: false, 
+    acceptedFileTypes: ['application/pdf', 'application/msword', 'application/vnd.openxmlformats-officedocument.wordprocessingml.document', 'application/vnd.ms-excel', 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet', 'application/vnd.ms-powerpoint', 'application/vnd.openxmlformats-officedocument.presentationml.presentation', 'application/zip'],
+    allowMultiple: false,
+    maxFiles: 1,
+    server: {
+      url: base_url + '/files',
+      process: {
+        url: '/upload/file',
         method: 'POST',
       },
       revert:{

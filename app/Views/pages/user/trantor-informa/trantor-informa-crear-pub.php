@@ -3,7 +3,7 @@
         <div class="tinf__profile">
             <img src="<?= session('user')->photo ?>" alt="<?= session('user')->name ?>">
             <div class="tinf_profile_info w-100">
-                <div class="tinf__publiate" type="button" data-bs-toggle="modal" data-bs-target="#createFeed">
+                <div id="tinf__publicate" type="button" data-bs-toggle="modal" data-bs-target="#createFeed">
                     Crear una publicación
                 </div>
             </div>
@@ -14,8 +14,8 @@
             <div class="row action__container">
                 <div class="col-md-6 col-12 offset-md-6">
                     <div class="action">
-                        <button><i class="ti ti-heart"></i> Me gusta</button>
-                        <button><i class="ti ti-speakerphone"></i> Publicar</button>
+                        <button id="btnHandleFile" type="button" data-bs-toggle="modal" data-bs-target="#createFeed"><i class="ti ti-paperclip"></i> Archivo</button>
+                        <button id="btnHandleImage" type="button" data-bs-toggle="modal" data-bs-target="#createFeed"><i class="ti ti-app-window"></i> Imagen</button>
                     </div>
                 </div>
             </div>

@@ -8,19 +8,19 @@ $(document).ready(function() {
         const password      = $('#password').val();
         const password_confirmation = $('#password_confirmation').val();
 
-        // Validar que password tenga al menos 6 caracteres
+        // Validate that password has at least 6 characters
         if (password.length < 6) {
             showMessage('alert-danger', 'La nueva contraseña debe tener al menos 6 caracteres.');
             return;
         }
 
-        // Validar si las contraseñas coinciden
+        // Validate if the passwords match
         if (password !== password_confirmation) {
             showMessage('alert-danger', 'Las nuevas contraseñas no coinciden.');
             return;
         }
         
-        // Enviar solicitud
+        // Send request
         $.post(baseUrl + `/password`, { [csrfName]: csrfHash, oldPassword, password, password_confirmation }, handleResponse)
           .fail(() => showMessage('alert-danger', 'Error en la solicitud.'))
           .done(() => {

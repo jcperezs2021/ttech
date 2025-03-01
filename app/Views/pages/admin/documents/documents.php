@@ -107,25 +107,9 @@
 
 <script>
   document.addEventListener('DOMContentLoaded', function() {
-  FilePond.create(document.querySelector('#fileUpload'), {
-    credits:false,
-    server: {
-      url: '/upload', // Endpoint del backend para la subida
-      process: {
-        url: '/upload', // URL donde se suben los archivos
-        method: 'POST',
-        onload: function(response) {
-          console.log('Archivo subido:', response);
-        }
-      },
-      revert: '/revert', // Permite revertir la carga
-      load: '/load' // Cargar archivos previamente subidos
-    }
-  });
-
   // Detectar la carpeta seleccionada
   $('#folderTree').on('select_node.jstree', function(e, data) {
-    var selectedFolder = data.node.text;
+    var selectedFolder = data.node.id;
     console.log('Carpeta seleccionada:', selectedFolder);
 
     // Aquí puedes enviar la carpeta seleccionada al backend con la carga del archivo

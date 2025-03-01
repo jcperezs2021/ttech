@@ -1,4 +1,5 @@
 $(document).ready(function() {
+    // Traduction for FilePond
     FilePond.setOptions({
         labelIdle: 'Arrastra y suelta tus archivos o <span class="filepond--label-action">Explorar</span>',
         labelFileLoading: 'Cargando...',

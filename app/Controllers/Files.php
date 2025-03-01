@@ -21,12 +21,7 @@ class Files extends BaseController
 
             if ($file && $file->isValid() && !$file->hasMoved()) {
     
-                $allowedMimeTypes = [
-                    'image/jpeg', 'image/png', 'image/gif', 'image/bmp', 'image/webp',
-                    'application/pdf', 'application/msword', 'application/vnd.openxmlformats-officedocument.wordprocessingml.document',
-                    'application/vnd.ms-excel', 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
-                    'application/vnd.ms-powerpoint', 'application/vnd.openxmlformats-officedocument.presentationml.presentation',
-                ];
+                $allowedMimeTypes = [ 'image/jpeg', 'image/png', 'image/gif', 'image/bmp', 'image/webp' ];
     
                 if (in_array($file->getClientMimeType(), $allowedMimeTypes)) {
     
@@ -64,6 +59,49 @@ class Files extends BaseController
         }
     }
 
+    public function handleUploadFile()
+    {
+        $file = $this->request->getFile('file');
+
+        if ($file && $file->isValid() && !$file->hasMoved()) {
+
+            $allowedMimeTypes = ['application/pdf', 'application/msword', 'application/vnd.openxmlformats-officedocument.wordprocessingml.document', 'application/vnd.ms-excel', 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet', 'application/vnd.ms-powerpoint', 'application/vnd.openxmlformats-officedocument.presentationml.presentation', 'application/zip'];
+
+            if (in_array($file->getClientMimeType(), $allowedMimeTypes)) {
+
+                $folder = '/uploads/files';
+                $uploadPath = ROOTPATH . 'public' . $folder;
+
+                if (!is_dir($uploadPath)) {
+                    mkdir($uploadPath, 0755, true);
+                }
+
+                $newName = $file->getRandomName();
+                $file->move($uploadPath, $newName);
+
+                $this->fileModel->createFile(
+                    $file->getName(),
+                    $folder . '/' . $newName,
+                    $file->getClientMimeType(),
+                    $file->getSize(),
+                );
+
+                return $folder . '/' . $newName;
+
+            } else {
+                return $this->response->setJSON([
+                    'status'    => 'error',
+                    'message'   => 'Tipo de archivo no permitido',
+                ]);
+            }
+        } else {
+            return $this->response->setJSON([
+                'status'    => 'error',
+                'message'   => 'Archivo no válido o ya movido',
+            ]);
+        }
+    }
+
     public function handleDelete()
     {
         $fileName = $this->request->getBody(); 
@@ -98,6 +136,7 @@ class Files extends BaseController
             return $this->response->setJSON([
                 'status' => 'error',
                 'message' => 'Archivo no encontrado en la base de datos',
+                'fileName' => $fileName,
             ]);
         }
     }

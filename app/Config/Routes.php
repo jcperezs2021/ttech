@@ -46,7 +46,6 @@ $routes->group('', ['filter' => 'auth:admin,user'], function($routes) {
 
     /* TrantorInforma */
     $routes->get('/trantor-informa', 'TrantorInforma::index');
-    $routes->post('/trantor-informa/new', 'TrantorInforma::store');
 
     $routes->post('/trantor-informa/like/add', 'TrantorInforma::newFeedLike');
     $routes->post('/trantor-informa/like/remove', 'TrantorInforma::removeFeedLike');
@@ -87,6 +86,7 @@ $routes->group('', ['filter' => 'auth:admin'], function($routes) {
 
      /* Files */
     $routes->post('/files/upload', 'Files::handleUpload');
+    $routes->post('/files/upload/file', 'Files::handleUploadFile');
     $routes->delete('/files/revert', 'Files::handleDelete');
 
      /* TrantorInforma */

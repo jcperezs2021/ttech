@@ -59,6 +59,18 @@
         </li>
         <li class="nav-small-cap">
           <i class="ti ti-dots nav-small-cap-icon fs-4"></i>
+          <span class="hide-menu">HELP DESK</span>
+        </li>
+        <li class="sidebar-item">
+          <a class="sidebar-link" href="https://www.nstrantor.com.mx/intranet/hd_glpi/" aria-expanded="false" target="_blank">
+            <span>
+                <i class="ti ti-ticket"></i>
+            </span>
+            <span class="hide-menu">GLPI</span>
+          </a>
+        </li>
+        <li class="nav-small-cap">
+          <i class="ti ti-dots nav-small-cap-icon fs-4"></i>
           <span class="hide-menu">ADMINISTRADOR</span>
         </li>
         <li class="sidebar-item">

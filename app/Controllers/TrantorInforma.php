@@ -42,10 +42,13 @@ class TrantorInforma extends BaseController
         $author         = session()->get('user')->id;
 
         // Crear registro en BDD
-        $this->feedModel->createFeed($author, $body_content, json_encode($file), json_encode($images));
+        if($this->feedModel->createFeed($author, $body_content, json_encode($file), json_encode($images))){
+            // Redireccionar a la vista principal
+            return redirect()->to('/trantor-informa');
+        }
 
-        // Redireccionar a la vista principal
-        return redirect()->to('/trantor-informa');
+        // Error al crear registro
+        return redirect()->back()->with('error', lang('Errors.error_try_again_later'));
     }
 
     public function newFeedComment()

@@ -1,12 +1,12 @@
 function showMessage(alertClass, message) {
 
-  var style = {  background: "linear-gradient(to right, #00b09b, #96c93d)" };
+  var style = {  background: "linear-gradient(to right, #1771C8,rgb(121, 190, 255))" };
   
   if(alertClass === 'alert-info'){
     style = { background: "#1E90FF" };
   }
   if(alertClass === 'alert-success'){
-    style = { background: "#00b09b" };
+    style = { background: "#1771C8" };
   }
   if(alertClass === 'alert-danger'){
     style = {  background: "linear-gradient(to right, #f85032, #e73827)" };

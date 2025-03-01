@@ -20,7 +20,7 @@
                 <form id="feedForm" enctype="multipart/form-data" action="<?= base_url('trantor-informa/new') ?>" method="POST">
                     <?php echo csrf_field(); ?>
                     <div class="tinf__body">
-                        <textarea rows="6" class="form-control" placeholder="Comienza a escribir aquí" name="publication" id="publication"></textarea>
+                        <textarea rows="6" class="form-control" placeholder="Comienza a escribir aquí" name="publication" id="publicationInput"></textarea>
                     </div>
                     <div class="tinf__body" id="uploadFileContainer" style="display:none">
                         <small>
@@ -29,7 +29,7 @@
                         <input type="file" 
                             class="filepond"
                             name="file" 
-                            id="file" 
+                            id="fileInput" 
                             data-allow-reorder="true"
                             data-max-file-size="3MB"
                             data-max-files="1">
@@ -42,7 +42,7 @@
                             type="file" 
                             class="filepond"
                             name="images[]" 
-                            id="images" 
+                            id="imagesInput" 
                             multiple 
                             data-allow-reorder="true"
                             data-max-file-size="3MB"
@@ -57,14 +57,14 @@
                                 <div class="col-md-6">
                                     <ul class="menu__list">
                                         <li id="btnUploadFile" class="menu__list_item"><i class="ti ti-paperclip"></i> Archivo</li>
-                                        <li id="btnUploadImage" class="menu__list_item"><i class="ti ti-app-window"></i> Imagen</li>
+                                        <li id="btnUploadImage" class="menu__list_item"><i class="ti ti-app-window"></i> Imágen</li>
                                     </ul>
                                 </div>
                             </div>
                         </div>
                     </div>
                     <div class="modal-footer p-0 mt-2">
-                        <button id="handleCreatePublication" type="submit" class="btn btn-primary w-100">Publicar</button>
+                        <button id="handleCreatePublication" disabled type="submit" class="btn btn-primary w-100">Publicar</button>
                     </div>
                 </form>
             </div>

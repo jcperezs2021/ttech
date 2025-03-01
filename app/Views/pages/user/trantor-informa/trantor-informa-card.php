@@ -21,15 +21,31 @@
             <p><?= $contentWithBreaks ?></p>
         </div>
         <?php
+            $file_path = json_decode($currentFeed->file_path, true);
+            if (!empty($file_path)):
+        ?>
+                    <div class="text mb-4">
+                        <a href="<?= base_url(htmlspecialchars($file_path)) ?>" target="_blank">
+                            <i class="ti ti-file me-1"></i>
+                            Archivo adjunto
+                        </a>
+                    </div>
+        <?php
+            endif;
+        ?>
+        <?php
             $image_path = json_decode($currentFeed->image_path, true);
             if (!empty($image_path)):
+                $imagesCount = count($image_path);
+                echo "<div class=\"image__content image__container-${imagesCount}\">";
                 foreach ($image_path as $image):
         ?>
-                    <div class="image">
-                        <img class="img-fluid" src="<?= base_url(htmlspecialchars($image)) ?>" alt="image">
+                    <div class="image" type="button" data-bs-toggle="modal" data-bs-target="#imageFullModal">
+                        <img class="image__link" src="<?= base_url(htmlspecialchars($image)) ?>" alt="image">
                     </div>
         <?php
                 endforeach;
+                echo "</div>";
             endif;
         ?>
     </div>

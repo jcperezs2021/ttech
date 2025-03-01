@@ -1,6 +1,6 @@
 $(document).ready(function() {
 
-    // Función para consultar las alertas no leídas
+    // Function to fetch unread alerts
     function fetchUnreadAlerts() {
         $.getJSON( base_url + 'alerts/unread', function(resp) {
             if(resp.ok){
@@ -16,7 +16,7 @@ $(document).ready(function() {
         });
     }
 
-    // Marcar como leido
+    // Mark as read
     $('.markAsRead').click(function(e) {
         var button = $(this);
         var type = $(this).attr('alertType');
