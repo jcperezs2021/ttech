@@ -88,3 +88,38 @@ function handleResponse(resp) {
   }
 }
 
+document.addEventListener("DOMContentLoaded", function() {
+  // Hide the loader after the page has fully loaded
+  var loader = document.getElementById('loader');
+  if (loader) {
+      loader.style.display = 'none';
+  }
+});
+
+// Function to show the loader
+function showLoader() {
+  var loader = document.getElementById('loader');
+  if (loader) {
+      loader.style.display = 'flex';
+  }
+}
+
+// Function to hide the loader
+function hideLoader() {
+  var loader = document.getElementById('loader');
+  if (loader) {
+      loader.style.display = 'none';
+  }
+}
+
+// Show loader on page load
+window.addEventListener('load', function() {
+  hideLoader();
+});
+
+// Show loader on AJAX start and hide on AJAX stop
+$(document).ajaxStart(function() {
+  showLoader();
+}).ajaxStop(function() {
+  hideLoader();
+});

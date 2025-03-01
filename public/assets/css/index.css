@@ -83,7 +83,7 @@ a{
 }
 .tinf__card{
     background-color: var(--white);
-    max-width: 580px;
+    width: 580px;
     margin-bottom: 1rem;
     border-radius: 10px;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1), 0 3px 10px rgba(0, 0, 0, 0.1);
@@ -293,6 +293,40 @@ a{
     max-width: 80vw;
     object-fit: cover;
 }
+
+/* Loader styles */
+.loader {
+    position: fixed;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 9999;
+    background: rgba(255, 255, 255, 0.8);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.spinner {
+    border: 4px solid rgba(0, 0, 0, 0.1);
+    border-left-color: #1672C8;
+    border-radius: 50%;
+    width: 40px;
+    height: 40px;
+    animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+    0% {
+        transform: rotate(0deg);
+    }
+    100% {
+        transform: rotate(360deg);
+    }
+}
+
+
 /* Media Query Mobile */
 @media (max-width: 768px) {
     .tinf__card_filter{
