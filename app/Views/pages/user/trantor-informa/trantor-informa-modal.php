@@ -8,7 +8,7 @@
             <div class="modal-body feed">
                 <div class="tinf__header">
                     <div class="tinf__profile">
-                        <img src="<?= session('user')->photo ?>" alt="<?= session('user')->name ?>">
+                        <img src="<?= base_url(session('user')->photo) ?>" alt="<?= session('user')->name ?>">
                         <div class="tinf_profile_info">
                             <div>
                                 <p><?= session('user')->name ?> <?= session('user')->lastname ?></p>

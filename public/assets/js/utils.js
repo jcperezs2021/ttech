@@ -81,7 +81,7 @@ function handleResponse(resp) {
       $('.modal').modal('hide');
     }
     if (resp.csrf_name && resp.csrf_token) {
-      actualizarCsrfTokenAjax(resp.csrf_name, resp.csrf_token);
+      actualizarCsrfToken(resp.csrf_name, resp.csrf_token);
     }
   } catch (e) {
     showMessage('alert-danger', 'Error en el procesamiento de la respuesta.');
@@ -89,18 +89,19 @@ function handleResponse(resp) {
 }
 
 document.addEventListener("DOMContentLoaded", function() {
-  // Hide the loader after the page has fully loaded
-  var loader = document.getElementById('loader');
-  if (loader) {
-      loader.style.display = 'none';
-  }
+  setTimeout(hideLoader, 1200); 
 });
 
 // Function to show the loader
 function showLoader() {
   var loader = document.getElementById('loader');
   if (loader) {
-      loader.style.display = 'flex';
+      loader.style.display = 'block';
+      var spinner = loader.querySelector('.spinner');
+      if (spinner) {
+          spinner.style.width = '0';
+          spinner.style.animation = 'load 1.5s forwards';
+      }
   }
 }
 
@@ -114,12 +115,12 @@ function hideLoader() {
 
 // Show loader on page load
 window.addEventListener('load', function() {
-  hideLoader();
+  setTimeout(hideLoader, 1200);
 });
 
 // Show loader on AJAX start and hide on AJAX stop
 $(document).ajaxStart(function() {
   showLoader();
 }).ajaxStop(function() {
-  hideLoader();
+  setTimeout(hideLoader, 1200);
 });

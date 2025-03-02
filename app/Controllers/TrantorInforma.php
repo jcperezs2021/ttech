@@ -4,17 +4,23 @@ namespace App\Controllers;
 
 use App\Models\FeedModel;
 use App\Models\FeedCommentModel;
+use App\Models\AlertModel;
+use App\Models\UserModel;
 
 class TrantorInforma extends BaseController
 {
 
     protected $feedModel;
     protected $feedCommentModel;
+    protected $alertModel;
+    protected $userModel;
 
     public function __construct()
     {
         $this->feedModel        = new FeedModel();
         $this->feedCommentModel = new FeedCommentModel();
+        $this->alertModel       = new AlertModel();
+        $this->userModel        = new UserModel();
         $this->lang             = \Config\Services::language();
         $this->lang             ->setLocale('es');
     }
@@ -38,17 +44,17 @@ class TrantorInforma extends BaseController
         return $this->renderFeedView('all', $this->feedModel->getFeeds());
     }
 
-    public function getFeedText()
+    public function getFeedText(): string
     {
         return $this->renderFeedView('text', $this->feedModel->getFeedsText());
     }
 
-    public function getFeedImage()
+    public function getFeedImage(): string
     {
         return $this->renderFeedView('image', $this->feedModel->getFeedsWithImage());
     }
 
-    public function getFeedFile()
+    public function getFeedFile(): string
     {
         return $this->renderFeedView('file', $this->feedModel->getFeedsWithFile());
     }
@@ -60,9 +66,29 @@ class TrantorInforma extends BaseController
         $file           = $this->request->getPost('file');
         $images         = $this->request->getPost('images');
         $author         = session()->get('user')->id;
+        $file_path      = !empty($file) ? json_encode($file) : null;
+        $image_path     = !empty($images) ? json_encode($images) : null;
 
         // Crear registro en BDD
-        if($this->feedModel->createFeed($author, $body_content, json_encode($file), json_encode($images))){
+        $feed = $this->feedModel->createFeed($author, $body_content, $file_path, $image_path);
+
+        if($feed){
+
+            // Crea una alerta a todos los usuarios del nuevo feed publicado
+            $users = $this->userModel->getUsers();
+            foreach($users as $user){
+                $this->alertModel->createAlert('feed_new', lang('Alerts.new_feed'), $user->id, json_encode(
+                    [
+                        'feed' => $feed,
+                        'author' => $author,
+                        'author_name' => session()->get('user')->name,
+                        'content' => $body_content,
+                        'file' => $file_path,
+                        'images' => $image_path,
+                    ]
+                ));
+            }
+
             // Redireccionar a la vista principal
             return redirect()->to('/trantor-informa');
         }
@@ -258,6 +284,62 @@ class TrantorInforma extends BaseController
         }
 
         // Error al obtener registro
+        return $this->respondWithCsrf([
+            'ok'     => false,
+            'error'  => lang('Errors.error_try_again_later'),
+        ]);
+    }
+
+    public function deleteFeed()
+    {
+
+        $id = $this->request->getPost('id');
+
+        // Valida que los campos no vengan vacios
+        if(!$this->checkEmptyField([$id])){
+            return $this->respondWithCsrf([
+                'ok'     => false,
+                'error'  => lang('Errors.missing_fields'),
+            ]);
+        }
+
+        // Eliminar registro en BDD
+        if($this->feedModel->deleteFeed($id)){
+            return $this->respondWithCsrf([
+                'ok'        => true,
+                'message'   => lang('Success.feed_deleted'),
+            ]);
+        }
+
+        // Error al eliminar registro
+        return $this->respondWithCsrf([
+            'ok'     => false,
+            'error'  => lang('Errors.error_try_again_later'),
+        ]);
+    }
+
+    public function deleteComment()
+    {
+        
+        $id = $this->request->getPost('id');
+
+        // Valida que los campos no vengan vacios
+        if(!$this->checkEmptyField([$id])){
+            return $this->respondWithCsrf([
+                'ok'     => false,
+                'error'  => lang('Errors.missing_fields'),
+            ]);
+        }
+
+        // Eliminar registro en BDD
+        if($this->feedCommentModel->deleteFeedComment($id)){
+            return $this->respondWithCsrf([
+                'ok'        => true,
+                'message'   => lang('Success.comment_deleted'),
+            ]);
+        }
+
+        // Error al eliminar registro
         return $this->respondWithCsrf([
             'ok'     => false,
             'error'  => lang('Errors.error_try_again_later'),

@@ -13,4 +13,7 @@ return [
     'like_removed'                  => 'Me gusta removido correctamente',
 
     'comment_created'               => 'Comentario enviado correctamente',
+
+    'feed_deleted'                  => 'Publicación eliminada correctamente',
+    'comment_deleted'               => 'Comentario eliminado correctamente',
 ];

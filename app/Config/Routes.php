@@ -87,12 +87,14 @@ $routes->group('', ['filter' => 'auth:admin'], function($routes) {
     /* Documents */
     $routes->get('/documents', 'Documents::documents');
 
-     /* Files */
+    /* Files */
     $routes->post('/files/upload', 'Files::handleUpload');
     $routes->post('/files/upload/file', 'Files::handleUploadFile');
     $routes->delete('/files/revert', 'Files::handleDelete');
 
-     /* TrantorInforma */
+    /* TrantorInforma */
     $routes->post('/trantor-informa/new', 'TrantorInforma::store');
-    
+    $routes->post('/trantor-informa/delete', 'TrantorInforma::deleteFeed');
+    $routes->post('/trantor-informa/update', 'TrantorInforma::updateFeed');
+    $routes->post('/trantor-informa/comment/delete', 'TrantorInforma::deleteComment');
 });

@@ -4,14 +4,14 @@
     $likes              = json_decode($currentFeed->likes_detail, true) ?: [];
     $isLiked            = in_array(session()->get('user')->id, $likes);
 ?>
-<div class="tinf__card card__feed">
+<div class="tinf__card card__feed" id="feed_c_<?= htmlspecialchars($currentFeed->id) ?>">
     <div class="tinf__header">
         <div class="tinf__profile align-items-center">
             <img src="<?= base_url(htmlspecialchars($currentFeed->author_photo)) ?>" alt="<?= htmlspecialchars($currentFeed->author_name) ?>">
             <div class="tinf_profile_info">
                 <div>
                     <p><?= htmlspecialchars($currentFeed->author_name) ?></p>
-                    <span><?= htmlspecialchars($currentFeed->author_ocupation) ?></span> eval <small><b><?= htmlspecialchars(date('j F, Y', strtotime($currentFeed->created_at))) ?></b></small>
+                    <span><?= htmlspecialchars($currentFeed->author_ocupation) ?></span> el <small><b><?= htmlspecialchars(date('j F, Y', strtotime($currentFeed->created_at))) ?></b></small>
                 </div>
             </div>
         </div>
@@ -21,8 +21,8 @@
                     <i class="ti ti-circle-dot"></i>
                 </button>
                 <ul class="dropdown-menu" aria-labelledby="feed__card__actions">
-                    <li><a class="dropdown-item" href="#">Eliminar</a></li>
-                    <li><a class="dropdown-item" href="#">Editar</a></li>
+                    <li><a class="dropdown-item btnDeleteFeedItem" feedId="<?= htmlspecialchars($currentFeed->id) ?>">Eliminar</a></li>
+                    <li><a class="dropdown-item btnEditFeedItem" feedId="<?= htmlspecialchars($currentFeed->id) ?>">Editar</a></li>
                 </ul>
             </div>
         </div>
@@ -32,6 +32,7 @@
             <p><?= $contentWithBreaks ?></p>
         </div>
         <?php
+        if($currentFeed->file_path){
             $file_path = json_decode($currentFeed->file_path, true);
             if (!empty($file_path)):
         ?>
@@ -44,7 +45,10 @@
         <?php
             endif;
         ?>
+        <?php } ?>
+
         <?php
+        if($currentFeed->image_path){
             $image_path = json_decode($currentFeed->image_path, true);
             if (!empty($image_path)):
                 $imagesCount = count($image_path);
@@ -59,6 +63,7 @@
                 echo "</div>";
             endif;
         ?>
+        <?php } ?>
     </div>
     <div class="tinf__footer">
         <div class="container">
@@ -92,8 +97,8 @@
     </div>
     <div id="comments_container-<?= htmlspecialchars($currentFeed->id) ?>""></div>
     <div class="tinf__header mt-2 <?= "feedComment-" . htmlspecialchars($currentFeed->id) ?>" style="display: none;">
-        <div class="tinf__profile pt-1 pb-3">
-            <img src="<?= htmlspecialchars(session('user')->photo) ?>" alt="<?= htmlspecialchars(session('user')->name) ?>">
+        <div class="tinf__profile pt-1 pb-3 w-100">
+            <img src="<?= base_url(htmlspecialchars(session('user')->photo)) ?>" alt="<?= htmlspecialchars(session('user')->name) ?>">
             <div class="tinf_profile_info w-100">
                 <form class="w-100 comment_form" feedId="<?= htmlspecialchars($currentFeed->id) ?>">
                     <input type="text" class="form-control <?= "comment_text-" . htmlspecialchars($currentFeed->id) ?>" placeholder="Presiona enter para enviar" feedId="<?= htmlspecialchars($currentFeed->id) ?>">

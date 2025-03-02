@@ -16,26 +16,23 @@
               $action = ''; // URL donde envia la alerta
               $title = ''; // Titulo de la alerta
 
-              if($alert->type == 'project_assigned' || $alert->type == 'project_unassigned') {
-                $action   = base_url("project/" .$alert->data->id);
-                $title    = $alert->data->name;
+              if($alert->type == 'feed_new') {
+                if (is_object($alert->data) && property_exists($alert->data, 'feed')) {
+                  $action = base_url("trantor-informa?scrollTo=feed_c_" . $alert->data->feed);
+                  $title = $alert->message. "<b> " .$alert->data->author_name. "</b>" ." publicó algo";
+                }
               } 
-              if($alert->type == 'repository_assigned' || $alert->type == 'repository_unassigned') {
-                $action   = $alert->data->repository;
-                $title    = $alert->data->repository;
-              } 
-
               /***
                * PASAR TODO ESTO AL CONTROLADOR
               */
             ?>
             <li class="list-group-item d-flex justify-content-between align-items-center <?= $alert->readed == 0 ? 'alert__closed'  : '' ?>">
-              <p class="m-0"><?= $alert->message ?> <a alertId="<?=$alert->id ?>" class="markAsRead" href="<?= $action ?>" target="_blank"><?= $title ?></a> <small><b><?= $alert->created_at ?></b></small></p>
+              <p class="m-0"><?= $title ?> <small><b><?= htmlspecialchars(date('j F, Y', strtotime($alert->created_at))) ?></b></small></p>
               <div class="d-flex">
                 <?php if ($alert->readed == 0): ?>
                   <button type="button" alertType="button" class="btn btn-outline-secondary p-1 px-2 markAsRead" alertId="<?=$alert->id ?>">Marcar leido</button>
                 <?php endif; ?>
-                <a alertId="<?=$alert->id ?>" href="<?= $action ?>" target="_blank" class="btn btn-outline-primary p-1 px-2 ms-2 markAsRead">Ver</a>
+                <a alertId="<?=$alert->id ?>" href="<?= $action ?>" target="_blank" class="btn btn-outline-primary p-1 px-2 ms-2 markAsRead scroll-link">Ver</a>
               </div>
             </li>
           <?php endforeach; ?>

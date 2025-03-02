@@ -73,6 +73,7 @@ $(document).ready(function() {
     e.preventDefault();
 
     let feedId = $(this).attr('feedId');
+    $('.comment__area').fadeOut();
     $('#commentListContainer').html(`<div class="d-flex justify-content-center mb-4"><div class="loader" id="commentListLoader"><div class="spinner-border text-primary" role="status"><span class="visually-hidden">Loading...</span></div></div></div>`);
     
     $.get(base_url + 'trantor-informa/feed/comments/' + feedId, { feed: feedId }, function(resp){
@@ -80,7 +81,7 @@ $(document).ready(function() {
         $('#commentListContainer').html(resp.comments);
       }
       if (resp.csrf_name && resp.csrf_token) {
-        actualizarCsrfTokenAjax(resp.csrf_name, resp.csrf_token);
+        actualizarCsrfToken(resp.csrf_name, resp.csrf_token);
       }
     }
     ).fail(() => showMessage('alert-danger', 'Error en la solicitud.'));
@@ -99,6 +100,63 @@ $(document).ready(function() {
     $('#uploadImageContainer').fadeIn();
     $('#file').val('');
   });
+
+  // Edit feed item
+  $('.btnEditFeedItem').click(function() {
+    let feedId = $(this).attr('feedId');
+    console.log(feedId)
+  });
+  
+  // Delete feed item
+  $('.btnDeleteFeedItem').click(function() {
+    let feedId = $(this).attr('feedId');
+    let deleteItem = confirm('¿Estás seguro de que deseas eliminar este elemento?, este cambio no puede revertirse');
+    if (deleteItem) {
+        $.post(base_url + 'trantor-informa/delete', { id: feedId, [csrfName]: csrfHash }, handleResponse)
+          .fail(() => showMessage('alert-danger', 'Error en la solicitud.'))
+          .done(() => { $(this).closest('.tinf__card').remove(); });
+
+    }
+  });
+
+  // Delete comment
+  $(document).on('click', '.btnDeleteCommentItem', function() {
+    let commentId     = $(this).attr('commentId');
+    let feedId        = $(this).attr('feedId');
+    let commentCount  = $('.feedCommentsValue-' + feedId);
+    let deleteItem = confirm('¿Estás seguro de que deseas eliminar este comentario?, este cambio no puede revertirse');
+    if (deleteItem) {
+        $.post(base_url + 'trantor-informa/comment/delete', { id: commentId, [csrfName]: csrfHash }, handleResponse)
+          .fail(() => showMessage('alert-danger', 'Error en la solicitud.'))
+          .done(() => { 
+            $(this).closest('.comment__area').remove(); 
+            commentCount.html(parseInt(commentCount.html()) - 1);
+          });
+    }
+  });
+
+  // Function to scroll to a specific container with offset
+  function scrollToContainer(containerId) {
+    var container = document.getElementById(containerId);
+    if (container) {
+        var appHeader = document.querySelector('.app-header');
+        var headerOffset = appHeader ? appHeader.offsetHeight + 10 : 10; // Dynamic height of header plus 10px gap
+        var elementPosition = container.getBoundingClientRect().top;
+        var offsetPosition = elementPosition + window.pageYOffset - headerOffset;
+
+        window.scroll({
+            top: offsetPosition,
+            behavior: 'smooth'
+        });
+    }
+  }
+
+  // Check if there is a scrollTo parameter in the URL
+  var urlParams = new URLSearchParams(window.location.search);
+  var scrollTo = urlParams.get('scrollTo');
+  if (scrollTo) {
+    scrollToContainer(scrollTo);
+  }
 
   // FilePond configuration
   FilePond.registerPlugin(FilePondPluginImagePreview);

@@ -60,6 +60,8 @@ class FeedCommentModel extends Model{
     
     public function deleteFeedComment($id)
     {
-        return $this->delete(['id' => $id]);
+        $sql = "DELETE FROM feed_comments WHERE id = :id:";
+        $this->db->query($sql, ['id' => $id]);
+        return $this->db->affectedRows();
     }
 }

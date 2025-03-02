@@ -34,7 +34,8 @@ class FeedModel extends Model{
         $this->baseFeedQuery();
 
         if ($id !== null) {
-            return $this->where('feed.id', $id)->first();
+            $resp = $this->where('feed.id', $id)->findAll();
+            return $resp[0];
         }
 
         return $this->orderBy('feed.created_at', 'DESC')->findAll();
@@ -65,7 +66,7 @@ class FeedModel extends Model{
         return $this->orderBy('feed.created_at', 'DESC')->findAll();
     }
 
-    public function createFeed($author, $body_content, $file_path = null, $image_path = null)
+    public function createFeed($author, $body_content, $file_path = NULL, $image_path = NULL)
     {
         $data = [
             'author'        => $author,
