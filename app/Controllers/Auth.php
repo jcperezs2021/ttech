@@ -35,7 +35,7 @@ class Auth extends BaseController
         $parent         = $this->request->getPost('parent');
 
         // Validación inicial de los campos requeridos
-        if (!$this->validateRegisterInput($email, $name, $lastname, $password, $password2, $telephone, $rol, $ocupation, $parent)) {
+        if (!$this->validateRegisterInput($email, $name, $lastname, $password, $password2, $telephone, $rol, $ocupation)) {
             return HelperUtility::redirectWithMessage('/user/new', lang('Errors.missing_fields'));
         }
 
@@ -111,7 +111,7 @@ class Auth extends BaseController
         $parent         = $this->request->getPost('parent');
 
         // Validación inicial de los campos requeridos
-        if (!$this->validateUpdateInput($id, $email, $name, $lastname, $telephone, $rol, $ocupation, $parent)) {
+        if (!$this->validateUpdateInput($id, $email, $name, $lastname, $telephone, $rol, $ocupation)) {
             return HelperUtility::redirectWithMessage("/user/edit/$id", lang('Errors.missing_fields'));
         }
 
@@ -187,19 +187,19 @@ class Auth extends BaseController
     }
 
     // Función auxiliar para validar los campos de registro
-    private function validateRegisterInput($email, $name, $lastname, $password, $password2, $telephone, $rol, $ocupation, $parent): bool
+    private function validateRegisterInput($email, $name, $lastname, $password, $password2, $telephone, $rol, $ocupation): bool
     {
-        return $email && $name && $lastname && $password && $password2 && $telephone && $rol && $ocupation && $parent;
+        return $email && $name && $lastname && $password && $password2 && $telephone && $rol && $ocupation;
     }
     
     // Función auxiliar para validar los campos de update
-    private function validateUpdateInput($id, $email, $name, $lastname, $telephone, $rol, $ocupation, $parent): bool
+    private function validateUpdateInput($id, $email, $name, $lastname, $telephone, $rol, $ocupation): bool
     {
-        return $id && $email && $name && $lastname && $telephone && $rol && $ocupation && $parent;
+        return $id && $email && $name && $lastname && $telephone && $rol && $ocupation;
     }
 
     // Función auxiliar para crear un usuario
-    private function createUser(string $name, string $lastname, string $email, string $password, string $photo, string $telephone, string $rol, string $ocupation, int $parent): bool
+    private function createUser(string $name, string $lastname, string $email, string $password, string $photo, string $telephone, string $rol, string $ocupation, $parent): bool
     {
         $passwordHash = password_hash($password, PASSWORD_BCRYPT);
         return $this->userModel->createUser($name, $lastname, $email, $passwordHash, $photo, $telephone, $rol, $ocupation, $parent);
@@ -213,7 +213,7 @@ class Auth extends BaseController
     }
 
     // Función auxiliar para actualizar a un usuario
-    private function updateUserData(int $id, string $name, string $lastname, string $email, string $photo, string $telephone, string $rol, string $ocupation, int $parent): bool
+    private function updateUserData(int $id, string $name, string $lastname, string $email, string $photo, string $telephone, string $rol, string $ocupation, $parent): bool
     {
         return $this->userModel->updateUser($id, $name, $lastname, $email, $photo, $telephone, $rol, $ocupation, $parent);
     }

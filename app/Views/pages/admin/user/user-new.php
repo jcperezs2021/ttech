@@ -55,13 +55,8 @@
                     name="telephone" 
                     class="form-control" 
                     required=""
+                    maxlength="10"
                   >
-                </div>
-              </div>
-              <div class="col-md-6">
-                <div class="mb-3">
-                  <label class="form-label">Foto uno</label>
-                  <input type="file" class="filepond" name="file" id="fileInput" multiple>
                 </div>
               </div>
               <div class="col-md-6">
@@ -114,15 +109,27 @@
                   </select>
                 </div>
               </div>
-              <div class="col-md-6">
-                <div class="mb-4">
-                  <label class="form-label">Jefe directo</label>
-                  <select class="form-select select2" name="parent" required>
-                    <option value="">Selecciona jefe directo</option>
-                    <?php foreach($users as $user): ?>
-                      <option value="<?= $user->id ?>"><?= $user->complete_name ?></option>
-                    <?php endforeach; ?>
-                  </select>
+              <div class="col-md-6 mb-4">
+                <div class="row">
+                  <div class="col-8">
+                    <div>
+                      <label class="form-label">Jefe directo</label>
+                      <select class="form-select select2" name="parent" id="parent" required>
+                        <option value="">Selecciona jefe directo</option>
+                        <?php foreach($users as $user): ?>
+                          <option value="<?= $user->id ?>"><?= $user->complete_name ?></option>
+                        <?php endforeach; ?>
+                      </select>
+                    </div>
+                  </div>
+                  <div class="col d-flex align-items-center">
+                      <div class="form-check d-flex">
+                        <input class="form-check" type="checkbox" value="1" id="no_aplica" name="no_aplica">
+                        <label class="form-check" for="no_aplica">
+                          No aplica
+                        </label>
+                      </div>
+                  </div>
                 </div>
               </div>
               <div class="col-md-6">
@@ -161,36 +168,15 @@
       allowClear: true
     });
   });
-</script>
 
-<script>
-  // Espera a que el DOM esté completamente cargado
-  document.addEventListener('DOMContentLoaded', function() {
-    // Convierte todos los inputs con la clase "filepond" en cargadores de FilePond
-    FilePond.create(document.querySelector('.filepond'), {
-      credits: false, // Desactiva el texto de créditos
-      acceptedFileTypes: ['application/pdf', 'application/vnd.ms-excel', 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'],
-      server: {
-        url: '/upload', // URL del endpoint para subir el archivo
-        process: '/process', // Procesa la carga del archivo
-        revert: '/revert' // Reversión del archivo cargado,
+   // Función para habilitar/deshabilitar el select y agregar/quitar el atributo required
+   $('#no_aplica').on('change', function() {
+      if ($(this).is(':checked')) {
+        $('#parent').val(null).trigger('change');
+        $('#parent').prop('disabled', true).removeAttr('required');
+      } else {
+        $('#parent').prop('disabled', false).attr('required', 'required');
       }
     });
-
-    FilePond.setOptions({
-      labelIdle: 'Arrastra y suelta tus archivos o <span class="filepond--label-action">Explorar</span>',
-      labelFileLoading: 'Cargando...',
-      labelFileProcessing: 'Subiendo...',
-      labelFileProcessingComplete: 'Subida completa',
-      labelFileProcessingError: 'Error al subir el archivo',
-      labelFileRemoveError: 'Error al eliminar',
-      labelTapToCancel: 'Pulsa para cancelar',
-      labelTapToRetry: 'Pulsa para reintentar',
-      labelTapToUndo: 'Pulsa para deshacer',
-      labelFileTypeNotAllowed: 'Tipo de archivo no permitido',
-    });
-  });
-
 </script>
-
 

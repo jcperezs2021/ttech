@@ -105,16 +105,29 @@
                   </div>
                 </div>
                 <div class="col-md-6">
-                  <div class="mb-4">
-                    <label class="form-label">Selecciona jefe directo</label>
-                    <select class="form-select select2" name="parent" required>
-                      <option value="<?= $user->parent ?>"><?= $user->parent_name ?></option>
-                      <?php foreach($users as $user_local): ?>
-                        <option value="<?= $user_local->id ?>"><?= $user_local->complete_name ?></option>
-                      <?php endforeach; ?>
-                    </select>
+                  <div class="row">
+                    <div class="col-8">
+                      <div class="">
+                        <label class="form-label">Selecciona jefe directo</label>
+                        <select class="form-select select2" name="parent" id="parent" required <?= is_null($user->parent) ? 'disabled' : '' ?>>
+                          <option value="<?= $user->parent ?>"><?= $user->parent_name ?></option>
+                          <?php foreach($users as $user_local): ?>
+                            <option value="<?= $user_local->id ?>"><?= $user_local->complete_name ?></option>
+                          <?php endforeach; ?>
+                        </select>
+                      </div>
+                    </div>
+                    <div class="col d-flex align-items-center">
+                      <div class="form-check d-flex">
+                        <input class="form-check" type="checkbox" value="1" id="no_aplica" name="no_aplica" <?= is_null($user->parent) ? 'checked' : '' ?>>
+                        <label class="form-check" for="no_aplica">
+                          No aplica
+                        </label>
+                      </div>
+                    </div>
                   </div>
                 </div>
+
                 <div class="col-md-6">
                   <div class="mb-4">
                     <label class="form-label">Rol</label>
@@ -183,5 +196,21 @@
       placeholder: 'Selecciona',
       allowClear: true
     });
+
+    // Función para habilitar/deshabilitar el select y agregar/quitar el atributo required
+    $('#no_aplica').on('change', function() {
+      if ($(this).is(':checked')) {
+        $('#parent').val(null).trigger('change'); // Limpiar el select2
+        $('#parent').prop('disabled', true).removeAttr('required');
+      } else {
+        $('#parent').prop('disabled', false).attr('required', 'required');
+      }
+    });
+
+    // Verificar el estado inicial del checkbox y ajustar el select
+    if ($('#no_aplica').is(':checked')) {
+      $('#parent').val(null).trigger('change'); // Limpiar el select2
+      $('#parent').prop('disabled', true).removeAttr('required');
+    }
   });
 </script>
