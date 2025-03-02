@@ -4,15 +4,26 @@
     $likes              = json_decode($currentFeed->likes_detail, true) ?: [];
     $isLiked            = in_array(session()->get('user')->id, $likes);
 ?>
-<div class="tinf__card">
+<div class="tinf__card card__feed">
     <div class="tinf__header">
-        <div class="tinf__profile">
-            <img src="<?= htmlspecialchars($currentFeed->author_photo) ?>" alt="<?= htmlspecialchars($currentFeed->author_name) ?>">
+        <div class="tinf__profile align-items-center">
+            <img src="<?= base_url(htmlspecialchars($currentFeed->author_photo)) ?>" alt="<?= htmlspecialchars($currentFeed->author_name) ?>">
             <div class="tinf_profile_info">
                 <div>
                     <p><?= htmlspecialchars($currentFeed->author_name) ?></p>
-                    <span><?= htmlspecialchars($currentFeed->author_ocupation) ?></span>
+                    <span><?= htmlspecialchars($currentFeed->author_ocupation) ?></span> eval <small><b><?= htmlspecialchars(date('j F, Y', strtotime($currentFeed->created_at))) ?></b></small>
                 </div>
+            </div>
+        </div>
+        <div class="tinf__profile__action">
+            <div class="dropdown">
+                <button class="btn" type="button" id="feed__card__actions" data-bs-toggle="dropdown" aria-expanded="false">
+                    <i class="ti ti-circle-dot"></i>
+                </button>
+                <ul class="dropdown-menu" aria-labelledby="feed__card__actions">
+                    <li><a class="dropdown-item" href="#">Eliminar</a></li>
+                    <li><a class="dropdown-item" href="#">Editar</a></li>
+                </ul>
             </div>
         </div>
     </div>

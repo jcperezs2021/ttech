@@ -20,18 +20,48 @@ class FeedModel extends Model{
     protected $validationMessages = [];
     protected $skipValidation     = false;
     
-    public function getFeeds($id = null)
+    private function baseFeedQuery()
     {
         $this->select('feed.*, CONCAT(users.name, " ", users.lastname) as author_name, users.photo as author_photo, ocupations.name as author_ocupation, COUNT(feed_comments.id) as comments_count');
         $this->join('users', 'users.id = feed.author');
         $this->join('ocupations', 'ocupations.id = users.ocupation');
         $this->join('feed_comments', 'feed_comments.feed = feed.id', 'left');
         $this->groupBy('feed.id');
+    }
+
+    public function getFeeds($id = null)
+    {
+        $this->baseFeedQuery();
 
         if ($id !== null) {
             return $this->where('feed.id', $id)->first();
         }
 
+        return $this->orderBy('feed.created_at', 'DESC')->findAll();
+    }
+    
+    public function getFeedsText()
+    {
+        $this->baseFeedQuery();
+        $this->where('feed.file_path', null);
+        $this->where('feed.image_path', null);
+
+        return $this->orderBy('feed.created_at', 'DESC')->findAll();
+    }
+    
+    public function getFeedsWithImage()
+    {
+        $this->baseFeedQuery();
+        $this->where('feed.image_path IS NOT NULL', null, false);
+    
+        return $this->orderBy('feed.created_at', 'DESC')->findAll();
+    }
+   
+    public function getFeedsWithFile()
+    {
+        $this->baseFeedQuery();
+        $this->where('feed.file_path IS NOT NULL', null, false);
+    
         return $this->orderBy('feed.created_at', 'DESC')->findAll();
     }
 

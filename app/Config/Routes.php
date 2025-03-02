@@ -46,6 +46,9 @@ $routes->group('', ['filter' => 'auth:admin,user'], function($routes) {
 
     /* TrantorInforma */
     $routes->get('/trantor-informa', 'TrantorInforma::index');
+    $routes->get('/trantor-informa/text', 'TrantorInforma::getFeedText');
+    $routes->get('/trantor-informa/image', 'TrantorInforma::getFeedImage');
+    $routes->get('/trantor-informa/file', 'TrantorInforma::getFeedFile');
 
     $routes->post('/trantor-informa/like/add', 'TrantorInforma::newFeedLike');
     $routes->post('/trantor-informa/like/remove', 'TrantorInforma::removeFeedLike');

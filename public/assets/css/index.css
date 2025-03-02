@@ -132,6 +132,11 @@ a{
 .tinf__header{
     margin-bottom: 15px;
 }
+.card__feed .tinf__header{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
 .tinf__header .tinf__profile .tinf_profile_info{
     line-height: 18px;
     display: flex;

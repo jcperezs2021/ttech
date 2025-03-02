@@ -19,18 +19,38 @@ class TrantorInforma extends BaseController
         $this->lang             ->setLocale('es');
     }
 
+    private function renderFeedView($filter, $feeds)
+    {
+        return view('shared/header', ['title' => 'Trantor Informa'])
+            .view('shared/sidebar')
+            .view('shared/navbar')
+            .view('pages/user/trantor-informa/trantor-informa', [
+                'csrfName' => csrf_token(),
+                'csrfHash' => csrf_hash(),
+                'filter' => $filter,
+                'feed' => $feeds,
+            ])
+            .view('shared/footer');
+    }
+
     public function index(): string
     {
-        
-        return   view('shared/header',                                  ['title'     => 'Trantor Informa'])
-                .view('shared/sidebar')
-                .view('shared/navbar')
-                .view('pages/user/trantor-informa/trantor-informa',     [
-                                                                            'csrfName'      => csrf_token(),    
-                                                                            'csrfHash'      => csrf_hash(),
-                                                                            'feed'          => $this->feedModel->getFeeds(),
-                                                                        ])
-                .view('shared/footer');
+        return $this->renderFeedView('all', $this->feedModel->getFeeds());
+    }
+
+    public function getFeedText()
+    {
+        return $this->renderFeedView('text', $this->feedModel->getFeedsText());
+    }
+
+    public function getFeedImage()
+    {
+        return $this->renderFeedView('image', $this->feedModel->getFeedsWithImage());
+    }
+
+    public function getFeedFile()
+    {
+        return $this->renderFeedView('file', $this->feedModel->getFeedsWithFile());
     }
 
     public function store()

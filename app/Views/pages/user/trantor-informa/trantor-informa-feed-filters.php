@@ -4,7 +4,7 @@
     </div>    
     <div class="tinf__header">
         <div class="tinf__profile">
-            <img src="<?= session('user')->photo ?>" alt="<?= session('user')->name ?>">
+            <img src="<?= base_url(session('user')->photo) ?>" alt="<?= session('user')->name ?>">
         </div>
     </div>
     <hr>
@@ -13,9 +13,12 @@
     </div>
     <div class="tinf__filters">
         <div class="tinf__filter">
-            <button class="btn btn-outline-primary w-100 mb-2" id="filterOption1" type="button"><i class="ti ti-message"></i> Solo texto</button>
-            <button class="btn btn-outline-primary w-100 mb-2" id="filterOption1" type="button"><i class="ti ti-paperclip"></i> Archivo</button>
-            <button class="btn btn-outline-primary w-100" id="filterOption2" type="button"><i class="ti ti-app-window"></i> Imagen</button>
+            <a href="<?=base_url('/trantor-informa/text')?>" class="<?= $filter == 'text' ? ' btn-primary' : 'btn-outline-primary' ?> btn w-100 mb-2"><i class="ti ti-message"></i> Solo texto</a>
+            <a href="<?=base_url('/trantor-informa/file')?>" class="<?= $filter == 'file' ? ' btn-primary' : 'btn-outline-primary' ?> btn w-100 mb-2"><i class="ti ti-paperclip"></i> Archivo</a>
+            <a href="<?=base_url('/trantor-informa/image')?>" class="<?= $filter == 'image' ? ' btn-primary' : 'btn-outline-primary' ?> btn w-100 mb-2"><i class="ti ti-app-window"></i> Imagen</a>
+            <?php if ($filter != 'all'): ?>
+            <a href="<?=base_url('/trantor-informa/')?>" class="btn-outline-primary btn w-100 mb-2"><i class="ti ti-filter"></i> Todo</a>
+            <?php endif; ?>
         </div>
     </div>
 </div>

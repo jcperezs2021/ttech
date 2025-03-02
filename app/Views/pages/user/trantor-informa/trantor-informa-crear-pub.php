@@ -1,7 +1,7 @@
 <div class="tinf__card">
     <div class="tinf__header">
         <div class="tinf__profile">
-            <img src="<?= session('user')->photo ?>" alt="<?= session('user')->name ?>">
+            <img src="<?= base_url(session('user')->photo) ?>" alt="<?= session('user')->name ?>">
             <div class="tinf_profile_info w-100">
                 <div id="tinf__publicate" type="button" data-bs-toggle="modal" data-bs-target="#createFeed">
                     Crear una publicación
