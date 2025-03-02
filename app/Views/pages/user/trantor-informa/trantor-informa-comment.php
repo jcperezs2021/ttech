@@ -7,5 +7,7 @@
             <small class="float-right"><b><?= htmlspecialchars(date('j F, Y', strtotime($comment->created_at))) ?></b></small>
         </div>
     </div>
-    <button class="btn-close btn-danger btnDeleteCommentItem" commentId="<?= htmlspecialchars($comment->id) ?>" feedId="<?= htmlspecialchars($comment->feed) ?>"></button>
+    <?php if (session('user')->rol === 'admin'): ?>
+        <button class="btn-close btn-danger btnDeleteCommentItem" commentId="<?= htmlspecialchars($comment->id) ?>" feedId="<?= htmlspecialchars($comment->feed) ?>"></button>
+    <?php endif; ?>
 </div>

@@ -8,7 +8,6 @@
     let nodes = <?php echo json_encode($org); ?>;
     let chart = new OrgChart("#tree", {
         filterBy: ['title', 'name'],
-        enableAI: true,
         mode: 'light',
         tags: {
           filter: {

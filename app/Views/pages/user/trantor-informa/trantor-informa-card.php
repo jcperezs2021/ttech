@@ -15,17 +15,19 @@
                 </div>
             </div>
         </div>
-        <div class="tinf__profile__action">
-            <div class="dropdown">
-                <button class="btn" type="button" id="feed__card__actions" data-bs-toggle="dropdown" aria-expanded="false">
-                    <i class="ti ti-circle-dot"></i>
-                </button>
-                <ul class="dropdown-menu" aria-labelledby="feed__card__actions">
-                    <li><a class="dropdown-item btnDeleteFeedItem" feedId="<?= htmlspecialchars($currentFeed->id) ?>">Eliminar</a></li>
-                    <li><a class="dropdown-item btnEditFeedItem" feedId="<?= htmlspecialchars($currentFeed->id) ?>">Editar</a></li>
-                </ul>
+        <?php if (session('user')->rol === 'admin'): ?>
+            <div class="tinf__profile__action">
+                <div class="dropdown">
+                    <button class="btn" type="button" id="feed__card__actions" data-bs-toggle="dropdown" aria-expanded="false">
+                        <i class="ti ti-circle-dot"></i>
+                    </button>
+                    <ul class="dropdown-menu" aria-labelledby="feed__card__actions">
+                        <li><a class="dropdown-item btnDeleteFeedItem" feedId="<?= htmlspecialchars($currentFeed->id) ?>">Eliminar</a></li>
+                        <li><a class="dropdown-item btnEditFeedItem" feedId="<?= htmlspecialchars($currentFeed->id) ?>">Editar</a></li>
+                    </ul>
+                </div>
             </div>
-        </div>
+        <?php endif; ?>
     </div>
     <div class="tinf__body">
         <div class="text">
@@ -46,7 +48,6 @@
             endif;
         ?>
         <?php } ?>
-
         <?php
         if($currentFeed->image_path){
             $image_path = json_decode($currentFeed->image_path, true);

@@ -69,6 +69,7 @@
                     value="<?= $user->telephone ?>"
                     class="form-control" 
                     required=""
+                    maxlength="10"
                   >
                 </div>
               </div>
@@ -112,7 +113,9 @@
                         <select class="form-select select2" name="parent" id="parent" required <?= is_null($user->parent) ? 'disabled' : '' ?>>
                           <option value="<?= $user->parent ?>"><?= $user->parent_name ?></option>
                           <?php foreach($users as $user_local): ?>
+                          <?php if ($user_local->id != $user->id): ?>
                             <option value="<?= $user_local->id ?>"><?= $user_local->complete_name ?></option>
+                          <?php endif; ?>
                           <?php endforeach; ?>
                         </select>
                       </div>
