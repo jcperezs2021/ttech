@@ -23,7 +23,7 @@
                     </button>
                     <ul class="dropdown-menu" aria-labelledby="feed__card__actions">
                         <li><a class="dropdown-item btnDeleteFeedItem" feedId="<?= htmlspecialchars($currentFeed->id) ?>">Eliminar</a></li>
-                        <li><a class="dropdown-item btnEditFeedItem" feedId="<?= htmlspecialchars($currentFeed->id) ?>">Editar</a></li>
+                        <!-- <li><a class="dropdown-item btnEditFeedItem" feedId="<?= htmlspecialchars($currentFeed->id) ?>">Editar</a></li> -->
                     </ul>
                 </div>
             </div>

@@ -24,53 +24,69 @@
                     name="id"
                     value="<?= $user->id ?>"
                   >
-                  <input 
-                    type="text" 
-                    id="name" 
-                    name="name"
-                    value="<?= $user->name ?>"
-                    class="form-control" 
-                    required=""
-                  >
+                  <div class="input-group">
+                    <span class="input-group-text"><i class="ti ti-user"></i></span>
+                    <input 
+                      placeholder="Nombre(s)"
+                      type="text" 
+                      id="name" 
+                      name="name"
+                      value="<?= $user->name ?>"
+                      class="form-control" 
+                      required=""
+                    >
+                  </div>
                 </div>
               </div>
               <div class="col-md-6">
                 <div class="mb-4">
                   <label class="form-label">Apellidos</label>
-                  <input 
-                    type="text" 
-                    id="lastname" 
-                    value="<?= $user->lastname ?>"
-                    name="lastname" 
-                    class="form-control" 
-                  >
+                  <div class="input-group">
+                    <span class="input-group-text"><i class="ti ti-user"></i></span>
+                    <input 
+                      placeholder="Apellidos"
+                      type="text" 
+                      id="lastname" 
+                      value="<?= $user->lastname ?>"
+                      name="lastname" 
+                      class="form-control" 
+                    >
+                  </div>
                 </div>
               </div>
               <div class="col-md-6">
                 <div class="mb-3">
                   <label class="form-label">E-mail</label>
-                  <input 
-                    type="email" 
-                    id="email" 
-                    name="email" 
-                    value="<?= $user->email ?>"
-                    class="form-control" 
-                    required=""
-                  >
+                  <div class="input-group">
+                    <span class="input-group-text"><i class="ti ti-mail"></i></span>
+                    <input 
+                      placeholder="E-mail"
+                      type="email" 
+                      id="email" 
+                      name="email" 
+                      value="<?= $user->email ?>"
+                      class="form-control" 
+                      required=""
+                    >
+                  </div>
                 </div>
               </div>
               <div class="col-md-6">
                 <div class="mb-3">
                   <label class="form-label">Telefono</label>
-                  <input 
-                    type="text" 
-                    id="telephone" 
-                    name="telephone" 
-                    value="<?= $user->telephone ?>"
-                    class="form-control" 
-                    required=""
-                    maxlength="10"
-                  >
+                  <div class="input-group">
+                    <span class="input-group-text"><i class="ti ti-phone"></i></span>
+                    <input 
+                      placeholder="Telefono"
+                      type="text" 
+                      id="telephone" 
+                      name="telephone" 
+                      value="<?= $user->telephone ?>"
+                      class="form-control" 
+                      required=""
+                      maxlength="10"
+                    >
+                  </div>
                 </div>
               </div>
               <div class="col-md-6">
@@ -152,12 +168,16 @@
                 <div class="col-md-6">
                   <div class="mb-4">
                     <label class="form-label">Restablecer password</label>
-                    <input 
-                      type="password" 
-                      id="password" 
-                      name="password" 
-                      class="form-control" 
-                    >
+                    <div class="input-group">
+                      <span class="input-group-text"><i class="ti ti-lock"></i></span>
+                      <input 
+                        placeholder="Escribe nueva contraseña"
+                        type="password" 
+                        id="password" 
+                        name="password" 
+                        class="form-control" 
+                      >
+                    </div>
                   </div>
                 </div>
               </div>

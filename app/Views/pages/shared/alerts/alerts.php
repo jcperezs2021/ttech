@@ -32,7 +32,7 @@
                 <?php if ($alert->readed == 0): ?>
                   <button type="button" alertType="button" class="btn btn-outline-secondary p-1 px-2 markAsRead" alertId="<?=$alert->id ?>">Marcar leido</button>
                 <?php endif; ?>
-                <a alertId="<?=$alert->id ?>" href="<?= $action ?>" target="_blank" class="btn btn-outline-primary p-1 px-2 ms-2 markAsRead scroll-link">Ver</a>
+                <a alertId="<?=$alert->id ?>" href="<?= $action ?>" class="btn btn-outline-primary p-1 px-2 ms-2 markAsRead scroll-link">Ver</a>
               </div>
             </li>
           <?php endforeach; ?>

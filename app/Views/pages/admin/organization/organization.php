@@ -21,10 +21,6 @@
             field_1: "title",
             img_0: "img"
         },
-        menu: {
-            pdf: { text: "Export PDF" },
-            png: { text: "Export PNG" },
-        },
         nodes
     });
 </script>
