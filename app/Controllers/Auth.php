@@ -222,7 +222,7 @@ class Auth extends BaseController
     {
         if ($photo && $photo->isValid() && !$photo->hasMoved()) {
 
-            if (in_array($photo->getClientMimeType(), ['image/jpeg', 'image/png'])) {
+            if (in_array($photo->getClientMimeType(), ['image/jpeg', 'image/png', 'image/jpg'])) {
 
                 $uploadPath = ROOTPATH . 'public/uploads/images/profiles';
 

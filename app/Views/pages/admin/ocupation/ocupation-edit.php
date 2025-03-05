@@ -22,14 +22,18 @@
                     name="id"
                     value="<?= $ocupation->id ?>"
                   >
-                  <input 
-                    type="text" 
-                    id="name" 
-                    name="name"
-                    value="<?= $ocupation->name ?>"
-                    class="form-control" 
-                    required=""
-                  >
+                  <div class="input-group">
+                    <span class="input-group-text"><i class="ti ti-topology-complex"></i></span>
+                    <input 
+                      placeholder="Nombre puesto"
+                      type="text" 
+                      id="name" 
+                      name="name"
+                      value="<?= $ocupation->name ?>"
+                      class="form-control" 
+                      required=""
+                    >
+                  </div>
                 </div>
               </div>
             </div>

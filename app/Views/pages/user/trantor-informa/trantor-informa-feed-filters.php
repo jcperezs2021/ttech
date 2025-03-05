@@ -4,7 +4,9 @@
     </div>    
     <div class="tinf__header">
         <div class="tinf__profile">
-            <img src="<?= base_url(session('user')->photo) ?>" alt="<?= session('user')->name ?>">
+            <a href="<?= base_url('profile') ?>">
+                <img src="<?= base_url(session('user')->photo) ?>" alt="<?= session('user')->name ?>">
+            </a>
         </div>
     </div>
     <hr>

@@ -1,5 +1,7 @@
 $(document).ready(function() {
 
+    
+
     // Update Password
     $('#updatePassword').on('submit', function(e) {
         e.preventDefault();
@@ -30,10 +32,17 @@ $(document).ready(function() {
           });
     });
 
+    // Update Profile Photo Trigger
+    $('#actualImage').on('click', function() {
+        $('#photo').click();
+    });
+
+    // Update Profile Photo
     $('#photo').on('change', function() {
         var reader = new FileReader();
         reader.onload = function(e) {
             $('#actualImage').attr('src', e.target.result);
+            $('#updatePhoto').submit();
         }
         reader.readAsDataURL(this.files[0]);
     });

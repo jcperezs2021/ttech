@@ -1,19 +1,19 @@
 <?php
 
 return [
-    'gral_created'                  => 'Elemento creado correctamente',
-    'gral_update'                   => 'Elemento actualizado correctamente',
+    'gral_created'                  => 'Elemento creado',
+    'gral_update'                   => 'Elemento actualizado',
 
-    'file_deleted'                  => 'Archivo eliminado correctamente',
+    'file_deleted'                  => 'Archivo eliminado',
         
-    'auth_password_updated'         => 'Contraseña actualizada correctamente',
-    'auth_photo_updated'            => 'Foto de perfil actualizada correctamente',
+    'auth_password_updated'         => 'Contraseña actualizada',
+    'auth_photo_updated'            => 'Foto de perfil actualizada',
 
-    'like_created'                  => 'Me gusta enviado correctamente',
-    'like_removed'                  => 'Me gusta removido correctamente',
+    'like_created'                  => 'Me gusta enviado',
+    'like_removed'                  => 'Me gusta removido',
 
-    'comment_created'               => 'Comentario enviado correctamente',
+    'comment_created'               => 'Comentario enviado',
 
-    'feed_deleted'                  => 'Publicación eliminada correctamente',
-    'comment_deleted'               => 'Comentario eliminado correctamente',
+    'feed_deleted'                  => 'Publicación eliminada',
+    'comment_deleted'               => 'Comentario eliminado',
 ];

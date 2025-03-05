@@ -1,6 +1,5 @@
 <!-- Sidebar Start -->
 <aside class="left-sidebar">
-  <!-- Sidebar scroll-->
   <div>
     <div class="brand-logo d-flex align-items-center justify-content-between">
       <a href="<?= base_url('trantor-informa') ?>" class="text-nowrap logo-img">
@@ -10,7 +9,6 @@
         <i class="ti ti-x fs-8"></i>
       </div>
     </div>
-    <!-- Sidebar navigation-->
     <nav class="sidebar-nav scroll-sidebar" data-simplebar="">
       <ul id="sidebarnav">
         <li class="nav-small-cap">
@@ -25,7 +23,7 @@
             <span class="hide-menu">Trantor Informa</span>
           </a>
         </li>
-        <li class="sidebar-item">
+        <!-- <li class="sidebar-item">
           <a class="sidebar-link" href="<?= base_url('trantor-technologies') ?>" aria-expanded="false">
             <span>
                 <i class="ti ti-world"></i>
@@ -48,7 +46,7 @@
             </span>
             <span class="hide-menu">Quejas y sugerencias</span>
           </a>
-        </li>
+        </li> -->
         <li class="sidebar-item">
           <a class="sidebar-link" href="<?=base_url('/auth/logout')?>" aria-expanded="false">
             <span>
@@ -71,16 +69,7 @@
         </li>
       </ul>
     </nav>
-    <!-- End Sidebar navigation -->
   </div>
-    <!-- End Sidebar scroll-->
 </aside>
-<!--  Sidebar End -->
-<script>
-  // Ocultar sidebar
-  function toggleSidebar() {
-    $('#main-wrapper').removeClass('show-sidebar').addClass('mini-sidebar');
-  }
-</script>
 
 <div class="body-wrapper">

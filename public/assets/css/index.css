@@ -5,6 +5,7 @@
     --gray-2: #cfcfcf;
     --white: #fff;
 }
+/* Globals */
 body{
     background-color: var(--gray);
 }
@@ -114,6 +115,7 @@ a{
     justify-content: center;
 }
 .tinf__card_filter .tinf__header .tinf__profile img{
+    cursor: pointer;
     height: 150px;
     width: 150px;
     border-radius: 50%;
@@ -323,14 +325,12 @@ a{
     background-color: transparent;
     z-index: 9999;
 }
-
 .spinner {
     width: 0;
     height: 100%;
     background-color: var(--primary);
     animation: load 1.5s forwards;
 }
-
 @keyframes load {
     0% {
         width: 0;
@@ -339,8 +339,13 @@ a{
         width: 100%;
     }
 }
-
-
+/* Profile */
+.update__image:hover {
+    cursor: pointer;
+    filter: opacity(0.8);
+    transition: 0.2s;
+    position: relative;
+}
 /* Media Query Mobile */
 @media (max-width: 768px) {
     .tinf__card_filter{
