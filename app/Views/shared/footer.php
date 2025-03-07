@@ -11,6 +11,7 @@
     <script src="<?= base_url('assets/js/utils.js') ?>"></script>
 
   <?php if (strpos(uri_string(), 'user') !== false || strpos(uri_string(), 'documents') !== false || strpos(uri_string(), 'trantor-informa') !== false): ?>
+    <!-- Files Config Translate -->
     <script src="<?= base_url('assets/js/files.js') ?>"></script>
   <?php endif; ?>  
 
@@ -38,6 +39,11 @@
   <?php if (strpos(uri_string(), 'trantor-informa') !== false): ?>
     <!-- Trantor Informa -->
     <script src="<?= base_url('assets/js/trantor-informa.js') ?>"></script>
+  <?php endif; ?>
+  
+  <?php if (strpos(uri_string(), 'documents') !== false): ?>
+    <!-- Trantor Informa -->
+    <script src="<?= base_url('assets/js/documents.js') ?>"></script>
   <?php endif; ?>
 
   </body> 

@@ -346,6 +346,23 @@ a{
     transition: 0.2s;
     position: relative;
 }
+/* Documents */
+#document__list__container .document__list_item{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 5px;
+    user-select: none;
+    cursor: pointer;
+}
+#document__list__container .document__list_item:hover{
+    background-color: var(--gray);
+    transition: 0.2s;
+}
+.document__action{
+    display: flex;
+    align-items: center;
+}
 /* Media Query Mobile */
 @media (max-width: 768px) {
     .tinf__card_filter{

@@ -86,6 +86,14 @@ $routes->group('', ['filter' => 'auth:admin'], function($routes) {
     
     /* Documents */
     $routes->get('/documents', 'Documents::documents');
+    $routes->get('/documents/folder', 'Documents::getFolders');
+    $routes->post('/documents/folder/rename', 'Documents::updateFolder');
+    $routes->post('/documents/folder/move', 'Documents::updateFolderParent');
+    $routes->post('/documents/folder/create', 'Documents::newFolder');
+    $routes->post('/documents/folder/delete', 'Documents::deleteFolder');
+    $routes->get('/documents/file/(:num)', 'Documents::getDocumentFiles/$1');
+    $routes->post('/documents/file/create', 'Documents::createFile');
+    $routes->post('/documents/file/delete', 'Documents::deleteFile');
 
     /* Files */
     $routes->post('/files/upload', 'Files::handleUpload');
