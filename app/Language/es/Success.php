@@ -16,4 +16,12 @@ return [
 
     'feed_deleted'                  => 'Publicación eliminada',
     'comment_deleted'               => 'Comentario eliminado',
+
+    'folder_created'                => 'Carpeta creada',
+    'folder_deleted'                => 'Carpeta eliminada',
+    'folder_updated'                => 'Carpeta actualizada',
+    'folder_moved'                  => 'Carpeta reubicada',
+
+    'file_created'                  => 'Archivo creado',
+    'file_deleted'                  => 'Archivo eliminado',
 ];

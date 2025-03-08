@@ -30,7 +30,7 @@
             </span>
             <span class="hide-menu">Trantor Technologies</span>
           </a>
-        </li>
+        </li> -->
         <li class="sidebar-item">
           <a class="sidebar-link" href="<?= base_url('documentos') ?>" aria-expanded="false">
             <span>
@@ -39,7 +39,7 @@
             <span class="hide-menu">Documentos</span>
           </a>
         </li>
-        <li class="sidebar-item">
+        <!-- <li class="sidebar-item">
           <a class="sidebar-link" href="<?= base_url('quejas-sugerencias') ?>" aria-expanded="false">
             <span>
                 <i class="ti ti-mail"></i>

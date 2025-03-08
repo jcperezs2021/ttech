@@ -1,0 +1,26 @@
+      <div class="row">
+        <div class="col-12">
+          <form method="post" class="py-4"">
+            <div class="row">
+              <div class="col-md-6">
+                <div class="mb-3">
+                  <label class="form-label">Nuevo Tipo</label>
+                  <div class="input-group">
+                    <span class="input-group-text"><i class="ti ti-folder"></i></span>
+                    <input 
+                      type="text" 
+                      id="folder" 
+                      name="folder" 
+                      class="form-control" 
+                      required=""
+                    >
+                  </div>
+                </div>
+              </div>
+              <div class="col d-flex align-items-center">
+                <button type="submit" class="btn btn-outline-primary d-block">Crear tipo</button>
+              </div>
+            </div>
+          </form>
+        </div>
+      </div>

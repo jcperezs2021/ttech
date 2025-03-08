@@ -24,19 +24,19 @@
                     </div>
                     <div class="tinf__body" id="uploadFileContainer" style="display:none">
                         <small>
-                            Sube un archivo de hasta 3MB
+                            Sube un archivo de hasta 5MB
                         </small>
                         <input type="file" 
                             class="filepond"
                             name="file" 
                             id="fileInput" 
                             data-allow-reorder="true"
-                            data-max-file-size="3MB"
+                            data-max-file-size="5MB"
                             data-max-files="1">
                     </div>
                     <div class="tinf__body" id="uploadImageContainer" style="display:none">
                         <small>
-                            Sube hasta 4 imágenes de maximo 3MB cada una
+                            Sube hasta 4 imágenes de maximo 5MB cada una
                         </small>
                         <input 
                             type="file" 
@@ -45,7 +45,7 @@
                             id="imagesInput" 
                             multiple 
                             data-allow-reorder="true"
-                            data-max-file-size="3MB"
+                            data-max-file-size="5MB"
                             data-max-files="4">
                     </div>
                     <div class="tinf__add">

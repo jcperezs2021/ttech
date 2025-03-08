@@ -4,14 +4,14 @@ namespace App\Models;
 
 use CodeIgniter\Model;
 
-class DocumentModel extends Model{
+class DocumentFileModel extends Model{
 
-    protected $table              = 'documents';
+    protected $table              = 'documents_files';
     protected $primaryKey         = 'id';
     protected $useAutoIncrement   = true;
     protected $returnType         = "object";
     protected $useSoftDeletes     = true;
-    protected $allowedFields      = ['name', 'type', 'icon', 'parent', 'path'];
+    protected $allowedFields      = ['name', 'file', 'document', 'author'];
     protected $useTimestamps      = true;
     protected $createdField       = 'created_at';
     protected $updatedField       = 'updated_at';
@@ -20,7 +20,7 @@ class DocumentModel extends Model{
     protected $validationMessages = [];
     protected $skipValidation     = false;
     
-    public function getDocumentFolders($id = null)
+    public function getDocumentFiles($id = null)
     {
         if($id !== null){
             return $this->find($id);
@@ -29,39 +29,40 @@ class DocumentModel extends Model{
         return $this->orderBy('created_at', 'DESC')->findAll();
     }
 
-    public function getDocumentFolderByName($name)
+    public function getDocumentFileByDocument($document)
+    {
+        return $this->select('documents_files.id, documents_files.name, files.path, files.type, files.size')
+            ->join('files', 'files.id = documents_files.file')
+            ->where('documents_files.document', $document)
+            ->orderBy('documents_files.created_at', 'DESC')
+            ->findAll();
+    }
+
+    public function getDocumentFileByName($name)
     {
         return $this->where('name', $name)->first();
     }
 
-    public function createDocumentFolder($name, $type, $icon, $parent, $path)
+    public function createDocumentFile( $name, $file, $document, $author)
     {
         $data = [
             'name'     => $name,
-            'type'     => $type,
-            'icon'     => $icon,
-            'parent'   => $parent,
-            'path'     => $path
+            'file'     => $file,
+            'document' => $document,
+            'author'   => $author
         ];
 
         return $this->insert($data);
     }
 
-    public function updateDocumentFolder($id, $name)
+    public function updateDocumentFile($id, $name)
     {
         return $this->update($id, [
             'name' => $name,
         ]);
     }
-
-    public function updateDocumentFolderParent($id, $parent)
-    {
-        return $this->update($id, [
-            'parent' => $parent,
-        ]);
-    }
     
-    public function deleteDocumentFolder($id)
+    public function deleteDocumentFile($id)
     {
         return $this->delete(['id' => $id]);
     }

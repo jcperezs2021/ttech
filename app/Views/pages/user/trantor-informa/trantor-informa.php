@@ -12,13 +12,17 @@
       <!-- Image Full -->
       <?php include('trantor-informa-image-full.php'); ?>
       <!-- Feed -->
-      <?php foreach($feed as $f): ?>
-        <?php 
-          $currentFeed  = $f;
-          $comments     = $currentFeed->id;
-          include('trantor-informa-card.php'); 
-        ?>
-      <?php endforeach; ?>
+      <?php if (empty($feed) || count($feed) == 0): ?>
+        <?php include('trantor-informa-card-empty.php'); ?>
+      <?php else: ?>
+        <?php foreach($feed as $f): ?>
+          <?php 
+        $currentFeed  = $f;
+        $comments     = $currentFeed->id;
+        include('trantor-informa-card.php'); 
+          ?>
+        <?php endforeach; ?>
+      <?php endif; ?>
     </div>
   </div>
 </div>

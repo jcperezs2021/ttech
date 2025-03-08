@@ -104,7 +104,6 @@ $(document).ready(function() {
   // Edit feed item
   $('.btnEditFeedItem').click(function() {
     let feedId = $(this).attr('feedId');
-    console.log(feedId)
   });
   
   // Delete feed item

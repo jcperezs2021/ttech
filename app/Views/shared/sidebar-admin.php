@@ -30,7 +30,7 @@
             </span>
             <span class="hide-menu">Trantor Technologies</span>
           </a>
-        </li>
+        </li> -->
         <li class="sidebar-item">
           <a class="sidebar-link" href="<?= base_url('documentos') ?>" aria-expanded="false">
             <span>
@@ -39,7 +39,7 @@
             <span class="hide-menu">Documentos</span>
           </a>
         </li>
-        <li class="sidebar-item">
+        <!-- <li class="sidebar-item">
           <a class="sidebar-link" href="<?= base_url('quejas-sugerencias') ?>" aria-expanded="false">
             <span>
                 <i class="ti ti-mail"></i>
@@ -71,14 +71,14 @@
           <i class="ti ti-dots nav-small-cap-icon fs-4"></i>
           <span class="hide-menu">ADMINISTRADOR</span>
         </li>
-        <!-- <li class="sidebar-item">
+        <li class="sidebar-item">
           <a class="sidebar-link" href="<?= base_url('documents') ?>" aria-expanded="false">
             <span>
                 <i class="ti ti-file-analytics"></i>
             </span>
             <span class="hide-menu">Documentos</span>
           </a>
-        </li> -->
+        </li>
         <li class="sidebar-item">
           <a class="sidebar-link" href="<?= base_url('organization') ?>" aria-expanded="false">
             <span>
