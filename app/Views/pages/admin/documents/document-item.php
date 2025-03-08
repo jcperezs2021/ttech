@@ -27,6 +27,7 @@
         $file_type = base_url($files_formats['ppt']);
     }
 
+    $rol = session('user')->rol;
 ?>
 
 <li class="document__list_item">
@@ -58,7 +59,9 @@
                     <li><a class="dropdown-item" href="<?= base_url($file->path) ?>" target="_blank">Ver</a></li>
                 <?php endif; ?>
                 <li><a class="dropdown-item" href="<?= base_url($file->path) ?>" download>Descargar</a></li>
-                <li><a class="dropdown-item delete__file" fileId="<?= $file->id ?>">Eliminar</a></li>
+                <?php if ( $rol === 'admin' ): ?>
+                    <li><a class="dropdown-item delete__file" fileId="<?= $file->id ?>">Eliminar</a></li>
+                <?php endif; ?>
             </ul>
         </div>
     </div>

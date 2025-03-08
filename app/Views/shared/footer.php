@@ -42,8 +42,13 @@
   <?php endif; ?>
   
   <?php if (strpos(uri_string(), 'documents') !== false): ?>
-    <!-- Trantor Informa -->
+    <!-- Documents -->
     <script src="<?= base_url('assets/js/documents.js') ?>"></script>
+  <?php endif; ?>
+  
+  <?php if (strpos(uri_string(), 'documentos') !== false): ?>
+    <!-- Documentos -->
+    <script src="<?= base_url('assets/js/documents-user.js') ?>"></script>
   <?php endif; ?>
 
   </body> 

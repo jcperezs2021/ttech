@@ -34,10 +34,13 @@ class Documents extends BaseController
     public function index(): string
     {
         
-        return   view('shared/header',      ['title'     => 'Documentos'])
+        return   view('shared/header',                      ['title'     => 'Documentos'])
                 .view('shared/sidebar')
                 .view('shared/navbar')
-                .view('pages/user/documents/documents')
+                .view('pages/user/documents/documents',     [
+                                                                'csrfName'  => csrf_token(),    
+                                                                'csrfHash'  => csrf_hash()
+                                                            ])
                 .view('shared/footer');
     }
     
