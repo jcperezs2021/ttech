@@ -8,94 +8,96 @@
           <div class="row mt-3">
             <div class="col-12">
               <form action="<?= base_url('suggestion/create') ?>" method="POST">
-                <?php echo csrf_field(); ?>
-                <input type="hidden" name="author" value="<?= session('user')->id ?>">
-                <h5>Datos de contacto.</h5>
-                <div class="row mt-3">
-                  <div class="col-md-6">
-                    <div class="mb-3">
-                      <label class="form-label">Nombre(s)</label>
-                      <div class="input-group">
-                        <span class="input-group-text"><i class="ti ti-user"></i></span>
+                <?php if (session('success') === null) : ?>
+                  <?php echo csrf_field(); ?>
+                  <input type="hidden" name="author" value="<?= session('user')->id ?>">
+                  <h5>Datos de contacto.</h5>
+                  <div class="row mt-3">
+                    <div class="col-md-6">
+                      <div class="mb-3">
+                        <label class="form-label">Nombre(s)</label>
+                        <div class="input-group">
+                          <span class="input-group-text"><i class="ti ti-user"></i></span>
+                          <input 
+                            placeholder="Nombre(s)"
+                            value="<?= session('user')->name ?> <?= session('user')->lastname ?>"
+                            type="text" 
+                            id="name" 
+                            name="name" 
+                            class="form-control" 
+                            required=""
+                            lok
+                          >
+                        </div>
+                      </div>
+                    </div>
+                    <div class="col-md-6">
+                      <div class="mb-3">
+                        <label class="form-label">E-mail</label>
+                        <div class="input-group">
+                          <span class="input-group-text"><i class="ti ti-mail"></i></span>
+                          <input 
+                            value="<?= session('user')->email ?>"
+                            placeholder="E-mail"
+                            type="email" 
+                            id="email" 
+                            name="email" 
+                            class="form-control" 
+                            required=""
+                          >
+                        </div>
+                      </div>
+                    </div> 
+                    <div class="col-md-6">
+                      <div class="mb-3 form-check">
                         <input 
-                          placeholder="Nombre(s)"
-                          value="<?= session('user')->name ?> <?= session('user')->lastname ?>"
-                          type="text" 
-                          id="name" 
-                          name="name" 
-                          class="form-control" 
-                          required=""
-                          lok
+                          type="checkbox" 
+                          class="form-check-input" 
+                          id="publishCheck" 
+                          name="publish" 
                         >
+                        <label class="form-check-label" for="publishCheck">Enviar como Anonimo</label>
                       </div>
                     </div>
                   </div>
-                  <div class="col-md-6">
-                    <div class="mb-3">
-                      <label class="form-label">E-mail</label>
-                      <div class="input-group">
-                        <span class="input-group-text"><i class="ti ti-mail"></i></span>
-                        <input 
-                          value="<?= session('user')->email ?>"
-                          placeholder="E-mail"
-                          type="email" 
-                          id="email" 
-                          name="email" 
-                          class="form-control" 
-                          required=""
-                        >
+                  <h5 class="mt-2">Tu mensaje.</h5>
+                  <div class="row mt-3">
+                    <div class="col-12">
+                      <div class="mb-3">
+                        <label class="form-label">Asunto</label>
+                        <div class="input-group">
+                          <span class="input-group-text"><i class="ti ti-mail"></i></span>
+                          <input 
+                            placeholder="Asunto"
+                            type="text" 
+                            id="title" 
+                            name="title" 
+                            class="form-control" 
+                            required=""
+                          >
+                        </div>
                       </div>
                     </div>
-                  </div> 
-                  <div class="col-md-6">
-                    <div class="mb-3 form-check">
-                      <input 
-                        type="checkbox" 
-                        class="form-check-input" 
-                        id="publishCheck" 
-                        name="publish" 
-                      >
-                      <label class="form-check-label" for="publishCheck">Enviar como Anonimo</label>
-                    </div>
-                  </div>
-                </div>
-                <h5 class="mt-2">Tu mensaje.</h5>
-                <div class="row mt-3">
-                  <div class="col-12">
-                    <div class="mb-3">
-                      <label class="form-label">Asunto</label>
-                      <div class="input-group">
-                        <span class="input-group-text"><i class="ti ti-mail"></i></span>
-                        <input 
-                          placeholder="Asunto"
-                          type="text" 
-                          id="title" 
-                          name="title" 
-                          class="form-control" 
-                          required=""
-                        >
+                    <div class="col-12">
+                      <div class="mb-3">
+                        <label class="form-label
+                        ">Mensaje</label>
+                        <div class="input-group">
+                          <span class="input-group-text"><i class="ti ti-mail"></i></span>
+                          <textarea 
+                            style="resize: none;"
+                            placeholder="Mensaje"
+                            id="message" 
+                            name="message" 
+                            class="form-control" 
+                            required=""
+                            rows="5"
+                          ></textarea>
+                        </div>
                       </div>
                     </div>
                   </div>
-                  <div class="col-12">
-                    <div class="mb-3">
-                      <label class="form-label
-                      ">Mensaje</label>
-                      <div class="input-group">
-                        <span class="input-group-text"><i class="ti ti-mail"></i></span>
-                        <textarea 
-                          style="resize: none;"
-                          placeholder="Mensaje"
-                          id="message" 
-                          name="message" 
-                          class="form-control" 
-                          required=""
-                          rows="5"
-                        ></textarea>
-                      </div>
-                    </div>
-                  </div>
-                </div>
+                <?php endif; ?>
                 <?php if (session('message') !== null) : ?>
                   <div class="alert alert-danger">
                     <?= session('message'); ?>
@@ -106,11 +108,20 @@
                     <?= session('success'); ?>
                   </div>
                 <?php endif; ?>
+                <?php if (session('success') === null) : ?>
                 <div class="row mt-3">
                   <div class="col-12">
                     <button type="submit" class="btn btn-primary w-100">Enviar</button>
                   </div>
                 </div>
+                <?php endif; ?>
+                <?php if (session('success') !== null) : ?>
+                <div class="row mt-3">
+                  <div class="col-12">
+                    <button type="submit" class="btn btn-primary w-100">Enviar otra sugerencia</button>
+                  </div>
+                </div>
+                <?php endif; ?>
               </form>
             </div>
           </div>
