@@ -449,4 +449,10 @@ a{
     .tinf__card{
         width: 100%;
     }
+    #suggestion__wrapper_main{
+        display: none;
+    }
+    #s__back{
+        display: block !important;
+    }
 }

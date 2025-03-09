@@ -2,13 +2,18 @@
     <div class="card documents__wrapper">
         <div class="">
             <div class="row bgc__gray">
-                <div class="col-md-4 pl__0 pr__0">
+                <div class="col-md-4 pl__0 pr__0" id="suggestion__list_main">
                     <div class="suggestion__container">
                         <ul class="s__list" id="s__list__wrapper"></ul>
                     </div>
                 </div>
-                <div class="col pl__0 pr__0" >
+                <div class="col pl__0 pr__0" id="suggestion__wrapper_main">
                     <div id="suggestion__wrapper" style="display: none;">
+                        <button class="btn" id="s__back" style="display:none;">
+                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" height="24" width="24" class="me-1">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M10.5 19.5 3 12m0 0 7.5-7.5M3 12h18" />
+                            </svg>
+                        </button>
                         <div class="suggestion__title">
                             <h4>Asunto: <b id="s__title"></b></h4>
                         </div>

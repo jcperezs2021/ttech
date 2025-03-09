@@ -13,6 +13,10 @@ $(document).ready(function() {
 
     // Suggestion List Item Click
     $(document).on('click', '.s__list_item', function(){
+        if($(window).width() < 768){
+            $('#suggestion__list_main').hide();
+            $('#suggestion__wrapper_main').show();
+        }
         $('.s__list_item').removeClass('active');
         $(this).addClass('active');
         $(this).removeClass('new');
@@ -20,7 +24,7 @@ $(document).ready(function() {
         $.get(base_url + '/suggestions/get/' + id,  function(resp){
             if(resp.ok){
                 const { suggestion } = resp;
-                $('#suggestion__wrapper').fadeIn();
+                $('#suggestion__wrapper').show();
                 $('#s__title').html(suggestion.title);
                 $('#s__name').html(suggestion.name + ' | ' + suggestion.email);
                 $('#s__date').html(suggestion.created_at);
@@ -40,7 +44,11 @@ $(document).ready(function() {
             .fail(() => showMessage('alert-danger', 'Error en la solicitud.'))
             .done(() => { 
                 getSuggestions();
-                $('#suggestion__wrapper').fadeOut();
+                $('#suggestion__wrapper').hide();
+                if($(window).width() < 768){
+                    $('#suggestion__wrapper').hide();
+                    $('#suggestion__list_main').show();
+                }
             }
         );
     });
@@ -48,14 +56,22 @@ $(document).ready(function() {
     // Delete Suggestion
     $('#s__delete').click(function(){
         let id = $(this).attr('suggestionId');
-        // Confirm
         if(!confirm('¿Está seguro de eliminar esta sugerencia?')) return;
         $.post(base_url + '/suggestions/delete', { id, [csrfName]: csrfHash }, handleResponse)
             .fail(() => showMessage('alert-danger', 'Error en la solicitud.'))
             .done(() => { 
                 getSuggestions();
-                $('#suggestion__wrapper').fadeOut();
+                $('#suggestion__wrapper').hide();
+                if($(window).width() < 768){
+                    $('#suggestion__wrapper').hide();
+                    $('#suggestion__list_main').show();
+                }
             }
         );
+    });
+
+    $('#s__back').on('click', function(){
+        $('#suggestion__wrapper').hide();
+        $('#suggestion__list_main').show();
     });
 });
