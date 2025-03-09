@@ -39,7 +39,8 @@ $routes->group('', ['filter' => 'auth:admin,user'], function($routes) {
     $routes->get('/trantor-technologies', 'TrantorTechnologies::index');
 
     /* Quejas y Sugerencias */
-    $routes->get('/quejas-sugerencias', 'QuejasSugerencias::index');
+    $routes->get('/quejas-sugerencias', 'Suggestion::index');
+    $routes->post('/suggestion/create', 'Suggestion::createSuggestion');
     
     /* Documentos */
     $routes->get('/documentos', 'Documents::index');
@@ -105,4 +106,12 @@ $routes->group('', ['filter' => 'auth:admin'], function($routes) {
     $routes->post('/trantor-informa/delete', 'TrantorInforma::deleteFeed');
     $routes->post('/trantor-informa/update', 'TrantorInforma::updateFeed');
     $routes->post('/trantor-informa/comment/delete', 'TrantorInforma::deleteComment');
+
+    /* Quejas y Sugerencias */
+    $routes->get('/suggestions', 'Suggestion::adminIndex');
+    $routes->get('/suggestions/get', 'Suggestion::getSuggestions');
+    $routes->get('/suggestions/get/(:num)', 'Suggestion::getSuggestion/$1');
+    $routes->post('/suggestions/unread', 'Suggestion::setStatusNew');
+    $routes->post('/suggestions/read', 'Suggestion::setStatusOpen');
+    $routes->post('/suggestions/delete', 'Suggestion::deleteSuggestion');
 });

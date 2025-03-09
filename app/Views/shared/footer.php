@@ -50,6 +50,11 @@
     <!-- Documentos -->
     <script src="<?= base_url('assets/js/documents-user.js') ?>"></script>
   <?php endif; ?>
+  
+  <?php if (strpos(uri_string(), 'suggestions') !== false): ?>
+    <!-- Suggestiongs -->
+    <script src="<?= base_url('assets/js/suggestions.js') ?>"></script>
+  <?php endif; ?>
 
   </body> 
 </html>
