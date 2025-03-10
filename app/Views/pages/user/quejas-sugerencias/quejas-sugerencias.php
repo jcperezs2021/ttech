@@ -126,7 +126,7 @@
             </div>
           </div>
         </div>
-        <div class="col-md-4 d-flex align-items-center justify-content-center p-4">
+        <div class="col-md-4 d-md-flex align-items-center justify-content-center p-4 d-none">
           <img src="<?= base_url('assets/images/logos/logo-2.png') ?>"  alt="Quejas y Sugerencias" height="120">
         </div>
       </div>

@@ -346,6 +346,10 @@ a{
     transition: 0.2s;
     position: relative;
 }
+/* Organization */
+.org__container{
+    min-height: 100vh;
+}
 /* Documents */
 #document__list__container .document__list_item{
     display: flex;
