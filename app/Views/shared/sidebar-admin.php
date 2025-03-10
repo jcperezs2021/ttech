@@ -23,14 +23,14 @@
             <span class="hide-menu">Trantor Informa</span>
           </a>
         </li>
-        <!-- <li class="sidebar-item">
+        <li class="sidebar-item">
           <a class="sidebar-link" href="<?= base_url('trantor-technologies') ?>" aria-expanded="false">
             <span>
                 <i class="ti ti-world"></i>
             </span>
             <span class="hide-menu">Trantor Technologies</span>
           </a>
-        </li> -->
+        </li>
         <li class="sidebar-item">
           <a class="sidebar-link" href="<?= base_url('documentos') ?>" aria-expanded="false">
             <span>
