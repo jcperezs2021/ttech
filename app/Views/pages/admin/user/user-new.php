@@ -4,15 +4,15 @@
       <div class="card w-100">
         <div class="card-body p-4">
           <div class="d-flex justify-content-between align-items-center">
-            <h5 class="card-title fw-semibold m-0">Nuevo empleado</h5>
+            <h5 class="card-title fw-semibold m-0">Nuevo empleado <small class="f-12" style="color:red;">Campos con * son obligatorios.</small></h5>
             <a href="<?= base_url('user') ?>" class="btn btn-outline-primary d-block">Volver</a>
           </div>
-          <form method="post" class="py-4" action="<?= base_url('auth/register') ?>" enctype="multipart/form-data">
+          <form method="post" class="py-4" action="<?= base_url('auth/register') ?>" enctype="multipart/form-data" id="register__form">
             <?php echo csrf_field(); ?>
             <div class="row">
-              <div class="col-md-6">
+              <div class="col-md-6 col-lg-4">
                 <div class="mb-3">
-                  <label class="form-label">Nombre(s)</label>
+                  <label class="form-label">Nombre(s) <small style="color:red;">*</small></label>
                   <div class="input-group">
                     <span class="input-group-text"><i class="ti ti-user"></i></span>
                     <input 
@@ -26,9 +26,9 @@
                   </div>
                 </div>
               </div>
-              <div class="col-md-6">
+              <div class="col-md-6 col-lg-4">
                 <div class="mb-3">
-                  <label class="form-label">Apellidos</label>
+                  <label class="form-label">Apellidos <small style="color:red;">*</small></label>
                   <div class="input-group">
                     <span class="input-group-text"><i class="ti ti-user"></i></span>
                     <input 
@@ -42,9 +42,9 @@
                   </div>
                 </div>
               </div>
-              <div class="col-md-6">
+              <div class="col-md-6 col-lg-4">
                 <div class="mb-3">
-                  <label class="form-label">E-mail</label>
+                  <label class="form-label">E-mail <small style="color:red;">*</small></label>
                   <div class="input-group">
                     <span class="input-group-text"><i class="ti ti-mail"></i></span>
                     <input 
@@ -58,7 +58,22 @@
                   </div>
                 </div>
               </div>
-              <div class="col-md-6">
+              <div class="col-md-6 col-lg-4">
+                <div class="mb-3">
+                  <label class="form-label">E-mail secundario</label>
+                  <div class="input-group">
+                    <span class="input-group-text"><i class="ti ti-mail"></i></span>
+                    <input 
+                      placeholder="E-mail secundario"
+                      type="email" 
+                      id="email_secondary" 
+                      name="email_secondary"" 
+                      class="form-control" 
+                    >
+                  </div>
+                </div>
+              </div>
+              <div class="col-md-6 col-lg-4">
                 <div class="mb-3">
                   <label class="form-label">Telefono</label>
                   <div class="input-group">
@@ -69,13 +84,45 @@
                       id="telephone" 
                       name="telephone" 
                       class="form-control" 
+                      maxlength="10"
+                    >
+                  </div>
+                </div>
+              </div>
+              <div class="col-md-6 col-lg-4">
+                <div class="mb-3">
+                  <label class="form-label">Celular <small style="color:red;">*</small></label>
+                  <div class="input-group">
+                    <span class="input-group-text"><i class="ti ti-phone"></i></span>
+                    <input 
+                      placeholder="Celular"
+                      type="text" 
+                      id="cellphone" 
+                      name="cellphone" 
+                      class="form-control" 
                       required=""
                       maxlength="10"
                     >
                   </div>
                 </div>
               </div>
-              <div class="col-md-6">
+              <div class="col-md-6 col-lg-4">
+                <div class="mb-3">
+                  <label class="form-label">Extensión</label>
+                  <div class="input-group">
+                    <span class="input-group-text"><i class="ti ti-phone"></i></span>
+                    <input 
+                      placeholder="Extensión"
+                      type="text" 
+                      id="ext" 
+                      name="ext" 
+                      class="form-control" 
+                      maxlength="5"
+                    >
+                  </div>
+                </div>
+              </div>
+              <div class="col">
                 <div class="mb-3">
                   <label class="form-label">Foto</label>
                   <input 
@@ -83,16 +130,16 @@
                     id="photo" 
                     name="photo" 
                     class="form-control" 
-                    required=""
                     accept=".png, .jpg, .jpeg"
                   >
                 </div>
               </div>
             </div>
+            <hr>
             <div class="row">
-              <div class="col-md-6">
+              <div class="col-md-6 col-lg-4">
                 <div class="mb-3">
-                  <label class="form-label">Password</label>
+                  <label class="form-label">Password <small style="color:red;">*</small></label>
                   <div class="input-group">
                     <span class="input-group-text"><i class="ti ti-lock"></i></span>
                     <input 
@@ -106,9 +153,9 @@
                   </div>
                 </div>
               </div>
-              <div class="col-md-6">
+              <div class="col-md-6 col-lg-4">
                 <div class="mb-3">
-                  <label class="form-label">Confirma Password</label>
+                  <label class="form-label">Confirma Password <small style="color:red;">*</small></label>
                   <div class="input-group">
                     <span class="input-group-text"><i class="ti ti-lock"></i></span>
                     <input 
@@ -122,9 +169,9 @@
                   </div>
                 </div>
               </div>
-              <div class="col-md-6">
+              <div class="col-md-6 col-lg-4">
                 <div class="mb-4">
-                  <label class="form-label">Selecciona puesto</label>
+                  <label class="form-label">Selecciona puesto <small style="color:red;">*</small></label>
                   <select class="form-select select2" name="ocupation" required>
                     <option value="">Selecciona un puesto</option>
                     <?php foreach($ocupations as $ocupation): ?>
@@ -133,32 +180,32 @@
                   </select>
                 </div>
               </div>
-              <div class="col-md-6 mb-4">
+              <div class="col-md-6 col-lg-4 mb-4">
                 <div class="row">
-                  <div class="col-8">
-                    <div>
-                      <label class="form-label">Jefe directo</label>
-                      <select class="form-select select2" name="parent" id="parent" required>
-                        <option value="">Selecciona jefe directo</option>
-                        <?php foreach($users as $user): ?>
-                          <option value="<?= $user->id ?>"><?= $user->complete_name ?></option>
-                        <?php endforeach; ?>
-                      </select>
-                    </div>
+                  <div class="col-9">
+                    <label class="form-label">Jefe directo <small style="color:red;">*</small></label>
+                    <select class="form-select select2" name="parent" id="parent" required>
+                      <option value="">Selecciona jefe directo</option>
+                      <?php foreach($users as $user): ?>
+                        <option value="<?= $user->id ?>"><?= $user->complete_name ?></option>
+                      <?php endforeach; ?>
+                    </select>
                   </div>
-                  <div class="col d-flex align-items-center">
-                      <div class="form-check d-flex">
+                  <div class="col d-flex align-items-end">
+                    <div class="d-block">
+                      <div class="form-check" style="margin: 0;padding: 0;display: flex;">
                         <input class="form-check" type="checkbox" value="1" id="no_aplica" name="no_aplica">
-                        <label class="form-check" for="no_aplica">
-                          No aplica
+                        <label class="form-check" for="no_aplica" style="margin: 0;padding: 0;padding-left: 5px;">
+                          N/A
                         </label>
                       </div>
+                    </div>
                   </div>
                 </div>
               </div>
-              <div class="col-md-6">
+              <div class="col-md-6 col-lg-4">
                 <div class="mb-4">
-                  <label class="form-label">Selecciona rol</label>
+                  <label class="form-label">Selecciona rol <small style="color:red;">*</small></label>
                   <select class="form-select select2" name="rol" required>
                     <option value="">Selecciona un rol</option>
                     <option value="user">Usuario</option>

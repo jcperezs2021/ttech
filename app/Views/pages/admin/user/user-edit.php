@@ -15,9 +15,9 @@
           <form method="post" class="py-4" action="<?= base_url('auth/user/update') ?>" enctype="multipart/form-data">
             <?php echo csrf_field(); ?>
             <div class="row">
-              <div class="col-md-6">
+              <div class="col-md-6 col-lg-4">
                 <div class="mb-3">
-                  <label class="form-label">Nombre(s)</label>
+                  <label class="form-label">Nombre(s) <small style="color:red;">*</small></label>
                   <input 
                     type="hidden" 
                     id="id" 
@@ -38,9 +38,9 @@
                   </div>
                 </div>
               </div>
-              <div class="col-md-6">
+              <div class="col-md-6 col-lg-4">
                 <div class="mb-4">
-                  <label class="form-label">Apellidos</label>
+                  <label class="form-label">Apellidos <small style="color:red;">*</small></label>
                   <div class="input-group">
                     <span class="input-group-text"><i class="ti ti-user"></i></span>
                     <input 
@@ -54,9 +54,9 @@
                   </div>
                 </div>
               </div>
-              <div class="col-md-6">
+              <div class="col-md-6 col-lg-4">
                 <div class="mb-3">
-                  <label class="form-label">E-mail</label>
+                  <label class="form-label">E-mail <small style="color:red;">*</small></label>
                   <div class="input-group">
                     <span class="input-group-text"><i class="ti ti-mail"></i></span>
                     <input 
@@ -71,7 +71,23 @@
                   </div>
                 </div>
               </div>
-              <div class="col-md-6">
+              <div class="col-md-6 col-lg-4">
+                <div class="mb-3">
+                  <label class="form-label">E-mail secundario</label>
+                  <div class="input-group">
+                    <span class="input-group-text"><i class="ti ti-mail"></i></span>
+                    <input 
+                      placeholder="E-mail secundario"
+                      type="email" 
+                      id="email_secondary" 
+                      name="email_secondary"" 
+                      value="<?= $user->email_secondary ?>"
+                      class="form-control" 
+                    >
+                  </div>
+                </div>
+              </div>
+              <div class="col-md-6 col-lg-4">
                 <div class="mb-3">
                   <label class="form-label">Telefono</label>
                   <div class="input-group">
@@ -83,13 +99,47 @@
                       name="telephone" 
                       value="<?= $user->telephone ?>"
                       class="form-control" 
+                      maxlength="10"
+                    >
+                  </div>
+                </div>
+              </div>
+              <div class="col-md-6 col-lg-4">
+                <div class="mb-3">
+                  <label class="form-label">Celular <small style="color:red;">*</small></label>
+                  <div class="input-group">
+                    <span class="input-group-text"><i class="ti ti-phone"></i></span>
+                    <input 
+                      placeholder="Celular"
+                      type="text" 
+                      id="cellphone" 
+                      name="cellphone" 
+                      value="<?= $user->cellphone ?>"
+                      class="form-control" 
                       required=""
                       maxlength="10"
                     >
                   </div>
                 </div>
               </div>
-              <div class="col-md-6">
+              <div class="col-md-6 col-lg-4">
+                <div class="mb-3">
+                  <label class="form-label">Extensión</label>
+                  <div class="input-group">
+                    <span class="input-group-text"><i class="ti ti-phone"></i></span>
+                    <input 
+                      placeholder="Extensión"
+                      type="text" 
+                      id="ext" 
+                      name="ext" 
+                      value="<?= $user->ext ?>"
+                      class="form-control" 
+                      maxlength="5"
+                    >
+                  </div>
+                </div>
+              </div>
+              <div class="col">
                 <label class="form-label">Foto</label>
                 <div class="mb-4 d-flex align-items-center">
                   <img
@@ -109,10 +159,11 @@
                   </div>
                 </div>
               </div>
+              <hr>
               <div class="row">
-                <div class="col-md-6">
+                <div class="col-md-6 col-lg-4">
                   <div class="mb-4">
-                    <label class="form-label">Selecciona puesto</label>
+                    <label class="form-label">Selecciona puesto <small style="color:red;">*</small></label>
                     <select class="form-select select2" name="ocupation" required>
                       <option value="<?= $user->ocupation ?>"><?= $user->ocupation_name ?></option>
                       <?php foreach($ocupations as $ocupation): ?>
@@ -121,11 +172,11 @@
                     </select>
                   </div>
                 </div>
-                <div class="col-md-6">
+                <div class="col-md-6 col-lg-4">
                   <div class="row">
                     <div class="col-8">
                       <div class="">
-                        <label class="form-label">Selecciona jefe directo</label>
+                        <label class="form-label">Selecciona jefe directo <small style="color:red;">*</small></label>
                         <select class="form-select select2" name="parent" id="parent" required <?= is_null($user->parent) ? 'disabled' : '' ?>>
                           <option value="<?= $user->parent ?>"><?= $user->parent_name ?></option>
                           <?php foreach($users as $user_local): ?>
@@ -136,20 +187,20 @@
                         </select>
                       </div>
                     </div>
-                    <div class="col d-flex align-items-center">
-                      <div class="form-check d-flex">
+                    <div class="col d-flex align-items-end">
+                      <div class="form-check" style="margin: 0;padding: 0;display: flex;">
                         <input class="form-check" type="checkbox" value="1" id="no_aplica" name="no_aplica" <?= is_null($user->parent) ? 'checked' : '' ?>>
-                        <label class="form-check" for="no_aplica">
-                          No aplica
+                        <label class="form-check" for="no_aplica" style="margin: 0;padding: 0;padding-left: 5px;">
+                          N/A
                         </label>
                       </div>
                     </div>
                   </div>
                 </div>
 
-                <div class="col-md-6">
+                <div class="col-md-6 col-lg-4">
                   <div class="mb-4">
-                    <label class="form-label">Rol</label>
+                    <label class="form-label">Rol <small style="color:red;">*</small></label>
                     <select class="form-select select2" name="rol" required>
                       <option value="<?= $user->rol ?>">
                         <?php
@@ -165,7 +216,7 @@
                     </select>
                   </div>
                 </div>
-                <div class="col-md-6">
+                <div class="col-md-6 col-lg-4">
                   <div class="mb-4">
                     <label class="form-label">Restablecer password</label>
                     <div class="input-group">

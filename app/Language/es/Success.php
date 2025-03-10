@@ -24,4 +24,9 @@ return [
 
     'file_created'                  => 'Archivo creado',
     'file_deleted'                  => 'Archivo eliminado',
+
+    'suggestion_created'            => 'Sugerencia enviada, gracias por tu aportación',
+    'suggestion_status_new'         => 'Sugerencia marcada como no leída',
+    'suggestion_status_open'        => 'Sugerencia marcada como leída',
+    'suggestion_deleted'            => 'Sugerencia eliminada',
 ];

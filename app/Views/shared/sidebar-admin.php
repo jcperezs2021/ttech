@@ -39,14 +39,14 @@
             <span class="hide-menu">Documentos</span>
           </a>
         </li>
-        <!-- <li class="sidebar-item">
+        <li class="sidebar-item">
           <a class="sidebar-link" href="<?= base_url('quejas-sugerencias') ?>" aria-expanded="false">
             <span>
                 <i class="ti ti-mail"></i>
             </span>
             <span class="hide-menu">Quejas y sugerencias</span>
           </a>
-        </li> -->
+        </li>
         <li class="sidebar-item">
           <a class="sidebar-link" href="<?=base_url('/auth/logout')?>" aria-expanded="false">
             <span>
@@ -95,14 +95,14 @@
             <span class="hide-menu">Puestos</span>
           </a>
         </li>
-        <!-- <li class="sidebar-item">
+        <li class="sidebar-item">
           <a class="sidebar-link" href="<?= base_url('suggestions') ?>" aria-expanded="false">
             <span>
                 <i class="ti ti-mail-opened"></i>
             </span>
             <span class="hide-menu">Quejas y sugerencias</span>
           </a>
-        </li> -->
+        </li>
         <li class="sidebar-item">
           <a class="sidebar-link" href="<?= base_url('user') ?>" aria-expanded="false">
             <span>
