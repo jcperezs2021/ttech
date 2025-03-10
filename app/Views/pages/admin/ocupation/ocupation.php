@@ -7,7 +7,7 @@
             <h5 class="card-title fw-semibold m-0">Puesto</h5>
             <a href="<?= base_url('ocupation/new') ?>" class="btn btn-outline-primary d-block">Nuevo</a>
           </div>
-          <div class="mt-5 table-responsive">
+          <div class="mt-5 table-responsive directory">
             <table class="table text-nowrap table-hover mb-0 align-middle" id="dt_table">
               <thead class="text-dark fs-4">
                 <tr>

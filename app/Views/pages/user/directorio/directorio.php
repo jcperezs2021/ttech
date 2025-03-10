@@ -4,16 +4,12 @@
       <div class="card w-100">
         <div class="card-body p-4">
           <div class="d-flex justify-content-between align-items-center">
-            <h5 class="card-title fw-semibold m-0">Empleados</h5>
-            <a href="<?= base_url('user/new') ?>" class="btn btn-outline-primary d-block">Nuevo</a>
+            <h5 class="card-title fw-semibold m-0">Directorio</h5>
           </div>
           <div class="mt-5 table-responsive directory">
             <table class="table text-nowrap table-hover mb-0 align-middle" id="dt_table">
               <thead class="text-dark fs-4">
                 <tr>
-                  <th class="border-bottom-0">
-                    <h6 class="fw-semibold mb-0">Id</h6>
-                  </th>
                   <th class="border-bottom-0">
                     <h6 class="fw-semibold mb-0">Nombre</h6>
                   </th>
@@ -21,16 +17,16 @@
                     <h6 class="fw-semibold mb-0">E-mail</h6>
                   </th>
                   <th class="border-bottom-0">
-                    <h6 class="fw-semibold mb-0">Estatus</h6>
+                    <h6 class="fw-semibold mb-0">E-mail alternativo</h6>
                   </th>
                   <th class="border-bottom-0">
-                    <h6 class="fw-semibold mb-0">Conexión</h6>
+                    <h6 class="fw-semibold mb-0">Telefono</h6>
                   </th>
                   <th class="border-bottom-0">
-                    <h6 class="fw-semibold mb-0">Rol</h6>
+                    <h6 class="fw-semibold mb-0">Extensión</h6>
                   </th>
                   <th class="border-bottom-0">
-                    <h6 class="fw-semibold mb-0">Acción</h6>
+                    <h6 class="fw-semibold mb-0">Celular</h6>
                   </th>
                 </tr>
               </thead>
@@ -38,23 +34,18 @@
                 <?php foreach($users as $user): ?>
                   <tr>
                     <td class="border-bottom-0">
-                      <p class="mb-0 fw-normal">
-                        <?= $user->id ?>
-                      </p>
-                    </td>
-                    <td class="border-bottom-0">
                       <div class="d-flex align-items-center">
                         <img
-                          class="rounded-circle" width="35" height="35"
+                          class="rounded-circle" width="70" height="70"
                           alt="<?= $user->name ?>"
                           src="<?= base_url( $user->photo) ?>"
                         />
                         <div class="ms-2">
                           <h6 class="fw-semibold mb-1">
-                            <?= $user->name ?>
+                            <?= $user->name ?> <?= $user->lastname ?>
                           </h6>
                           <span class="fw-normal">
-                            <?= $user->lastname ?>
+                            <?= $user->ocupation_name ?>
                           </span>                          
                         </div>
                       </div>
@@ -65,41 +56,33 @@
                       </p>
                     </td>
                     <td class="border-bottom-0">
-                      <div class="d-flex align-items-center gap-2">
-                        <span class="<?= $user->active == 1 ? 'bg-success' : 'bg-danger' ?> badge rounded-3 fw-semibold">
-                          <?= $user->active == 1 ? 'Activo' : 'Inactivo' ?>
-                        </span>
-                      </div>
-                    </td>
-                    <td class="border-bottom-0">
                       <p class="mb-0 fw-normal">
-                        <?= $user->last_login == NULL ? 'Sin actividad' : $user->last_login ?>
+                        <?= $user->email_secondary ?>
                       </p>
                     </td>
                     <td class="border-bottom-0">
                       <p class="mb-0 fw-normal">
                         <?php
-                          if ($user->rol == 'admin') {
-                            echo 'Administrador';
-                          } elseif ($user->rol == 'extern-zpl') {
-                            echo 'Externo ZPL';
-                          } else {
-                            echo 'Usuario';
-                          }
+                            $formattedTelephone = substr($user->telephone, 0, 2) . '-' . substr($user->telephone, 2, 4) . '-' . substr($user->telephone, 6);
                         ?>
+                        <?= $formattedTelephone ?>
                       </p>
                     </td>
                     <td class="border-bottom-0">
-                      <h6 class="fw-normal mb-0 fs-4">
-                        <a class="btn p-1 px-2" href="<?= base_url('user/edit/'.$user->id) ?>">
-                          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="#5D87FF" width="24" height="24">
-                            <path stroke-linecap="round" stroke-linejoin="round" d="m16.862 4.487 1.687-1.688a1.875 1.875 0 1 1 2.652 2.652L6.832 19.82a4.5 4.5 0 0 1-1.897 1.13l-2.685.8.8-2.685a4.5 4.5 0 0 1 1.13-1.897L16.863 4.487Zm0 0L19.5 7.125" />
-                          </svg>
-                        </a>
-                      </h6>
+                      <p class="mb-0 fw-normal">
+                        <?= $user->ext ?>
+                      </p>
+                    </td>
+                    <td class="border-bottom-0">
+                      <p class="mb-0 fw-normal">
+                        <?php
+                            $formattedCellphone = substr($user->cellphone, 0, 2) . '-' . substr($user->cellphone, 2, 4) . '-' . substr($user->cellphone, 6);
+                        ?>
+                        <?= $formattedCellphone ?>
+                      </p>
                     </td>
                   </tr>     
-                <?php endforeach ?>
+                <?php endforeach ?> 
               </tbody>
             </table>
           </div>

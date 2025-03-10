@@ -40,6 +40,14 @@
           </a>
         </li>
         <li class="sidebar-item">
+          <a class="sidebar-link" href="<?= base_url('directorio') ?>" aria-expanded="false">
+            <span>
+                <i class="ti ti-phone-call"></i>
+            </span>
+            <span class="hide-menu">Directorio</span>
+          </a>
+        </li>
+        <li class="sidebar-item">
           <a class="sidebar-link" href="<?= base_url('quejas-sugerencias') ?>" aria-expanded="false">
             <span>
                 <i class="ti ti-mail"></i>

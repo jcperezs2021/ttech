@@ -442,6 +442,11 @@ a{
 .suggestion__body{
     padding: 20px 0;
 }
+/* Directorio */
+.directory table{
+    margin-top: 30px;
+    margin-bottom: 40px !important;
+}
 /* Media Query Mobile */
 @media (max-width: 768px) {
     .tinf__card_filter{
