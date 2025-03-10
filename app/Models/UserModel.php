@@ -79,6 +79,17 @@ class UserModel extends Model{
             'photo'       => $photo,
         ]);
     }
+
+    public function updateProfile($id, $name, $lastname, $telephone, $cellphone, $ext)
+    {
+        return $this->update($id, [
+            'name'        => $name,
+            'lastname'    => $lastname,
+            'telephone'   => $telephone,
+            'cellphone'   => $cellphone,
+            'ext'         => $ext,
+        ]);
+    }
     
     public function updateUser($id, $name, $lastname, $email, $photo, $telephone, $rol, $ocupation, $parent, $email_secondary, $cellphone, $ext)
     {
@@ -120,9 +131,9 @@ class UserModel extends Model{
         return array_map(function($user) {
             return [
                 'id'    => $user->id,
-                'title' => $user->title,
+                'Puesto' => $user->title,
                 'pid'   => $user->pid,
-                'name'  => $user->name,
+                'Nombre'  => $user->name,
                 'img'   => $user->photo,
             ];
         }, $users);

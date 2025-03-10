@@ -23,20 +23,28 @@
             <span class="hide-menu">Trantor Informa</span>
           </a>
         </li>
-        <!-- <li class="sidebar-item">
+        <li class="sidebar-item">
           <a class="sidebar-link" href="<?= base_url('trantor-technologies') ?>" aria-expanded="false">
             <span>
                 <i class="ti ti-world"></i>
             </span>
             <span class="hide-menu">Trantor Technologies</span>
           </a>
-        </li> -->
+        </li>
         <li class="sidebar-item">
           <a class="sidebar-link" href="<?= base_url('documentos') ?>" aria-expanded="false">
             <span>
                 <i class="ti ti-files"></i>
             </span>
             <span class="hide-menu">Documentos</span>
+          </a>
+        </li>
+        <li class="sidebar-item">
+          <a class="sidebar-link" href="<?= base_url('directorio') ?>" aria-expanded="false">
+            <span>
+                <i class="ti ti-phone-call"></i>
+            </span>
+            <span class="hide-menu">Directorio</span>
           </a>
         </li>
         <li class="sidebar-item">

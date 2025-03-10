@@ -61,5 +61,11 @@
     <script src="<?= base_url('assets/js/suggestions.js') ?>"></script>
   <?php endif; ?>
 
+  <?php if (strpos(uri_string(), 'trantor-technologies') !== false): ?>
+    <!-- Technologies -->
+    <script src="<?= base_url('assets/ttech_lp/js/core.min.js') ?>"></script>
+    <script src="<?= base_url('assets/ttech_lp/js/script.js') ?>"></script>
+  <?php endif; ?>  
+
   </body> 
 </html>

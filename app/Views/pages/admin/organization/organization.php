@@ -1,13 +1,13 @@
-<div class="container-fluid p-0">
-  <div class="card b-s-none ttech__container">
-    <div id="tree"></div>
+<div class="min__h__100">
+  <div class="card b-s-none">
+    <div class="org__container" id="tree"></div>
   </div>
 </div>
 
 <script>
     let nodes = <?php echo json_encode($org); ?>;
     let chart = new OrgChart("#tree", {
-        filterBy: ['title', 'name'],
+        filterBy: ['Puesto', 'Nombre'],
         mode: 'light',
         tags: {
           filter: {
@@ -17,8 +17,8 @@
         enableSearch: true,
         mouseScrool: OrgChart.action.none,
         nodeBinding: {
-            field_0: "name",
-            field_1: "title",
+            field_0: "Nombre",
+            field_1: "Puesto",
             img_0: "img"
         },
         nodes

@@ -38,6 +38,15 @@
   <script src="https://unpkg.com/filepond/dist/filepond.js"></script>
 <?php endif; ?>  
 
+<?php if (strpos(uri_string(), 'trantor-technologies') !== false): ?>
+  <!-- Technologies -->
+  <link rel="stylesheet" type="text/css" href="//fonts.googleapis.com/css?family=Lato:300,300i,400,400i,700,900">
+  <link rel="stylesheet" href="<?= base_url('assets/ttech_lp/css/bootstrap.css') ?>" />
+  <link rel="stylesheet" href="<?= base_url('assets/ttech_lp/css/fonts.css') ?>" />
+  <link rel="stylesheet" href="<?= base_url('assets/ttech_lp/css/style.css') ?>" />
+  <style>.ie-panel{display: none;background: #212121;padding: 10px 0;box-shadow: 3px 3px 5px 0 rgba(0,0,0,.3);clear: both;text-align:center;position: relative;z-index: 1;} html.ie-10 .ie-panel, html.lt-ie-10 .ie-panel {display: block;}</style>
+<?php endif; ?>  
+
 </head>
 
 <!--  Body Wrapper -->

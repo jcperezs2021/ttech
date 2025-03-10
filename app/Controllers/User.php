@@ -121,6 +121,40 @@ class User extends BaseController
         ]);
     }
 
+    public function updateProfile()
+    {
+        $id             = session('user')->id;                          // Mandatory    
+        $name           = $this->request->getPost('name');              // Mandatory
+        $lastname       = $this->request->getPost('lastname');          // Mandatory
+        $cellphone      = $this->request->getPost('cellphone');         // Mandatory
+        $telephone      = $this->request->getPost('telephone');         // Optional
+        $ext            = $this->request->getPost('ext');               // Optional
+
+        // Validar que los campos no esten vacios
+        if(!$this->checkEmptyField([ $name, $lastname, $cellphone])){
+            return $this->respondWithCsrf([
+                'ok'     => false,
+                'error'  => lang('Errors.missing_fields'),
+            ]);
+        }
+
+        // Actualizar usuario en la base de datos
+        if($this->userModel->updateProfile($id, $name, $lastname, $telephone, $cellphone, $ext)){
+
+            // Actualizar la sesión
+            $this->refreshSession();
+
+            // Respondemos
+            return $this->respondWithCsrf([
+                'ok'            => true,
+                'message'       => lang('Success.auth_profile_updated'),
+            ]);
+        }
+
+        
+
+    }
+
     public function updatePhoto()
     {
         // Obtenemos la imagen
