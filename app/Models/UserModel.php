@@ -11,7 +11,7 @@ class UserModel extends Model{
     protected $useAutoIncrement   = true;
     protected $returnType         = "object";
     protected $useSoftDeletes     = true;
-    protected $allowedFields      = ['name', 'lastname', 'email', 'password', 'last_login', 'active', 'photo', 'parent', 'rol', 'ocupation', 'telephone'];
+    protected $allowedFields      = ['name', 'lastname', 'email', 'password', 'last_login', 'active', 'photo', 'parent', 'rol', 'ocupation', 'telephone', 'email_secondary', 'cellphone', 'ext'];
     protected $useTimestamps      = true;
     protected $createdField       = 'created_at';
     protected $updatedField       = 'updated_at';
@@ -39,7 +39,7 @@ class UserModel extends Model{
         return $this->where('email', $email)->first();
     }
 
-    public function createUser($name, $lastname, $email, $password, $photo, $telephone, $rol, $ocupation, $parent)
+    public function createUser($name, $lastname, $email, $password, $photo, $telephone, $rol, $ocupation, $parent, $email_secondary, $cellphone, $ext)
     {
         $data = [
             'name'        => $name,
@@ -51,6 +51,9 @@ class UserModel extends Model{
             'rol'         => $rol,
             'ocupation'   => $ocupation,
             'parent'      => $parent,
+            'email_secondary' => $email_secondary,
+            'cellphone'   => $cellphone,
+            'ext'         => $ext,
         ];
 
         return $this->insert($data);
@@ -77,7 +80,7 @@ class UserModel extends Model{
         ]);
     }
     
-    public function updateUser($id, $name, $lastname, $email, $photo, $telephone, $rol, $ocupation, $parent)
+    public function updateUser($id, $name, $lastname, $email, $photo, $telephone, $rol, $ocupation, $parent, $email_secondary, $cellphone, $ext)
     {
         return $this->update($id, [
             'name'        => $name,
@@ -88,6 +91,9 @@ class UserModel extends Model{
             'rol'         => $rol,
             'ocupation'   => $ocupation,
             'parent'      => $parent,
+            'email_secondary' => $email_secondary,
+            'cellphone'   => $cellphone,
+            'ext'         => $ext,
         ]);
     }
 

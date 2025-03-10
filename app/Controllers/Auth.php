@@ -23,19 +23,22 @@ class Auth extends BaseController
 
     public function register()
     {
-        $email          = $this->request->getPost('email');
-        $name           = $this->request->getPost('name');
-        $lastname       = $this->request->getPost('lastname');
-        $password       = $this->request->getPost('password');
-        $password2      = $this->request->getPost('password-confirm');
-        $telephone      = $this->request->getPost('telephone');
-        $photo          = $this->request->getFile('photo');
-        $rol            = $this->request->getPost('rol');
-        $ocupation      = $this->request->getPost('ocupation');
-        $parent         = $this->request->getPost('parent');
-
-        // Validación inicial de los campos requeridos
-        if (!$this->validateRegisterInput($email, $name, $lastname, $password, $password2, $telephone, $rol, $ocupation)) {
+        $email          = $this->request->getPost('email');             // Mandatory
+        $name           = $this->request->getPost('name');              // Mandatory
+        $lastname       = $this->request->getPost('lastname');          // Mandatory
+        $password       = $this->request->getPost('password');          // Mandatory
+        $password2      = $this->request->getPost('password-confirm');  // Mandatory
+        $rol            = $this->request->getPost('rol');               // Mandatory
+        $ocupation      = $this->request->getPost('ocupation');         // Mandatory
+        $cellphone      = $this->request->getPost('cellphone');         // Mandatory
+        $telephone      = $this->request->getPost('telephone');         // Optional
+        $photo          = $this->request->getFile('photo');             // Optional
+        $parent         = $this->request->getPost('parent');            // Optional
+        $email_secondary= $this->request->getPost('email_secondary');   // Optional
+        $ext            = $this->request->getPost('ext');               // Optional
+        
+        // Validar que los campos no esten vacios
+        if(!$this->checkEmptyField([ $email, $name, $lastname, $password, $password2, $rol, $ocupation, $cellphone])){
             return HelperUtility::redirectWithMessage('/user/new', lang('Errors.missing_fields'));
         }
 
@@ -49,19 +52,25 @@ class Auth extends BaseController
             return HelperUtility::redirectWithMessage('/user/new', lang('Errors.auth_email_exist'));
         }
 
-        // Subir la imagen
-        if (!$this->handlePhotoUpload($photo)) {
-            return HelperUtility::redirectWithMessage('/user/new', lang('Errors.gral_upload_file_error'));
-        }
-        
-        // Obtener el nombre de la imagen
-        $newName = $photo->getName();
+        // Verificar si la imagen es valida
+        if(!$photo->isValid()){
+            $photoURL = 'assets/images/anonimo.jpg';
 
-        // Ruta de la imagen
-        $photoURL = 'uploads/images/profiles/' . $newName;
+        }else{
+
+            // Subir la imagen
+            $this->handlePhotoUpload($photo);
+
+            // Guardar la imagen
+            $newName = $photo->getName();
+            $photoURL = 'uploads/images/profiles/' . $newName;
+        }
+
+        // Encriptar la contraseña
+        $passwordHash = password_hash($password, PASSWORD_BCRYPT);
 
         // Crear nuevo usuario
-        if ($this->createUser($name, $lastname, $email, $password, $photoURL, $telephone, $rol, $ocupation, $parent)) {
+        if ($this->userModel->createUser($name, $lastname, $email, $passwordHash, $photoURL, $telephone, $rol, $ocupation, $parent, $email_secondary, $cellphone, $ext)) {
             return HelperUtility::redirectWithMessage('/user/new', 'Usuario creado exitosamente', 'success');
         }
 
@@ -99,20 +108,23 @@ class Auth extends BaseController
 
     public function updateUser()
     {
-        $id             = $this->request->getPost('id');
-        $email          = $this->request->getPost('email');
-        $name           = $this->request->getPost('name');
-        $lastname       = $this->request->getPost('lastname');
-        $password       = $this->request->getPost('password');
-        $telephone      = $this->request->getPost('telephone');
-        $photo          = $this->request->getFile('photo');
-        $rol            = $this->request->getPost('rol');
-        $ocupation      = $this->request->getPost('ocupation');
-        $parent         = $this->request->getPost('parent');
+        $id             = $this->request->getPost('id');                // Mandatory
+        $email          = $this->request->getPost('email');             // Mandatory
+        $name           = $this->request->getPost('name');              // Mandatory
+        $lastname       = $this->request->getPost('lastname');          // Mandatory
+        $rol            = $this->request->getPost('rol');               // Mandatory
+        $ocupation      = $this->request->getPost('ocupation');         // Mandatory
+        $cellphone      = $this->request->getPost('cellphone');         // Mandatory
+        $password       = $this->request->getPost('password');          // Optional
+        $telephone      = $this->request->getPost('telephone');         // Optional
+        $photo          = $this->request->getFile('photo');             // Optional
+        $parent         = $this->request->getPost('parent');            // Optional
+        $email_secondary= $this->request->getPost('email_secondary');   // Optional
+        $ext            = $this->request->getPost('ext');               // Optional
 
-        // Validación inicial de los campos requeridos
-        if (!$this->validateUpdateInput($id, $email, $name, $lastname, $telephone, $rol, $ocupation)) {
-            return HelperUtility::redirectWithMessage("/user/edit/$id", lang('Errors.missing_fields'));
+        // Validar que los campos no esten vacios
+        if(!$this->checkEmptyField([ $id, $email, $name, $lastname, $rol, $ocupation, $cellphone])){
+            return HelperUtility::redirectWithMessage('/user/new', lang('Errors.missing_fields'));
         }
 
         // Encontrar al usuario actual
@@ -141,8 +153,10 @@ class Auth extends BaseController
                 return HelperUtility::redirectWithMessage('/user/new', lang('Errors.gral_upload_file_error'));
             }
 
-            if (file_exists(ROOTPATH . 'public/' . $actualUser->photo)) {
-                unlink(ROOTPATH . 'public/' . $actualUser->photo);
+            if($actualUser->photo != 'assets/images/anonimo.jpg'){
+                if (file_exists(ROOTPATH . 'public/' . $actualUser->photo)) {
+                    unlink(ROOTPATH . 'public/' . $actualUser->photo);
+                }
             }
 
             $newName    = $photo->getName();
@@ -155,7 +169,7 @@ class Auth extends BaseController
         }
 
         // Actualizar usuario
-        if ($this->updateUserData($id, $name, $lastname, $email, $newImage, $telephone, $rol, $ocupation, $parent)) {
+        if ($this->updateUserData($id, $name, $lastname, $email, $newImage, $telephone, $rol, $ocupation, $parent, $email_secondary, $cellphone, $ext)) {
             return HelperUtility::redirectWithMessage("/user/edit/$id", 'Usuario actualizado exitosamente', 'success');
         }
 
@@ -185,26 +199,7 @@ class Auth extends BaseController
         $this->session->destroy();
         return redirect()->to(base_url('/'));
     }
-
-    // Función auxiliar para validar los campos de registro
-    private function validateRegisterInput($email, $name, $lastname, $password, $password2, $telephone, $rol, $ocupation): bool
-    {
-        return $email && $name && $lastname && $password && $password2 && $telephone && $rol && $ocupation;
-    }
     
-    // Función auxiliar para validar los campos de update
-    private function validateUpdateInput($id, $email, $name, $lastname, $telephone, $rol, $ocupation): bool
-    {
-        return $id && $email && $name && $lastname && $telephone && $rol && $ocupation;
-    }
-
-    // Función auxiliar para crear un usuario
-    private function createUser(string $name, string $lastname, string $email, string $password, string $photo, string $telephone, string $rol, string $ocupation, $parent): bool
-    {
-        $passwordHash = password_hash($password, PASSWORD_BCRYPT);
-        return $this->userModel->createUser($name, $lastname, $email, $passwordHash, $photo, $telephone, $rol, $ocupation, $parent);
-    }
-   
     // Función auxiliar para actualizar password a un usuario
     private function setNewPassword(int $id, string $password): bool
     {
@@ -213,9 +208,9 @@ class Auth extends BaseController
     }
 
     // Función auxiliar para actualizar a un usuario
-    private function updateUserData(int $id, string $name, string $lastname, string $email, string $photo, string $telephone, string $rol, string $ocupation, $parent): bool
+    private function updateUserData(int $id, string $name, string $lastname, string $email, string $photo, string $telephone, string $rol, string $ocupation, $parent, $email_secondary, $cellphone, $ext): bool
     {
-        return $this->userModel->updateUser($id, $name, $lastname, $email, $photo, $telephone, $rol, $ocupation, $parent);
+        return $this->userModel->updateUser($id, $name, $lastname, $email, $photo, $telephone, $rol, $ocupation, $parent, $email_secondary, $cellphone, $ext);
     }
 
     private function handlePhotoUpload($photo) : bool

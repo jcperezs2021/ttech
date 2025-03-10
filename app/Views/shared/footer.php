@@ -10,7 +10,7 @@
     <script src="<?= base_url('assets/js/app.min.js') ?>"></script>
     <script src="<?= base_url('assets/js/utils.js') ?>"></script>
 
-  <?php if (strpos(uri_string(), 'user') !== false || strpos(uri_string(), 'documents') !== false || strpos(uri_string(), 'trantor-informa') !== false): ?>
+  <?php if (strpos(uri_string(), 'documents') !== false || strpos(uri_string(), 'trantor-informa') !== false): ?>
     <!-- Files Config Translate -->
     <script src="<?= base_url('assets/js/files.js') ?>"></script>
   <?php endif; ?>  
@@ -26,6 +26,11 @@
     <script src="<?= base_url('assets/js/alerts.js') ?>"></script>
   <?php endif; ?>
   
+  <?php if (strpos(uri_string(), 'user/new') !== false): ?>
+    <!-- Usuario -->
+    <script src="<?= base_url('assets/js/user.js') ?>"></script>
+  <?php endif; ?>
+
   <?php if (strpos(uri_string(), 'user/edit') !== false): ?>
     <!-- Usuario -->
     <script src="<?= base_url('assets/js/user-edit.js') ?>"></script>
