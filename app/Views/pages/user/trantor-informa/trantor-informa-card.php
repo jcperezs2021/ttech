@@ -3,6 +3,8 @@
     $contentWithBreaks  = nl2br(htmlspecialchars($currentFeed->body_content));
     $likes              = json_decode($currentFeed->likes_detail, true) ?: [];
     $isLiked            = in_array(session()->get('user')->id, $likes);
+    $formatter          = new \IntlDateFormatter('es_MX', \IntlDateFormatter::LONG, \IntlDateFormatter::NONE);
+    $formattedDate      = $formatter->format(new \DateTime($currentFeed->created_at));
 ?>
 <div class="tinf__card card__feed" id="feed_c_<?= htmlspecialchars($currentFeed->id) ?>">
     <div class="tinf__header">
@@ -11,7 +13,7 @@
             <div class="tinf_profile_info">
                 <div>
                     <p><?= htmlspecialchars($currentFeed->author_name) ?></p>
-                    <span><?= htmlspecialchars($currentFeed->author_ocupation) ?></span> el <small><b><?= htmlspecialchars(date('j F, Y', strtotime($currentFeed->created_at))) ?></b></small>
+                    <span><?= htmlspecialchars($currentFeed->author_ocupation) ?></span> el <small><b><?= $formattedDate ?></b></small>
                 </div>
             </div>
         </div>

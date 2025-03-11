@@ -5,6 +5,8 @@
 </div>
 
 <script>
+
+    OrgChart.SEARCH_PLACEHOLDER = "Buscar";
     let nodes = <?php echo json_encode($org); ?>;
     let chart = new OrgChart("#tree", {
         filterBy: ['Puesto', 'Nombre'],

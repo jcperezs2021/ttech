@@ -48,6 +48,14 @@
           </a>
         </li>
         <li class="sidebar-item">
+          <a class="sidebar-link" href="<?= base_url('organization') ?>" aria-expanded="false">
+            <span>
+                <i class="ti ti-directions"></i>
+            </span>
+            <span class="hide-menu">Organigramas</span>
+          </a>
+        </li>
+        <li class="sidebar-item">
           <a class="sidebar-link" href="<?= base_url('quejas-sugerencias') ?>" aria-expanded="false">
             <span>
                 <i class="ti ti-mail"></i>
@@ -85,14 +93,6 @@
                 <i class="ti ti-file-analytics"></i>
             </span>
             <span class="hide-menu">Documentos</span>
-          </a>
-        </li>
-        <li class="sidebar-item">
-          <a class="sidebar-link" href="<?= base_url('organization') ?>" aria-expanded="false">
-            <span>
-                <i class="ti ti-directions"></i>
-            </span>
-            <span class="hide-menu">Organigramas</span>
           </a>
         </li>
         <li class="sidebar-item">

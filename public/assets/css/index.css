@@ -15,6 +15,13 @@ a{
 .f-12{
     font-size: 12px;
 }
+.bordered{
+    border: 1px solid var(--gray-2);
+    border-radius: 7px;
+}
+.bordered:hover{
+    border: 1px solid var(--gray-2);
+}
 .borderless td, .borderless th {
     border: none;
 }
@@ -75,6 +82,13 @@ a{
 }
 .dropdown-menu .dropdown-item{
     cursor: pointer;
+}
+.input__error{
+    border: 1px solid red;
+    border-radius: 8px;
+}
+.input__error:focus{
+    border: 1px solid red;
 }
 /* TINF */
 .tinf__container{

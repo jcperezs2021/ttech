@@ -159,6 +159,43 @@
                   </div>
                 </div>
               </div>
+              <div class="row">
+                <div class="col-md-6 col-lg-4">
+                  <div class="mb-3">
+                    <label class="form-label">Fecha de ingreso <small style="color:red;">*</small></label>
+                    <div class="input-group">
+                      <span class="input-group-text"><i class="ti ti-calendar"></i></span>
+                        <input 
+                          type="date" 
+                          id="date_entry" 
+                          name="date_entry" 
+                          class="form-control" 
+                          value="<?= $user->date_entry ?>"
+                          required=""
+                          max="<?= date('Y-m-d') ?>"
+                        >
+                    </div>
+                  </div>
+                </div>
+                <div class="col-md-6 col-lg-4" id="date_discharge_container" style="<?= $user->active == 1 ? 'display: none;' : '' ?>">
+                  <div class="mb-3">
+                    <label class="form-label">Fecha de baja <small style="color:red;">*</small></label>
+                    <div class="input-group <?= $user->active == 1 ? 'input__error' : '' ?>" id="date_discharge_input_container">
+                      <span class="input-group-text"><i class="ti ti-calendar"></i></span>
+                        <input 
+                          type="date" 
+                          id="date_discharge" 
+                          name="date_discharge" 
+                          class="form-control" 
+                          value="<?= $user->date_discharge ?>"
+                          <?= $user->date_discharge ? 'required' : '' ?>
+                          max="<?= date('Y-m-d') ?>"
+                        >
+                    </div>
+                    <small style="color:red;<?= $user->active == 1 ? '' : 'display:none' ?>" id="error__indicator">Seleccione fecha de baja</small>
+                  </div>
+                </div>
+              </div>
               <hr>
               <div class="row">
                 <div class="col-md-6 col-lg-4">
@@ -245,11 +282,17 @@
                 <?= session('success'); ?>
               </div>
             <?php endif; ?>
+            <?php if($user->active == 1): ?>
             <div class="d-flex">
-              <button type="submit" class="btn btn-outline-primary d-block">Actualizar usuario</button>
-              <a class="btn btn-outline-warning ms-2" id="inactive_user" style=" <?= $user->active == 1 ? '' : 'display:none' ?>">Desactivar usuario</a>
-              <a class="btn btn-outline-danger ms-2" id="active_user" style=" <?= $user->active == 1 ? 'display:none' : '' ?>">Activar usuario</a>
+              <button type="submit" class="btn btn-outline-primary d-block" id="employeDischargeSave">Actualizar usuario</button>
+              <button type="button" class="btn btn-outline-danger d-block ms-2" id="employeDischarge">Dar de baja empleado y desactivar</button>
             </div>
+            <?php endif; ?>
+            <?php if($user->active == 0): ?>
+              <div class="d-flex">
+                <button type="submit" class="btn btn-outline-primary d-block" id="employeDischargeSave">Actualizar usuario</button>
+              </div>
+            <?php endif; ?>
           </form>
         </div>
       </div>
@@ -286,5 +329,37 @@
       $('#parent').val(null).trigger('change'); // Limpiar el select2
       $('#parent').prop('disabled', true).removeAttr('required');
     }
+
+    // Función para mostrar/ocultar el campo de fecha de baja
+    $('#employeDischarge').on('click', function() {
+      $('#date_discharge_container').toggle();
+      if ($('#date_discharge_container').is(':visible')) {
+        $('#date_discharge').attr('required', 'required');
+        $('#employeDischargeSave').html('Guardar y dar de baja');
+        $('#employeDischargeSave').removeClass('btn-outline-primary').addClass('btn-danger');
+        $('#employeDischarge').removeClass('btn-outline-danger').addClass('btn-outline-primary');
+        $('#employeDischarge').html('Cancelar baja');
+      } else {
+        $('#date_discharge').removeAttr('required');
+        $('#employeDischargeSave').html('Actualizar usuario');
+        $('#employeDischargeSave').removeClass('btn-danger').addClass('btn-outline-primary');
+        $('#employeDischarge').removeClass('btn-outline-primary').addClass('btn-outline-danger');
+        $('#employeDischarge').html('Dar de baja empleado y desactivar');
+      }
+    });
+
+    // Quita la clase de error al input
+    $('#date_discharge').on('change', function(e) {
+
+      if ($('#date_discharge').val() !== '') {
+        $('#date_discharge_input_container').removeClass('input__error');
+        $('#error__indicator').hide();
+      } else {
+        $('#date_discharge_container').addClass('input__error');
+        $('#error__indicator').show();
+      }
+      
+    });
+
   });
 </script>
