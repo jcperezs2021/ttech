@@ -7,7 +7,7 @@
             <h5 class="card-title fw-semibold m-0">Directorio</h5>
           </div>
           <div class="mt-5 table-responsive directory">
-            <table class="table text-nowrap table-hover mb-0 align-middle" id="dt_table">
+            <table class="table text-nowrap table-hover mb-0 align-middle" id="dt_table_directory">
               <thead class="text-dark fs-4">
                 <tr>
                   <th class="border-bottom-0">

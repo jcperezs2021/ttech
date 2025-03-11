@@ -61,6 +61,9 @@ $routes->group('', ['filter' => 'auth:admin,user'], function($routes) {
 
     /* Directorio */
     $routes->get('/directorio', 'Directorio::index');
+
+    /* Organization */
+    $routes->get('/organization', 'Organization::index');
     
 });
 
@@ -87,9 +90,6 @@ $routes->group('', ['filter' => 'auth:admin'], function($routes) {
     $routes->post('/ocupation/new', 'Ocupation::createOcupation');
     $routes->post('/ocupation/edit', 'Ocupation::updateOcupation');
     $routes->post('/ocupation/delete', 'Ocupation::deleteOcupation');
-    
-    /* Organization */
-    $routes->get('/organization', 'Organization::index');
     
     /* Documents */
     $routes->get('/documents', 'Documents::documents');

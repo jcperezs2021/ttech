@@ -144,6 +144,13 @@ $(document).ready(function() {
             }
         }
         ).fail(() => showMessage('alert-danger', 'Error en la solicitud.'));
+
+        // Toggle node open/close
+        if(data.node.state.opened) {
+            $('#folderTree').jstree().close_node(data.node);
+        } else {
+            $('#folderTree').jstree().open_node(data.node);
+        }
     });
 
     // Block or unblock nameInput button
@@ -152,9 +159,13 @@ $(document).ready(function() {
         let createFolderButton = $('#handleCreateFolder');
         if (nameInput.trim().length > 0) {
             createFolderButton.removeAttr('disabled');
+            $('#nameInputContainer').removeClass('input__error'); 
+            $('#error__indicator').hide(); 
         }
         else {
             createFolderButton.attr('disabled', 'disabled');
+            $('#nameInputContainer').addClass('input__error');  
+            $('#error__indicator').show();
         }
     });
 
@@ -189,6 +200,7 @@ $(document).ready(function() {
                 $('#nameInput').val('');
                 pond.removeFiles();
                 $('#handleCreateFolder').attr('disabled', 'disabled');
+                $('#createDocument').modal('hide');
             }
         }).fail(() => showMessage('alert-danger', 'Error en la solicitud.'));
     });
@@ -203,5 +215,10 @@ $(document).ready(function() {
                 $('#folderTree').jstree().refresh();
             }).fail(() => showMessage('alert-danger', 'Error en la solicitud.'));
         }
+    });
+
+    // Show options
+    $(document).on('click', '.document__list_item', function(e){
+        
     });
 });

@@ -44,6 +44,13 @@ $(document).ready(function() {
             }
         }
         ).fail(() => showMessage('alert-danger', 'Error en la solicitud.'));
+
+        // Toggle node open/close
+        if(data.node.state.opened) {
+            $('#folderTree').jstree().close_node(data.node);
+        } else {
+            $('#folderTree').jstree().open_node(data.node);
+        }
     });
 
     // Hide delete button

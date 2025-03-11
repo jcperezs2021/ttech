@@ -8,7 +8,7 @@
             <a href="<?= base_url('user/new') ?>" class="btn btn-outline-primary d-block">Nuevo</a>
           </div>
           <div class="mt-5 table-responsive directory">
-            <table class="table text-nowrap table-hover mb-0 align-middle" id="dt_table">
+            <table class="table text-nowrap table-hover mb-0 align-middle" id="dt_table_users">
               <thead class="text-dark fs-4">
                 <tr>
                   <th class="border-bottom-0">

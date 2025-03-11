@@ -135,6 +135,24 @@
                 </div>
               </div>
             </div>
+            <div class="row">
+              <div class="col-md-6 col-lg-4">
+                <div class="mb-3">
+                  <label class="form-label">Fecha de ingreso <small style="color:red;">*</small></label>
+                  <div class="input-group">
+                    <span class="input-group-text"><i class="ti ti-calendar"></i></span>
+                    <input 
+                      type="date" 
+                      id="date_entry" 
+                      name="date_entry" 
+                      class="form-control" 
+                      required=""
+                      max="<?= date('Y-m-d') ?>"
+                    >
+                  </div>
+                </div>
+              </div>
+            </div>
             <hr>
             <div class="row">
               <div class="col-md-6 col-lg-4">

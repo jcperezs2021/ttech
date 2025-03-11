@@ -22,13 +22,18 @@
                   </div>
                   <div class="mb-4">
                     <label for="exampleInputPassword1" class="form-label">Password</label>
-                    <input 
-                      type="password" 
-                      id="password" 
-                      name="password" 
-                      class="form-control" 
-                      required=""
-                    >
+                    <div class="input-group">
+                      <input 
+                        type="password" 
+                        id="password" 
+                        name="password" 
+                        class="form-control" 
+                        required=""
+                      >
+                      <button type="button" class="btn bordered" id="togglePassword">
+                        <i class="ti ti-eye"></i>
+                      </button>
+                    </div>
                   </div>
                   <button type="submit" class="btn btn-primary w-100 py-8 fs-4 mb-4 rounded-2">Entrar</button>
                   <?php if (session('message') !== null) : ?>
@@ -48,3 +53,19 @@
   <script src="<?= base_url('assets/libs/bootstrap/dist/js/bootstrap.bundle.min.js') ?>"></script>
 </body>
 </html>
+
+<script>
+  document.getElementById('togglePassword').addEventListener('click', function () {
+    var passwordInput = document.getElementById('password');
+    var icon = this.querySelector('i');
+    if (passwordInput.type === 'password') {
+      passwordInput.type = 'text';
+      icon.classList.remove('ti-eye');
+      icon.classList.add('ti-eye-off');
+    } else {
+      passwordInput.type = 'password';
+      icon.classList.remove('ti-eye-off');
+      icon.classList.add('ti-eye');
+    }
+  });
+</script>

@@ -6,11 +6,11 @@ $(document).ready(function() {
             if(resp.ok){
                 let { alerts } = resp;
                 if(alerts.length > 0){
-                    $('#bell__icon').removeClass().addClass('ti ti-bell-ringing');
-                    $('#bell__icon-indicator').removeClass().addClass('notification bg-primary rounded-circle');
+                    $('#bell__icon__on').show();
+                    $('#bell__icon').hide();
                 }else{
-                    $('#bell__icon').removeClass().addClass('ti ti-bell');
-                    $('#bell__icon-indicator').removeClass().addClass('notification bg-light rounded-circle');
+                    $('#bell__icon__on').hide();
+                    $('#bell__icon').show();
                 }
             }
         });
