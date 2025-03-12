@@ -19,6 +19,7 @@ class Directorio extends BaseController
         
         return   view('shared/header',                              ['title'        => 'Organigrama'])
                 .view('shared/sidebar')
+                .view('shared/navbar')
                 .view('pages/user/directorio/directorio',           ['users'          => $this->userModel->getUsers()])
                 .view('shared/footer');
     }
