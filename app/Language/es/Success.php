@@ -26,7 +26,7 @@ return [
     'file_created'                  => 'Archivo creado',
     'file_deleted'                  => 'Archivo eliminado',
 
-    'suggestion_created'            => 'Sugerencia enviada, gracias por tu aportación',
+    'suggestion_created'            => 'Agradecemos por tomarte el tiempo de enviarnos tu queja/sugerencia. La mejora continua es fundamental dentro de Trantor. En breve te daremos el seguimiento pertinente.',
     'suggestion_status_new'         => 'Sugerencia marcada como no leída',
     'suggestion_status_open'        => 'Sugerencia marcada como leída',
     'suggestion_deleted'            => 'Sugerencia eliminada',
