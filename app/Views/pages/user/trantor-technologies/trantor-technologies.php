@@ -109,6 +109,23 @@
         </div>
         <div class="box-image-item box-image-video novi-background bg-image" style="background-image: url(<?= base_url('/assets/ttech_lp/img/quiensomos.jpg') ?>)"><a class="icon novi-icon fa fa-caret-right" href="//www.youtube.com/embed/KFVUxSynSXc" data-lightgallery="item"></a></div>
       </section>
+
+
+      <!-- Parallax -->
+      <section class="parallax-container" data-parallax-img="<?= base_url('/assets/ttech_lp/img/cableado.jpg') ?>">
+        <div class="parallax-content section-xl context-dark text-center">
+          <div class="container">
+            <div class="row justify-content-center">
+              <div class="col-md-10 col-xl-9">
+                <h2>Trantor Technologies <span class="text-light">Intranet</span></h2>
+                <div class="heading-5 font-weight-normal">Conoce lo que tenemos para ti</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      
       <!-- Our Mission-->
       <section class="section bg-default section-md">
         <div class="container">
@@ -116,8 +133,11 @@
             <div class="col-md-6">
               <h2 class="title-icon"><span class="icon icon-default mercury-icon-target-2"></span><span>Nuestra Misión</span></h2>
               <p class="big">Ser una empresa en constante innovación que busca el máximo beneficio de nuestros clientes a través de la calidad de nuestras soluciones de tecnologías de información, promoviendo siempre las mejores condiciones de trabajo para nuestros colaboradores y una alta rentabilidad para nuestros accionistas.</p>
-			<br>
-			  <p class="big">Valores:</p>
+              <br><br>
+              <h2 class="title-icon"><span class="icon icon-default mercury-icon-lightbulb-gears"></span><span>Nuestra Visión</span></h2>
+              <p class="big">Ser un aliado estratégico para nuestros clientes, diseñando e implementando las mejores soluciones en tecnologías de información, para cumplir plenamente sus requerimientos y expectativas, con base en el talento de nuestro equipo y nuestro compromiso.</p>
+			        <br><br>
+              <h2 class="title-icon"><span class="icon icon-default mercury-icon-group"></span><span>Núcleo de Valores</span></h2>
               <ul class="list-marked-2">
                 <li>Integridad</li>
                 <li>Excelencia</li>
@@ -169,20 +189,8 @@
           </div>
         </div>
       </section>
-      <section class="parallax-container" data-parallax-img="<?= base_url('/assets/ttech_lp/img/cableado.jpg') ?>">
-        <div class="parallax-content section-xl context-dark text-center">
-          <div class="container">
-            <div class="row justify-content-center">
-              <div class="col-md-10 col-xl-9">
-                <h2>Trantor Technologies <span class="text-light">Intranet</span></h2>
-                <div class="heading-5 font-weight-normal">Conoce lo que tenemos para ti</div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
 
-      <!-- Latest Articles-->
+      <!-- Intranet Secciones-->
       <section class="section bg-default section-md">
 	  <div class="container">
 		<h2 class="title-icon"><span class="icon icon-default mercury-icon-cloud-2"></span><span>Intranet secciones</span></h2>
@@ -211,7 +219,7 @@
 			</div>
 		</div>
 		<div class="box-image-small box-image-small-right">
-			<div class="item-image bg-image novi-background" style="background-image: url(<?= base_url('/assets/ttech_lp/img/secciones/directorio.jpg') ?>)"></div>
+			<div class="item-image bg-image novi-background" style="background-image: url(<?= base_url('/assets/ttech_lp/img/secciones/directorio.png') ?>)"></div>
 			<div class="item-body wow fadeInLeft">
 			<h4><a href="<?= base_url('directorio') ?>">Directorio</a></h4>
 			<p class="big">Explora nuestro nuevo directorio, localiza rapidamente el contácto de quien lo necesites.</p>

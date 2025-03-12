@@ -16,18 +16,22 @@
                   <th class="border-bottom-0">
                     <h6 class="fw-semibold mb-0">E-mail</h6>
                   </th>
+                  <?php if( session('user')->rol == 'admin' ): ?>
                   <th class="border-bottom-0">
                     <h6 class="fw-semibold mb-0">E-mail alternativo</h6>
                   </th>
+                  <?php endif ?>
                   <th class="border-bottom-0">
-                    <h6 class="fw-semibold mb-0">Telefono</h6>
+                    <h6 class="fw-semibold mb-0">Teléfono</h6>
                   </th>
                   <th class="border-bottom-0">
                     <h6 class="fw-semibold mb-0">Extensión</h6>
                   </th>
+                  <?php if( session('user')->rol == 'admin' ): ?>
                   <th class="border-bottom-0">
                     <h6 class="fw-semibold mb-0">Celular</h6>
                   </th>
+                  <?php endif ?>
                 </tr>
               </thead>
               <tbody>
@@ -55,11 +59,13 @@
                         <?= $user->email ?>
                       </p>
                     </td>
+                    <?php if( session('user')->rol == 'admin' ): ?>
                     <td class="border-bottom-0">
                       <p class="mb-0 fw-normal">
                         <?= $user->email_secondary ?>
                       </p>
                     </td>
+                    <?php endif ?>
                     <td class="border-bottom-0">
                       <p class="mb-0 fw-normal">
                         <?php
@@ -73,6 +79,7 @@
                         <?= $user->ext ?>
                       </p>
                     </td>
+                    <?php if( session('user')->rol == 'admin' ): ?>
                     <td class="border-bottom-0">
                       <p class="mb-0 fw-normal">
                         <?php
@@ -81,6 +88,7 @@
                         <?= $formattedCellphone ?>
                       </p>
                     </td>
+                    <?php endif ?>
                   </tr>     
                 <?php endforeach ?> 
               </tbody>

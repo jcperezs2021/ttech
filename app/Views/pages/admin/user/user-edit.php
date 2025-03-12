@@ -89,17 +89,19 @@
               </div>
               <div class="col-md-6 col-lg-4">
                 <div class="mb-3">
-                  <label class="form-label">Telefono</label>
+                  <label class="form-label">Teléfono</label>
                   <div class="input-group">
                     <span class="input-group-text"><i class="ti ti-phone"></i></span>
                     <input 
-                      placeholder="Telefono"
+                      placeholder="Teléfono"
                       type="text" 
                       id="telephone" 
                       name="telephone" 
                       value="<?= $user->telephone ?>"
                       class="form-control" 
                       maxlength="10"
+                      pattern="\d+"
+                      oninput="this.value = this.value.replace(/[^0-9]/g, '');"
                     >
                   </div>
                 </div>
@@ -118,6 +120,8 @@
                       class="form-control" 
                       required=""
                       maxlength="10"
+                      pattern="\d+"
+                      oninput="this.value = this.value.replace(/[^0-9]/g, '');"
                     >
                   </div>
                 </div>
@@ -135,11 +139,13 @@
                       value="<?= $user->ext ?>"
                       class="form-control" 
                       maxlength="5"
+                      pattern="\d+"
+                      oninput="this.value = this.value.replace(/[^0-9]/g, '');"
                     >
                   </div>
                 </div>
               </div>
-              <div class="col">
+              <div class="col-md-6 col-lg-4">
                 <label class="form-label">Foto</label>
                 <div class="mb-4 d-flex align-items-center">
                   <img
@@ -155,6 +161,26 @@
                       name="photo" 
                       class="form-control" 
                       accept=".png, .jpg, .jpeg"
+                    >
+                  </div>
+                </div>
+              </div>
+              <div class="col-md-6 col-lg-4">
+                <div class="mb-3">
+                  <label class="form-label">Número de Empleado <small style="color:red;">*</small></label>
+                  <div class="input-group">
+                    <span class="input-group-text"><i class="ti ti-user"></i></span>
+                    <input 
+                      placeholder="Número de Empleado"
+                      type="text"
+                      maxlength="10" 
+                      id="employee_number" 
+                      name="employee_number" 
+                      class="form-control" 
+                      value="<?= $user->employee_number ?>"
+                      required=""
+                      pattern="\d+"
+                      oninput="this.value = this.value.replace(/[^0-9]/g, '');"
                     >
                   </div>
                 </div>

@@ -58,7 +58,7 @@
         <li class="sidebar-item">
           <a class="sidebar-link" href="<?= base_url('quejas-sugerencias') ?>" aria-expanded="false">
             <span>
-                <i class="ti ti-mail"></i>
+                <i class="ti ti-mailbox"></i>
             </span>
             <span class="hide-menu">Quejas y sugerencias</span>
           </a>

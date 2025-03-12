@@ -32,6 +32,7 @@ class Auth extends BaseController
         $ocupation      = $this->request->getPost('ocupation');         // Mandatory
         $cellphone      = $this->request->getPost('cellphone');         // Mandatory
         $date_entry     = $this->request->getPost('date_entry');        // Mandatory
+        $employee_number= $this->request->getPost('employee_number');   // Mandatory
         $telephone      = $this->request->getPost('telephone');         // Optional
         $photo          = $this->request->getFile('photo');             // Optional
         $parent         = $this->request->getPost('parent');            // Optional
@@ -39,7 +40,7 @@ class Auth extends BaseController
         $ext            = $this->request->getPost('ext');               // Optional
         
         // Validar que los campos no esten vacios
-        if(!$this->checkEmptyField([ $email, $name, $lastname, $password, $password2, $rol, $ocupation, $cellphone, $date_entry])){
+        if(!$this->checkEmptyField([ $email, $name, $lastname, $password, $password2, $rol, $ocupation, $cellphone, $date_entry, $employee_number])){
             return HelperUtility::redirectWithMessage('/user/new', lang('Errors.missing_fields'));
         }
 
@@ -71,7 +72,7 @@ class Auth extends BaseController
         $passwordHash = password_hash($password, PASSWORD_BCRYPT);
 
         // Crear nuevo usuario
-        if ($this->userModel->createUser($name, $lastname, $email, $passwordHash, $photoURL, $telephone, $rol, $ocupation, $parent, $email_secondary, $cellphone, $ext, $date_entry)) {
+        if ($this->userModel->createUser($name, $lastname, $email, $passwordHash, $photoURL, $telephone, $rol, $ocupation, $parent, $email_secondary, $cellphone, $ext, $date_entry, $employee_number)) {
             return HelperUtility::redirectWithMessage('/user/new', 'Usuario creado exitosamente', 'success');
         }
 
@@ -117,6 +118,7 @@ class Auth extends BaseController
         $ocupation      = $this->request->getPost('ocupation');         // Mandatory
         $cellphone      = $this->request->getPost('cellphone');         // Mandatory
         $date_entry     = $this->request->getPost('date_entry');        // Mandatory
+        $employee_number= $this->request->getPost('employee_number');   // Mandatory
         $date_discharge = $this->request->getPost('date_discharge');    // Optional
         $password       = $this->request->getPost('password');          // Optional
         $telephone      = $this->request->getPost('telephone');         // Optional
@@ -126,7 +128,7 @@ class Auth extends BaseController
         $ext            = $this->request->getPost('ext');               // Optional
 
         // Validar que los campos no esten vacios
-        if(!$this->checkEmptyField([ $id, $email, $name, $lastname, $rol, $ocupation, $cellphone, $date_entry])){
+        if(!$this->checkEmptyField([ $id, $email, $name, $lastname, $rol, $ocupation, $cellphone, $date_entry, $employee_number])){
             return HelperUtility::redirectWithMessage('/user/new', lang('Errors.missing_fields'));
         }
 
@@ -177,7 +179,7 @@ class Auth extends BaseController
         }
 
         // Actualizar usuario
-        if ($this->updateUserData($id, $name, $lastname, $email, $newImage, $telephone, $rol, $ocupation, $parent, $email_secondary, $cellphone, $ext, $date_entry, $date_discharge)) {
+        if ($this->updateUserData($id, $name, $lastname, $email, $newImage, $telephone, $rol, $ocupation, $parent, $email_secondary, $cellphone, $ext, $date_entry, $date_discharge, $employee_number)) {
             return HelperUtility::redirectWithMessage("/user/edit/$id", 'Usuario actualizado exitosamente', 'success');
         }
 
@@ -216,9 +218,9 @@ class Auth extends BaseController
     }
 
     // Función auxiliar para actualizar a un usuario
-    private function updateUserData(int $id, string $name, string $lastname, string $email, string $photo, string $telephone, string $rol, string $ocupation, $parent, $email_secondary, $cellphone, $ext, $date_entry, $date_discharge): bool
+    private function updateUserData(int $id, string $name, string $lastname, string $email, string $photo, string $telephone, string $rol, string $ocupation, $parent, $email_secondary, $cellphone, $ext, $date_entry, $date_discharge, $employee_number): bool
     {
-        return $this->userModel->updateUser($id, $name, $lastname, $email, $photo, $telephone, $rol, $ocupation, $parent, $email_secondary, $cellphone, $ext, $date_entry, $date_discharge);
+        return $this->userModel->updateUser($id, $name, $lastname, $email, $photo, $telephone, $rol, $ocupation, $parent, $email_secondary, $cellphone, $ext, $date_entry, $date_discharge, $employee_number);
     }
 
     private function handlePhotoUpload($photo) : bool
