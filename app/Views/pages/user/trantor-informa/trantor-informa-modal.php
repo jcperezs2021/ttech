@@ -22,6 +22,16 @@
                     <div class="tinf__body">
                         <textarea rows="6" class="form-control" placeholder="Comienza a escribir aquí" name="publication" id="publicationInput"></textarea>
                     </div>
+                    <div class="mb-3 form-check">
+                        <input 
+                            type="checkbox" 
+                            class="form-check-input" 
+                            id="comments_active" 
+                            name="comments_active" 
+                            checked
+                        >
+                        <label class="form-check-label" for="comments_active">Permitir comentarios</label>
+                    </div>
                     <div class="tinf__body" id="uploadFileContainer" style="display:none">
                         <small>
                             Sube un archivo de hasta 5MB

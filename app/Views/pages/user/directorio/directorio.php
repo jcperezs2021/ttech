@@ -6,7 +6,7 @@
           <div class="d-flex justify-content-between align-items-center">
             <h5 class="card-title fw-semibold m-0">Directorio</h5>
           </div>
-          <div class="mt-5 table-responsive directory">
+          <div class="mt-5 table-responsive directory responsive">
             <table class="table text-nowrap table-hover mb-0 align-middle" id="dt_table_directory">
               <thead class="text-dark fs-4">
                 <tr>
@@ -15,6 +15,9 @@
                   </th>
                   <th class="border-bottom-0">
                     <h6 class="fw-semibold mb-0">E-mail</h6>
+                  </th>
+                  <th class="border-bottom-0">
+                    <h6 class="fw-semibold mb-0">No. Empleado</h6>
                   </th>
                   <?php if( session('user')->rol == 'admin' ): ?>
                   <th class="border-bottom-0">
@@ -57,6 +60,11 @@
                     <td class="border-bottom-0">
                       <p class="mb-0 fw-normal">
                         <?= $user->email ?>
+                      </p>
+                    </td>
+                    <td class="border-bottom-0">
+                      <p class="mb-0 fw-normal">
+                        <?= $user->employee_number ?>
                       </p>
                     </td>
                     <?php if( session('user')->rol == 'admin' ): ?>

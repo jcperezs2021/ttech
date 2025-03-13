@@ -65,12 +65,13 @@ class TrantorInforma extends BaseController
         $body_content   = $this->request->getPost('publication');
         $file           = $this->request->getPost('file');
         $images         = $this->request->getPost('images');
+        $comments_active= $this->request->getPost('comments_active');
         $author         = session()->get('user')->id;
         $file_path      = !empty($file) ? json_encode($file) : null;
         $image_path     = !empty($images) ? json_encode($images) : null;
 
         // Crear registro en BDD
-        $feed = $this->feedModel->createFeed($author, $body_content, $file_path, $image_path);
+        $feed = $this->feedModel->createFeed($author, $body_content, $file_path, $image_path, $comments_active == 'on' ? 1 : 0);
 
         if($feed){
 

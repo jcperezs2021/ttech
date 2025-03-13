@@ -193,6 +193,7 @@ a{
 .tinf__footer .action{
     display: flex;
     height: 40px;
+    justify-content: flex-end;
 }
 .tinf__footer .action button:hover{
     background-color: var(--gray);
