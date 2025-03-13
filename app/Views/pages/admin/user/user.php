@@ -12,13 +12,13 @@
               <thead class="text-dark fs-4">
                 <tr>
                   <th class="border-bottom-0">
-                    <h6 class="fw-semibold mb-0">Id</h6>
-                  </th>
-                  <th class="border-bottom-0">
                     <h6 class="fw-semibold mb-0">Nombre</h6>
                   </th>
                   <th class="border-bottom-0">
                     <h6 class="fw-semibold mb-0">E-mail</h6>
+                  </th>
+                  <th class="border-bottom-0">
+                    <h6 class="fw-semibold mb-0">No. Empleado</h6>
                   </th>
                   <th class="border-bottom-0">
                     <h6 class="fw-semibold mb-0">Estatus</h6>
@@ -37,11 +37,6 @@
               <tbody>
                 <?php foreach($users as $user): ?>
                   <tr>
-                    <td class="border-bottom-0">
-                      <p class="mb-0 fw-normal">
-                        <?= $user->id ?>
-                      </p>
-                    </td>
                     <td class="border-bottom-0">
                       <div class="d-flex align-items-center">
                         <img
@@ -62,6 +57,11 @@
                     <td class="border-bottom-0">
                       <p class="mb-0 fw-normal">
                         <?= $user->email ?>
+                      </p>
+                    </td>
+                    <td class="border-bottom-0">
+                      <p class="mb-0 fw-normal">
+                        <?= $user->employee_number ?>
                       </p>
                     </td>
                     <td class="border-bottom-0">

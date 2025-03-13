@@ -176,9 +176,11 @@ class User extends BaseController
                 ]);
             }
 
-            // Eliminar la imagen anterior
-            if (file_exists(ROOTPATH . 'public/' . $actualUser->photo)) {
-                unlink(ROOTPATH . 'public/' . $actualUser->photo);
+            if($actualUser->photo != 'assets/images/anonimo.jpg'){
+                // Eliminar la imagen anterior
+                if (file_exists(ROOTPATH . 'public/' . $actualUser->photo)) {
+                    unlink(ROOTPATH . 'public/' . $actualUser->photo);
+                }
             }
 
             // Crear nuevo nombre

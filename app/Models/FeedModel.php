@@ -11,7 +11,7 @@ class FeedModel extends Model{
     protected $useAutoIncrement   = true;
     protected $returnType         = "object";
     protected $useSoftDeletes     = true;
-    protected $allowedFields      = ['author', 'body_content', 'file_path', 'image_path', 'likes_count', 'likes_detail'];
+    protected $allowedFields      = ['author', 'body_content', 'file_path', 'comments_active', 'image_path', 'likes_count', 'likes_detail'];
     protected $useTimestamps      = true;
     protected $createdField       = 'created_at';
     protected $updatedField       = 'updated_at';
@@ -66,13 +66,14 @@ class FeedModel extends Model{
         return $this->orderBy('feed.created_at', 'DESC')->findAll();
     }
 
-    public function createFeed($author, $body_content, $file_path = NULL, $image_path = NULL)
+    public function createFeed($author, $body_content, $file_path = NULL, $image_path = NULL, $comments_active)
     {
         $data = [
             'author'        => $author,
             'body_content'  => $body_content,
             'file_path'     => $file_path,
-            'image_path'    => $image_path
+            'image_path'    => $image_path,
+            'comments_active' => $comments_active
         ];
 
         return $this->insert($data);
