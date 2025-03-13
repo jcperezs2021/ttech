@@ -17,7 +17,7 @@
           }
         },
         enableSearch: true,
-        mouseScrool: OrgChart.action.none,
+        // mouseScrool: OrgChart.action.none,
         nodeBinding: {
             field_0: "Nombre",
             field_1: "Puesto",
