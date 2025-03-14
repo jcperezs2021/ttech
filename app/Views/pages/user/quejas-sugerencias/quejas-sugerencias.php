@@ -26,7 +26,7 @@
                             name="name" 
                             class="form-control" 
                             required=""
-                            lok
+                            readonly="true"
                           >
                         </div>
                       </div>
@@ -44,6 +44,7 @@
                             name="email" 
                             class="form-control" 
                             required=""
+                            readonly="true"
                           >
                         </div>
                       </div>

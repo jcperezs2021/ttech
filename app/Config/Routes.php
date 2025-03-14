@@ -64,6 +64,7 @@ $routes->group('', ['filter' => 'auth:admin,user'], function($routes) {
 
     /* Organization */
     $routes->get('/organization', 'Organization::index');
+    $routes->get('/organization/data', 'Organization::getOrganization');
     
 });
 
