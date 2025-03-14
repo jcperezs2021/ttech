@@ -58,9 +58,11 @@
                       </div>
                     </td>
                     <td class="border-bottom-0">
+                      <?php if( $user->hide_emails != 1 ): ?>
                       <p class="mb-0 fw-normal">
                         <?= $user->email ?>
                       </p>
+                      <?php endif ?>
                     </td>
                     <td class="border-bottom-0">
                       <p class="mb-0 fw-normal">
@@ -69,9 +71,11 @@
                     </td>
                     <?php if( session('user')->rol == 'admin' ): ?>
                     <td class="border-bottom-0">
+                      <?php if( $user->hide_emails != 1 ): ?>
                       <p class="mb-0 fw-normal">
                         <?= $user->email_secondary ?>
                       </p>
+                      <?php endif ?>
                     </td>
                     <?php endif ?>
                     <td class="border-bottom-0">

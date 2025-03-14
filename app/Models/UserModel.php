@@ -11,7 +11,7 @@ class UserModel extends Model{
     protected $useAutoIncrement   = true;
     protected $returnType         = "object";
     protected $useSoftDeletes     = true;
-    protected $allowedFields      = ['name', 'lastname', 'email', 'password', 'last_login', 'active', 'photo', 'parent', 'rol', 'ocupation', 'telephone', 'email_secondary', 'cellphone', 'ext', 'date_entry', 'date_discharge', 'employee_number'];
+    protected $allowedFields      = ['name', 'lastname', 'email', 'password', 'last_login', 'active', 'photo', 'parent', 'rol', 'ocupation', 'telephone', 'email_secondary', 'cellphone', 'ext', 'date_entry', 'date_discharge', 'employee_number', 'hide_emails'];
     protected $useTimestamps      = true;
     protected $createdField       = 'created_at';
     protected $updatedField       = 'updated_at';
@@ -33,13 +33,24 @@ class UserModel extends Model{
 
         return $this->orderBy('created_at', 'DESC')->findAll();
     }
+   
+    public function getDirectory()
+    {
+
+        $this->join('ocupations', 'ocupations.id = users.ocupation')
+             ->join('users as parent', 'parent.id = users.parent', 'left')
+             ->select('users.*, ocupations.name as ocupation_name, CONCAT(parent.name, " ", parent.lastname) as parent_name, CONCAT(users.name, " ", users.lastname) as complete_name')
+             ->where('users.active', 1);
+
+        return $this->orderBy('created_at', 'DESC')->findAll();
+    }
 
     public function getUserByEmail($email)
     {
         return $this->where('email', $email)->first();
     }
 
-    public function createUser($name, $lastname, $email, $password, $photo, $telephone, $rol, $ocupation, $parent, $email_secondary, $cellphone, $ext, $date_entry, $employee_number)
+    public function createUser($name, $lastname, $email, $password, $photo, $telephone, $rol, $ocupation, $parent, $email_secondary, $cellphone, $ext, $date_entry, $employee_number, $hide_emails)
     {
         $data = [
             'name'        => $name,
@@ -56,6 +67,7 @@ class UserModel extends Model{
             'ext'         => $ext,
             'date_entry'  => $date_entry,
             'employee_number' => $employee_number,
+            'hide_emails' => $hide_emails,  
         ];
 
         return $this->insert($data);
@@ -93,7 +105,7 @@ class UserModel extends Model{
         ]);
     }
     
-    public function updateUser($id, $name, $lastname, $email, $photo, $telephone, $rol, $ocupation, $parent, $email_secondary, $cellphone, $ext, $date_entry, $date_discharge, $employee_number)
+    public function updateUser($id, $name, $lastname, $email, $photo, $telephone, $rol, $ocupation, $parent, $email_secondary, $cellphone, $ext, $date_entry, $date_discharge, $employee_number, $hide_emails)
     {
         return $this->update($id, [
             'name'        => $name,
@@ -110,6 +122,7 @@ class UserModel extends Model{
             'date_entry'  => $date_entry,
             'date_discharge' => $date_discharge,
             'employee_number' => $employee_number,
+            'hide_emails' => $hide_emails,
         ]);
     }
 
@@ -147,8 +160,9 @@ class UserModel extends Model{
     public function getOrganizationChart()
     {
         $users = $this->join('ocupations', 'ocupations.id = users.ocupation')
-                    ->select('users.id, CONCAT(users.name, " ", users.lastname) as name, ocupations.name as title, users.parent as pid, users.photo')
-                    ->findAll();
+                ->select('users.id, CONCAT(users.name, " ", users.lastname) as name, ocupations.name as title, users.parent as pid, users.photo')
+                ->where('users.active', 1)
+                ->findAll();
 
         // Convertir el resultado en un arreglo asociativo con el ID del usuario como clave
         $usersById = [];

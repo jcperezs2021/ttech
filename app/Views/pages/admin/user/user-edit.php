@@ -221,6 +221,18 @@
                     <small style="color:red;<?= $user->active == 1 ? '' : 'display:none' ?>" id="error__indicator">Seleccione fecha de baja</small>
                   </div>
                 </div>
+                <div class="col-md-6 col-lg-4 d-flex align-items-end">
+                  <div class="mb-3 form-check">
+                    <input 
+                      type="checkbox" 
+                      class="form-check-input" 
+                      id="hide_emails" 
+                      name="hide_emails" 
+                      <?= $user->hide_emails == 1 ? 'checked' : '' ?>
+                    >
+                    <label class="form-check-label" for="hide_emails">Ocultar E-mails del directorio</label>
+                  </div>
+                </div>
               </div>
               <hr>
               <div class="row">
