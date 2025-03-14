@@ -24,11 +24,6 @@
   <script src="https://cdn.jsdelivr.net/npm/jstree/dist/jstree.min.js"></script>
 <?php endif; ?>  
 
-<?php if (strpos(uri_string(), 'organization') !== false): ?>
-  <!-- OrgChart -->
-  <script src="<?= base_url('assets/js/orgchart.js') ?>"></script>
-<?php endif; ?>  
-
 <?php if (strpos(uri_string(), 'user') !== false || strpos(uri_string(), 'documents') !== false || strpos(uri_string(), 'trantor-informa') !== false): ?>
   <!-- FilePond -->
   <link href="https://unpkg.com/filepond/dist/filepond.css" rel="stylesheet">
@@ -46,6 +41,14 @@
   <link rel="stylesheet" href="<?= base_url('assets/ttech_lp/css/fonts.css') ?>" />
   <link rel="stylesheet" href="<?= base_url('assets/ttech_lp/css/style.css') ?>" />
   <style>.ie-panel{display: none;background: #212121;padding: 10px 0;box-shadow: 3px 3px 5px 0 rgba(0,0,0,.3);clear: both;text-align:center;position: relative;z-index: 1;} html.ie-10 .ie-panel, html.lt-ie-10 .ie-panel {display: block;}</style>
+<?php endif; ?>  
+
+<?php if (strpos(uri_string(), 'organization') !== false): ?>
+
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css" integrity="sha512-Evv84Mr4kqVGRNSgIGL/F/aIDqQb7xQ2vcrdIwxfjThSH8CSR7PBEakCr51Ck+w+/U6swU2Im1vVX0SVk9ABhg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/orgchart/2.1.9/css/jquery.orgchart.min.css">
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/orgchart/2.1.9/js/jquery.orgchart.min.js"></script>
 <?php endif; ?>  
 
 </head>

@@ -1,6 +1,7 @@
 /* Root Variables */
 :root {
     --primary: #1672C8;
+    --blue-org: #389be5;
     --gray: #F2F4F7;
     --gray-2: #cfcfcf;
     --white: #fff;
@@ -461,6 +462,81 @@ a{
 .directory table{
     margin-top: 30px;
     margin-bottom: 40px !important;
+}
+/* Organization */
+.min__h__100{
+    min-height: 100vh;
+}
+.orgchart { 
+    background: var(--white) !important; 
+    min-height: 100vh !important;
+}
+.orgchart .node{
+    position: relative !important;
+}
+.node-img{
+    position: absolute !important;
+    top: -10px !important;
+    left: 40px !important;
+    transform: translateX(-50%) !important;
+    width: 70px !important;
+    height: 70px !important;
+    border-radius: 50% !important;
+    object-fit: cover !important;
+}
+.orgchart .node .title{
+    font-size: 14px !important;
+    font-weight: bold;
+    height: 55px !important;
+    min-width: 280px !important;
+    width: 100% !important;
+    display: flex !important;
+    justify-content: flex-start !important;
+    white-space: inherit !important;
+    background-color: var(--blue-org) !important;
+    color: var(--white) !important;
+    border-top-left-radius: 10px !important; 
+    border-top-right-radius: 10px !important;
+    padding: 10px !important;
+    padding-left: 80px !important;
+    text-align: left !important;
+}
+.orgchart .node .content{
+    border: none !important;
+    border-bottom-right-radius: 10px !important;
+    border-bottom-left-radius: 10px !important;
+    padding: 20px !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: flex-end !important;
+    font-size: 14px !important;
+    background-color: var(--blue-org) !important;
+    color: var(--white) !important;
+}
+.orgchart .lines .leftLine{
+    border-left: 1px solid var(--blue-org) !important;
+}
+.orgchart .lines .rightLine{
+    border-right: 1px solid var(--blue-org) !important;
+}
+.orgchart .lines .downLine{
+    border-bottom: 1px solid var(--blue-org) !important;
+}
+.orgchart .lines .downLine:first-child{
+    border-top: 1px solid var(--blue-org) !important;
+}
+.orgchart .lines .topLine{
+    border-top: 2px solid var(--blue-org) !important;
+}
+.orgchart .lines .downLine{
+    border-bottom: 2px solid var(--blue-org) !important;
+}
+.orgchart .node .topEdge,
+.orgchart .node .bottomEdge,
+.orgchart .node .leftEdge,
+.orgchart .node .rightEdge{
+    color: red !important;
+    font-size: 20px !important;
 }
 /* Media Query Mobile */
 @media (max-width: 768px) {

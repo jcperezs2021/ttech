@@ -143,4 +143,39 @@ class UserModel extends Model{
             ];
         }, $users);
     }
+
+    public function getOrganizationChart()
+    {
+        $users = $this->join('ocupations', 'ocupations.id = users.ocupation')
+                    ->select('users.id, CONCAT(users.name, " ", users.lastname) as name, ocupations.name as title, users.parent as pid, users.photo')
+                    ->findAll();
+
+        // Convertir el resultado en un arreglo asociativo con el ID del usuario como clave
+        $usersById = [];
+        foreach ($users as $user) {
+            $usersById[$user->id] = [
+                'id'    => $user->id,
+                'name'  => $user->name,
+                'title' => $user->title,
+                'pid'   => $user->pid,
+                'img'   => base_url($user->photo), 
+                'children' => []
+            ];
+        }
+
+        // Construir la estructura del árbol
+        $tree = [];
+        foreach ($usersById as &$user) {
+            if ($user['pid'] === null) {
+                $tree[] = &$user;
+            } else {
+                if (isset($usersById[$user['pid']])) {
+                    $usersById[$user['pid']]['children'][] = &$user;
+                }
+            }
+        }
+
+        // Devolver el nodo raíz
+        return $tree[0];
+    }
 }
