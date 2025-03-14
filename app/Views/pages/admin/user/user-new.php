@@ -167,14 +167,25 @@
                   <div class="input-group">
                     <span class="input-group-text"><i class="ti ti-calendar"></i></span>
                     <input 
-                      type="date" 
-                      id="date_entry" 
-                      name="date_entry" 
-                      class="form-control" 
-                      required=""
-                      max="<?= date('Y-m-d') ?>"
+                    type="date" 
+                    id="date_entry" 
+                    name="date_entry" 
+                    class="form-control" 
+                    required=""
+                    max="<?= date('Y-m-d') ?>"
                     >
                   </div>
+                </div>
+              </div>
+              <div class="col-md-6 col-lg-4 d-flex align-items-end">
+                <div class="mb-3 form-check">
+                  <input 
+                    type="checkbox" 
+                    class="form-check-input" 
+                    id="hide_emails" 
+                    name="hide_emails" 
+                  >
+                  <label class="form-check-label" for="hide_emails">Ocultar E-mails del directorio</label>
                 </div>
               </div>
             </div>
