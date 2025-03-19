@@ -538,7 +538,22 @@ a{
     color: red !important;
     font-size: 20px !important;
 }
+.container__organization{
+    position: fixed;
+    top: 0;
+    left: 270px;
+    width: calc(100vw - 270px);
+    z-index: 10;
+    background-color: var(--gray);
+
+}
 /* Media Query Mobile */
+@media (max-width: 1200px) {
+    .container__organization{
+        left: 0px;
+        width: 100vw;
+    }
+}
 @media (max-width: 768px) {
     .tinf__card_filter{
         display: none;
