@@ -39,6 +39,7 @@ class Auth extends BaseController
         $email_secondary= $this->request->getPost('email_secondary');   // Optional
         $ext            = $this->request->getPost('ext');               // Optional
         $hide_emails    = $this->request->getPost('hide_emails');       // Optional
+        $ghost          = $this->request->getPost('ghost');             // Optional
         
         // Validar que los campos no esten vacios
         if(!$this->checkEmptyField([ $email, $name, $lastname, $password, $password2, $rol, $ocupation, $cellphone, $date_entry, $employee_number])){
@@ -72,10 +73,24 @@ class Auth extends BaseController
         // Encriptar la contraseña
         $passwordHash = password_hash($password, PASSWORD_BCRYPT);
 
-        // Crear nuevo usuario
-        if ($this->userModel->createUser($name, $lastname, $email, $passwordHash, $photoURL, $telephone, $rol, $ocupation, $parent, $email_secondary, $cellphone, $ext, $date_entry, $employee_number, $hide_emails == 'on' ? 1 : 0)) {
-            return HelperUtility::redirectWithMessage('/user/new', 'Usuario creado exitosamente', 'success');
+        // Si tiene ghost setearlo
+        if($ghost == 'on'){
+
+            // Crear nuevo usuario con ghost
+            $ghost_user = $this->userModel->createUser($name, $lastname, $email."_ghost", $passwordHash, $photoURL, $telephone, $rol, $ocupation, $parent, $email_secondary, $cellphone, $ext, $date_entry, $employee_number, $hide_emails == 'on' ? 1 : 0, 1);
+
+            // Crear usuario final
+            if ($this->userModel->createUser($name, $lastname, $email, $passwordHash, $photoURL, $telephone, $rol, $ocupation, $ghost_user, $email_secondary, $cellphone, $ext, $date_entry, $employee_number, $hide_emails == 'on' ? 1 : 0, 0)) {
+                return HelperUtility::redirectWithMessage('/user/new', 'Usuario creado exitosamente', 'success');
+            }
+
+        }else{
+            // Crear nuevo usuario
+            if ($this->userModel->createUser($name, $lastname, $email, $passwordHash, $photoURL, $telephone, $rol, $ocupation, $parent, $email_secondary, $cellphone, $ext, $date_entry, $employee_number, $hide_emails == 'on' ? 1 : 0)) {
+                return HelperUtility::redirectWithMessage('/user/new', 'Usuario creado exitosamente', 'success');
+            }
         }
+
 
         // En caso de error
         return HelperUtility::redirectWithMessage('/user/new', lang('Errors.error_try_again_later'));

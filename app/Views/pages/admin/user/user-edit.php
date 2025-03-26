@@ -256,7 +256,9 @@
                           <option value="<?= $user->parent ?>"><?= $user->parent_name ?></option>
                           <?php foreach($users as $user_local): ?>
                           <?php if ($user_local->id != $user->id): ?>
-                            <option value="<?= $user_local->id ?>"><?= $user_local->complete_name ?></option>
+                            <?php if( !$user_local->ghost ): ?>
+                              <option value="<?= $user_local->id ?>"><?= $user_local->complete_name ?></option>
+                            <?php endif; ?>
                           <?php endif; ?>
                           <?php endforeach; ?>
                         </select>

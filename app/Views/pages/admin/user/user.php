@@ -36,69 +36,71 @@
               </thead>
               <tbody>
                 <?php foreach($users as $user): ?>
-                  <tr>
-                    <td class="border-bottom-0">
-                      <div class="d-flex align-items-center">
-                        <img
-                          class="rounded-circle" width="35" height="35"
-                          alt="<?= $user->name ?>"
-                          src="<?= base_url( $user->photo) ?>"
-                        />
-                        <div class="ms-2">
-                          <h6 class="fw-semibold mb-1">
-                            <?= $user->name ?>
-                          </h6>
-                          <span class="fw-normal">
-                            <?= $user->lastname ?>
-                          </span>                          
+                  <?php if( !$user->ghost ): ?>
+                    <tr>
+                      <td class="border-bottom-0">
+                        <div class="d-flex align-items-center">
+                          <img
+                            class="rounded-circle" width="35" height="35"
+                            alt="<?= $user->name ?>"
+                            src="<?= base_url( $user->photo) ?>"
+                          />
+                          <div class="ms-2">
+                            <h6 class="fw-semibold mb-1">
+                              <?= $user->name ?>
+                            </h6>
+                            <span class="fw-normal">
+                              <?= $user->lastname ?>
+                            </span>                          
+                          </div>
                         </div>
-                      </div>
-                    </td>
-                    <td class="border-bottom-0">
-                      <p class="mb-0 fw-normal">
-                        <?= $user->email ?>
-                      </p>
-                    </td>
-                    <td class="border-bottom-0">
-                      <p class="mb-0 fw-normal">
-                        <?= $user->employee_number ?>
-                      </p>
-                    </td>
-                    <td class="border-bottom-0">
-                      <div class="d-flex align-items-center gap-2">
-                        <span class="<?= $user->active == 1 ? 'bg-success' : 'bg-danger' ?> badge rounded-3 fw-semibold">
-                          <?= $user->active == 1 ? 'Activo' : 'Inactivo' ?>
-                        </span>
-                      </div>
-                    </td>
-                    <td class="border-bottom-0">
-                      <p class="mb-0 fw-normal">
-                        <?= $user->last_login == NULL ? 'Sin actividad' : $user->last_login ?>
-                      </p>
-                    </td>
-                    <td class="border-bottom-0">
-                      <p class="mb-0 fw-normal">
-                        <?php
-                          if ($user->rol == 'admin') {
-                            echo 'Administrador';
-                          } elseif ($user->rol == 'extern-zpl') {
-                            echo 'Externo ZPL';
-                          } else {
-                            echo 'Usuario';
-                          }
-                        ?>
-                      </p>
-                    </td>
-                    <td class="border-bottom-0">
-                      <h6 class="fw-normal mb-0 fs-4">
-                        <a class="btn p-1 px-2" href="<?= base_url('user/edit/'.$user->id) ?>">
-                          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="#5D87FF" width="24" height="24">
-                            <path stroke-linecap="round" stroke-linejoin="round" d="m16.862 4.487 1.687-1.688a1.875 1.875 0 1 1 2.652 2.652L6.832 19.82a4.5 4.5 0 0 1-1.897 1.13l-2.685.8.8-2.685a4.5 4.5 0 0 1 1.13-1.897L16.863 4.487Zm0 0L19.5 7.125" />
-                          </svg>
-                        </a>
-                      </h6>
-                    </td>
-                  </tr>     
+                      </td>
+                      <td class="border-bottom-0">
+                        <p class="mb-0 fw-normal">
+                          <?= $user->email ?>
+                        </p>
+                      </td>
+                      <td class="border-bottom-0">
+                        <p class="mb-0 fw-normal">
+                          <?= $user->employee_number ?>
+                        </p>
+                      </td>
+                      <td class="border-bottom-0">
+                        <div class="d-flex align-items-center gap-2">
+                          <span class="<?= $user->active == 1 ? 'bg-success' : 'bg-danger' ?> badge rounded-3 fw-semibold">
+                            <?= $user->active == 1 ? 'Activo' : 'Inactivo' ?>
+                          </span>
+                        </div>
+                      </td>
+                      <td class="border-bottom-0">
+                        <p class="mb-0 fw-normal">
+                          <?= $user->last_login == NULL ? 'Sin actividad' : $user->last_login ?>
+                        </p>
+                      </td>
+                      <td class="border-bottom-0">
+                        <p class="mb-0 fw-normal">
+                          <?php
+                            if ($user->rol == 'admin') {
+                              echo 'Administrador';
+                            } elseif ($user->rol == 'extern-zpl') {
+                              echo 'Externo ZPL';
+                            } else {
+                              echo 'Usuario';
+                            }
+                          ?>
+                        </p>
+                      </td>
+                      <td class="border-bottom-0">
+                        <h6 class="fw-normal mb-0 fs-4">
+                          <a class="btn p-1 px-2" href="<?= base_url('user/edit/'.$user->id) ?>">
+                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="#5D87FF" width="24" height="24">
+                              <path stroke-linecap="round" stroke-linejoin="round" d="m16.862 4.487 1.687-1.688a1.875 1.875 0 1 1 2.652 2.652L6.832 19.82a4.5 4.5 0 0 1-1.897 1.13l-2.685.8.8-2.685a4.5 4.5 0 0 1 1.13-1.897L16.863 4.487Zm0 0L19.5 7.125" />
+                            </svg>
+                          </a>
+                        </h6>
+                      </td>
+                    </tr>     
+                  <?php endif ?>
                 <?php endforeach ?>
               </tbody>
             </table>

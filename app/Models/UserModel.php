@@ -11,7 +11,7 @@ class UserModel extends Model{
     protected $useAutoIncrement   = true;
     protected $returnType         = "object";
     protected $useSoftDeletes     = true;
-    protected $allowedFields      = ['name', 'lastname', 'email', 'password', 'last_login', 'active', 'photo', 'parent', 'rol', 'ocupation', 'telephone', 'email_secondary', 'cellphone', 'ext', 'date_entry', 'date_discharge', 'employee_number', 'hide_emails'];
+    protected $allowedFields      = ['name', 'lastname', 'email', 'password', 'last_login', 'active', 'photo', 'parent', 'rol', 'ocupation', 'telephone', 'email_secondary', 'cellphone', 'ext', 'date_entry', 'date_discharge', 'employee_number', 'hide_emails', 'ghost'];
     protected $useTimestamps      = true;
     protected $createdField       = 'created_at';
     protected $updatedField       = 'updated_at';
@@ -50,7 +50,7 @@ class UserModel extends Model{
         return $this->where('email', $email)->first();
     }
 
-    public function createUser($name, $lastname, $email, $password, $photo, $telephone, $rol, $ocupation, $parent, $email_secondary, $cellphone, $ext, $date_entry, $employee_number, $hide_emails)
+    public function createUser($name, $lastname, $email, $password, $photo, $telephone, $rol, $ocupation, $parent, $email_secondary, $cellphone, $ext, $date_entry, $employee_number, $hide_emails, $ghost)
     {
         $data = [
             'name'        => $name,
@@ -68,6 +68,7 @@ class UserModel extends Model{
             'date_entry'  => $date_entry,
             'employee_number' => $employee_number,
             'hide_emails' => $hide_emails,  
+            'ghost'       => $ghost,
         ];
 
         return $this->insert($data);
@@ -160,7 +161,7 @@ class UserModel extends Model{
     public function getOrganizationChart()
     {
         $users = $this->join('ocupations', 'ocupations.id = users.ocupation')
-                ->select('users.id, CONCAT(users.name, " ", users.lastname) as name, ocupations.name as title, users.parent as pid, users.photo')
+                ->select('users.id, CONCAT(users.name, " ", users.lastname) as name, ocupations.name as title, users.parent as pid, users.photo, users.ghost')
                 ->where('users.active', 1)
                 ->findAll();
 
@@ -173,6 +174,7 @@ class UserModel extends Model{
                 'title' => $user->title,
                 'pid'   => $user->pid,
                 'img'   => base_url($user->photo), 
+                'ghost' => $user->ghost == 1 ? true : false,
                 'children' => []
             ];
         }

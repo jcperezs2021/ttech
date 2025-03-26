@@ -241,7 +241,9 @@
                     <select class="form-select select2" name="parent" id="parent" required>
                       <option value="">Selecciona jefe directo</option>
                       <?php foreach($users as $user): ?>
-                        <option value="<?= $user->id ?>"><?= $user->complete_name ?></option>
+                        <?php if( !$user->ghost ): ?>
+                          <option value="<?= $user->id ?>"><?= $user->complete_name ?></option>
+                        <?php endif; ?>
                       <?php endforeach; ?>
                     </select>
                   </div>
@@ -255,6 +257,17 @@
                       </div>
                     </div>
                   </div>
+                </div>
+              </div>
+              <div class="col-md-6 col-lg-4 d-flex align-items-end">
+                <div class="mb-3 form-check">
+                  <input 
+                    type="checkbox" 
+                    class="form-check-input" 
+                    id="ghost" 
+                    name="ghost" 
+                  >
+                  <label class="form-check-label" for="ghost">Bajar un nivel en organigrama</label>
                 </div>
               </div>
               <div class="col-md-6 col-lg-4">

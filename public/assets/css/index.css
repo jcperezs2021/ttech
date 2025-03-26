@@ -547,6 +547,9 @@ a{
     background-color: var(--gray);
 
 }
+.ghost__node .title{
+    display: none !important;
+}
 /* Media Query Mobile */
 @media (max-width: 1200px) {
     .container__organization{

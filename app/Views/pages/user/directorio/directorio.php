@@ -39,69 +39,71 @@
               </thead>
               <tbody>
                 <?php foreach($users as $user): ?>
-                  <tr>
-                    <td class="border-bottom-0">
-                      <div class="d-flex align-items-center">
-                        <img
-                          class="rounded-circle" width="70" height="70"
-                          alt="<?= $user->name ?>"
-                          src="<?= base_url( $user->photo) ?>"
-                        />
-                        <div class="ms-2">
-                          <h6 class="fw-semibold mb-1">
-                            <?= $user->name ?> <?= $user->lastname ?>
-                          </h6>
-                          <span class="fw-normal">
-                            <?= $user->ocupation_name ?>
-                          </span>                          
+                  <?php if( !$user->ghost ): ?>
+                    <tr>
+                      <td class="border-bottom-0">
+                        <div class="d-flex align-items-center">
+                          <img
+                            class="rounded-circle" width="70" height="70"
+                            alt="<?= $user->name ?>"
+                            src="<?= base_url( $user->photo) ?>"
+                          />
+                          <div class="ms-2">
+                            <h6 class="fw-semibold mb-1">
+                              <?= $user->name ?> <?= $user->lastname ?>
+                            </h6>
+                            <span class="fw-normal">
+                              <?= $user->ocupation_name ?>
+                            </span>                          
+                          </div>
                         </div>
-                      </div>
-                    </td>
-                    <td class="border-bottom-0">
-                      <?php if( $user->hide_emails != 1 ): ?>
-                      <p class="mb-0 fw-normal">
-                        <?= $user->email ?>
-                      </p>
+                      </td>
+                      <td class="border-bottom-0">
+                        <?php if( $user->hide_emails != 1 ): ?>
+                        <p class="mb-0 fw-normal">
+                          <?= $user->email ?>
+                        </p>
+                        <?php endif ?>
+                      </td>
+                      <td class="border-bottom-0">
+                        <p class="mb-0 fw-normal">
+                          <?= $user->employee_number ?>
+                        </p>
+                      </td>
+                      <?php if( session('user')->rol == 'admin' ): ?>
+                      <td class="border-bottom-0">
+                        <?php if( $user->hide_emails != 1 ): ?>
+                        <p class="mb-0 fw-normal">
+                          <?= $user->email_secondary ?>
+                        </p>
+                        <?php endif ?>
+                      </td>
                       <?php endif ?>
-                    </td>
-                    <td class="border-bottom-0">
-                      <p class="mb-0 fw-normal">
-                        <?= $user->employee_number ?>
-                      </p>
-                    </td>
-                    <?php if( session('user')->rol == 'admin' ): ?>
-                    <td class="border-bottom-0">
-                      <?php if( $user->hide_emails != 1 ): ?>
-                      <p class="mb-0 fw-normal">
-                        <?= $user->email_secondary ?>
-                      </p>
+                      <td class="border-bottom-0">
+                        <p class="mb-0 fw-normal">
+                          <?php
+                              $formattedTelephone = substr($user->telephone, 0, 2) . '-' . substr($user->telephone, 2, 4) . '-' . substr($user->telephone, 6);
+                          ?>
+                          <?= $formattedTelephone ?>
+                        </p>
+                      </td>
+                      <td class="border-bottom-0">
+                        <p class="mb-0 fw-normal">
+                          <?= $user->ext ?>
+                        </p>
+                      </td>
+                      <?php if( session('user')->rol == 'admin' ): ?>
+                      <td class="border-bottom-0">
+                        <p class="mb-0 fw-normal">
+                          <?php
+                              $formattedCellphone = substr($user->cellphone, 0, 2) . '-' . substr($user->cellphone, 2, 4) . '-' . substr($user->cellphone, 6);
+                          ?>
+                          <?= $formattedCellphone ?>
+                        </p>
+                      </td>
                       <?php endif ?>
-                    </td>
-                    <?php endif ?>
-                    <td class="border-bottom-0">
-                      <p class="mb-0 fw-normal">
-                        <?php
-                            $formattedTelephone = substr($user->telephone, 0, 2) . '-' . substr($user->telephone, 2, 4) . '-' . substr($user->telephone, 6);
-                        ?>
-                        <?= $formattedTelephone ?>
-                      </p>
-                    </td>
-                    <td class="border-bottom-0">
-                      <p class="mb-0 fw-normal">
-                        <?= $user->ext ?>
-                      </p>
-                    </td>
-                    <?php if( session('user')->rol == 'admin' ): ?>
-                    <td class="border-bottom-0">
-                      <p class="mb-0 fw-normal">
-                        <?php
-                            $formattedCellphone = substr($user->cellphone, 0, 2) . '-' . substr($user->cellphone, 2, 4) . '-' . substr($user->cellphone, 6);
-                        ?>
-                        <?= $formattedCellphone ?>
-                      </p>
-                    </td>
-                    <?php endif ?>
-                  </tr>     
+                    </tr>     
+                  <?php endif ?>
                 <?php endforeach ?> 
               </tbody>
             </table>

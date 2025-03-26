@@ -9,12 +9,15 @@ $(document).ready(function() {
             datascource = data;
             $('#chart-container').empty(); // Limpia el contenedor del organigrama
             $('#chart-container').orgchart({
-                'visibleLevel': 2,
+                'visibleLevel': 5,
                 'data': data,
                 'nodeContent': 'title',
                 'createNode': function($node, data) {
                     if (data.img) {
                         $node.prepend('<img class="node-img" src="' + data.img + '" alt="' + data.name + '">');
+                    }
+                    if(data.ghost) {
+                        $node.addClass('ghost__node');
                     }
                 }
             });
@@ -39,6 +42,9 @@ $(document).ready(function() {
                 'createNode': function($node, data) {
                     if (data.img) {
                         $node.prepend('<img class="node-img" src="' + data.img + '" alt="' + data.name + '">');
+                    }
+                    if(data.ghost) {
+                        $node.addClass('ghost__node');
                     }
                 }
             });
