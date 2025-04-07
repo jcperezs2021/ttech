@@ -13,7 +13,7 @@
   <link rel="stylesheet" href="//cdn.datatables.net/2.1.7/css/dataTables.dataTables.min.css">
   <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/toastify-js/src/toastify.min.css">
   <link rel="stylesheet" href="<?= base_url('assets/css/styles.min.css') ?>" />
-  <link rel="stylesheet" href="<?= base_url('assets/css/index.css') ?>" />
+
 
   <!-- jQuery -->
   <script src="<?= base_url('assets/libs/jquery/dist/jquery.min.js') ?>"></script>
@@ -50,6 +50,8 @@
 
   <script src="https://cdnjs.cloudflare.com/ajax/libs/orgchart/2.1.9/js/jquery.orgchart.min.js"></script>
 <?php endif; ?>  
+
+  <link rel="stylesheet" href="<?= base_url('assets/css/index.css') ?>" />
 
 </head>
 

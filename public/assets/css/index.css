@@ -473,6 +473,7 @@ a{
 }
 .orgchart .node{
     position: relative !important;
+    border: 1px dashed transparent;
 }
 .node-img{
     position: absolute !important;
@@ -484,13 +485,18 @@ a{
     border-radius: 50% !important;
     object-fit: cover !important;
 }
+.normal__node .title{
+    display: flex;
+}
+.normal__node .content{
+    display: flex;
+}
 .orgchart .node .title{
     font-size: 14px !important;
     font-weight: bold;
     height: 55px !important;
     min-width: 280px !important;
     width: 100% !important;
-    display: flex !important;
     justify-content: flex-start !important;
     white-space: inherit !important;
     background-color: var(--blue-org) !important;
@@ -506,12 +512,14 @@ a{
     border-bottom-right-radius: 10px !important;
     border-bottom-left-radius: 10px !important;
     padding: 20px !important;
-    display: flex !important;
     align-items: center !important;
     justify-content: flex-end !important;
     font-size: 14px !important;
     background-color: var(--blue-org) !important;
     color: var(--white) !important;
+}
+.orgchart .lines .topLine{
+    border-top: 2px solid var(--blue-org) !important;
 }
 .orgchart .lines .leftLine{
     border-left: 1px solid var(--blue-org) !important;
@@ -520,15 +528,12 @@ a{
     border-right: 1px solid var(--blue-org) !important;
 }
 .orgchart .lines .downLine{
-    border-bottom: 1px solid var(--blue-org) !important;
+    background-color: var(--blue-org) !important;
 }
 .orgchart .lines .downLine:first-child{
     border-top: 1px solid var(--blue-org) !important;
 }
-.orgchart .lines .topLine{
-    border-top: 2px solid var(--blue-org) !important;
-}
-.orgchart .lines .downLine{
+.orgchart .lines .downLine:last-child{
     border-bottom: 2px solid var(--blue-org) !important;
 }
 .orgchart .node .topEdge,
@@ -547,7 +552,22 @@ a{
     background-color: var(--gray);
 
 }
-.ghost__node .title{
+.ghost__node {
+    padding: 0px !important;
+    background-color:var(--blue-org) !important;
+    height: 100px !important;
+    
+}
+.ghost__node>img{
+    display: none !important;
+}
+.ghost__node>div{
+    display: none !important;
+}
+.ghost__node>i{
+    display: none !important;
+}
+.normal__node>i{
     display: none !important;
 }
 /* Media Query Mobile */
