@@ -192,6 +192,77 @@
             <hr>
             <div class="row">
               <div class="col-md-6 col-lg-4">
+                <div class="mb-4">
+                  <label class="form-label">Selecciona puesto <small style="color:red;">*</small></label>
+                  <select class="form-select select2" name="ocupation" required>
+                    <option value="">Selecciona un puesto</option>
+                    <?php foreach($ocupations as $ocupation): ?>
+                      <option value="<?= $ocupation->id ?>"><?= $ocupation->name ?></option>
+                    <?php endforeach; ?>
+                  </select>
+                </div>
+              </div>
+              <div class="col-md-6 col-lg-4">
+                <div class="mb-4">
+                  <label class="form-label">Selecciona departamento</label>
+                  <select class="form-select select2" name="department" >
+                    <option value="">Selecciona un departamento</option>
+                    <?php foreach($departments as $department): ?>
+                      <option value="<?= $department->id ?>"><?= $department->name ?></option>
+                    <?php endforeach; ?>
+                  </select>
+                </div>
+              </div>
+              <div class="col-md-6 col-lg-4 mb-4">
+                <div class="row">
+                  <div class="col-9">
+                    <label class="form-label">Jefe directo <small style="color:red;">*</small></label>
+                    <select class="form-select select2" name="parent" id="parent" required>
+                      <option value="">Selecciona jefe directo</option>
+                      <?php foreach($users as $user): ?>
+                        <?php if( !$user->ghost ): ?>
+                          <option value="<?= $user->id ?>"><?= $user->complete_name ?></option>
+                        <?php endif; ?>
+                      <?php endforeach; ?>
+                    </select>
+                  </div>
+                  <div class="col d-flex align-items-end">
+                    <div class="d-block">
+                      <div class="form-check" style="margin: 0;padding: 0;display: flex;">
+                        <input class="form-check" type="checkbox" value="1" id="no_aplica" name="no_aplica">
+                        <label class="form-check" for="no_aplica" style="margin: 0;padding: 0;padding-left: 5px;">
+                          N/A
+                        </label>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="col-md-6 col-lg-4 d-flex align-items-end">
+                <div class="mb-3 form-check">
+                  <input 
+                    type="checkbox" 
+                    class="form-check-input" 
+                    id="ghost" 
+                    name="ghost" 
+                  >
+                  <label class="form-check-label" for="ghost">Bajar un nivel en organigrama</label>
+                </div>
+              </div>
+            </div>
+            <hr>
+            <div class="row">
+              <div class="col-md-6 col-lg-4">
+                <div class="mb-4">
+                  <label class="form-label">Selecciona rol <small style="color:red;">*</small></label>
+                  <select class="form-select select2" name="rol" required>
+                    <option value="">Selecciona un rol</option>
+                    <option value="user">Usuario</option>
+                    <option value="admin">Administrador</option>
+                  </select>
+                </div>
+              </div>
+              <div class="col-md-6 col-lg-4">
                 <div class="mb-3">
                   <label class="form-label">Password <small style="color:red;">*</small></label>
                   <div class="input-group">
@@ -221,50 +292,6 @@
                       required=""
                     >
                   </div>
-                </div>
-              </div>
-              <div class="col-md-6 col-lg-4">
-                <div class="mb-4">
-                  <label class="form-label">Selecciona puesto <small style="color:red;">*</small></label>
-                  <select class="form-select select2" name="ocupation" required>
-                    <option value="">Selecciona un puesto</option>
-                    <?php foreach($ocupations as $ocupation): ?>
-                      <option value="<?= $ocupation->id ?>"><?= $ocupation->name ?></option>
-                    <?php endforeach; ?>
-                  </select>
-                </div>
-              </div>
-              <div class="col-md-6 col-lg-4 mb-4">
-                <div class="row">
-                  <div class="col-9">
-                    <label class="form-label">Jefe directo <small style="color:red;">*</small></label>
-                    <select class="form-select select2" name="parent" id="parent" required>
-                      <option value="">Selecciona jefe directo</option>
-                      <?php foreach($users as $user): ?>
-                        <option value="<?= $user->id ?>"><?= $user->complete_name ?></option>
-                      <?php endforeach; ?>
-                    </select>
-                  </div>
-                  <div class="col d-flex align-items-end">
-                    <div class="d-block">
-                      <div class="form-check" style="margin: 0;padding: 0;display: flex;">
-                        <input class="form-check" type="checkbox" value="1" id="no_aplica" name="no_aplica">
-                        <label class="form-check" for="no_aplica" style="margin: 0;padding: 0;padding-left: 5px;">
-                          N/A
-                        </label>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-              <div class="col-md-6 col-lg-4">
-                <div class="mb-4">
-                  <label class="form-label">Selecciona rol <small style="color:red;">*</small></label>
-                  <select class="form-select select2" name="rol" required>
-                    <option value="">Selecciona un rol</option>
-                    <option value="user">Usuario</option>
-                    <option value="admin">Administrador</option>
-                  </select>
                 </div>
               </div>
             </div>

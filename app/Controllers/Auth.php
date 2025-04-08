@@ -34,11 +34,13 @@ class Auth extends BaseController
         $date_entry     = $this->request->getPost('date_entry');        // Mandatory
         $employee_number= $this->request->getPost('employee_number');   // Mandatory
         $telephone      = $this->request->getPost('telephone');         // Optional
+        $department     = $this->request->getPost('department');        // Optional
         $photo          = $this->request->getFile('photo');             // Optional
         $parent         = $this->request->getPost('parent');            // Optional
         $email_secondary= $this->request->getPost('email_secondary');   // Optional
         $ext            = $this->request->getPost('ext');               // Optional
         $hide_emails    = $this->request->getPost('hide_emails');       // Optional
+        $ghost          = $this->request->getPost('ghost');             // Optional
         
         // Validar que los campos no esten vacios
         if(!$this->checkEmptyField([ $email, $name, $lastname, $password, $password2, $rol, $ocupation, $cellphone, $date_entry, $employee_number])){
@@ -72,10 +74,24 @@ class Auth extends BaseController
         // Encriptar la contraseña
         $passwordHash = password_hash($password, PASSWORD_BCRYPT);
 
-        // Crear nuevo usuario
-        if ($this->userModel->createUser($name, $lastname, $email, $passwordHash, $photoURL, $telephone, $rol, $ocupation, $parent, $email_secondary, $cellphone, $ext, $date_entry, $employee_number, $hide_emails == 'on' ? 1 : 0)) {
-            return HelperUtility::redirectWithMessage('/user/new', 'Usuario creado exitosamente', 'success');
+        // Si tiene ghost setearlo
+        if($ghost == 'on'){
+
+            // Crear nuevo usuario ghost
+            $ghost_user = $this->userModel->createUser($name, $lastname, $email."_ghost", $passwordHash, $photoURL, $telephone, $rol, $ocupation, $department, $parent, $email_secondary, $cellphone, $ext, $date_entry, $employee_number, $hide_emails == 'on' ? 1 : 0, 1, null, null);
+
+            // Crear usuario final
+            if ($this->userModel->createUser($name, $lastname, $email, $passwordHash, $photoURL, $telephone, $rol, $ocupation, $department, $ghost_user, $email_secondary, $cellphone, $ext, $date_entry, $employee_number, $hide_emails == 'on' ? 1 : 0, null, $ghost_user, $parent)) {
+                return HelperUtility::redirectWithMessage('/user/new', 'Usuario creado exitosamente', 'success');
+            }
+
+        }else{
+            // Crear nuevo usuario
+            if ($this->userModel->createUser($name, $lastname, $email, $passwordHash, $photoURL, $telephone, $rol, $ocupation, $department, $parent, $email_secondary, $cellphone, $ext, $date_entry, $employee_number, $hide_emails == 'on' ? 1 : 0, null, null, null)) {
+                return HelperUtility::redirectWithMessage('/user/new', 'Usuario creado exitosamente', 'success');
+            }
         }
+
 
         // En caso de error
         return HelperUtility::redirectWithMessage('/user/new', lang('Errors.error_try_again_later'));
@@ -123,11 +139,14 @@ class Auth extends BaseController
         $date_discharge = $this->request->getPost('date_discharge');    // Optional
         $password       = $this->request->getPost('password');          // Optional
         $telephone      = $this->request->getPost('telephone');         // Optional
+        $department     = $this->request->getPost('department');        // Optional
         $photo          = $this->request->getFile('photo');             // Optional
         $parent         = $this->request->getPost('parent');            // Optional
         $email_secondary= $this->request->getPost('email_secondary');   // Optional
         $ext            = $this->request->getPost('ext');               // Optional
         $hide_emails    = $this->request->getPost('hide_emails');       // Optional
+        $ghost          = $this->request->getPost('ghost');             // Optional
+
 
         // Validar que los campos no esten vacios
         if(!$this->checkEmptyField([ $id, $email, $name, $lastname, $rol, $ocupation, $cellphone, $date_entry, $employee_number])){
@@ -144,9 +163,9 @@ class Auth extends BaseController
         }
 
         // En caso de modificar el correo validar si el correo existe
-        if($email != $actualUser->email){
+        if(trim($email) != trim($actualUser->email)){
             if ($this->userModel->getUserByEmail($email)) {
-                return HelperUtility::redirectWithMessage("/user/edit/$id", lang('Errors.auth_email_exist'));
+            return HelperUtility::redirectWithMessage("/user/edit/$id", lang('Errors.auth_email_exist'.$email));
             }
         }
 
@@ -180,9 +199,83 @@ class Auth extends BaseController
             $this->setNewPassword($id, $password);
         }
 
-        // Actualizar usuario
-        if ($this->updateUserData($id, $name, $lastname, $email, $newImage, $telephone, $rol, $ocupation, $parent, $email_secondary, $cellphone, $ext, $date_entry, $date_discharge, $employee_number, $hide_emails == 'on' ? 1 : 0)) {
-            return HelperUtility::redirectWithMessage("/user/edit/$id", 'Usuario actualizado exitosamente', 'success');
+        // Validar si llega ghost
+        if( $ghost == 'on'){
+
+            // Verificar si no tiene ghost
+            if($actualUser->has_ghost == null){
+
+                // Crear nuevo usuario ghost
+                $ghost_user = $this->userModel->createUser(
+                    $actualUser->name, 
+                    $actualUser->lastname, 
+                    $actualUser->email."_ghost", 
+                    $actualUser->password, 
+                    $actualUser->photo, 
+                    $actualUser->telephone, 
+                    $actualUser->rol, 
+                    $actualUser->ocupation, 
+                    $actualUser->department,
+                    $parent,                // parent
+                    $actualUser->email_secondary, 
+                    $actualUser->cellphone, 
+                    $actualUser->ext, 
+                    $actualUser->date_entry, 
+                    $actualUser->employee_number, 
+                    $actualUser->hide_emails, 
+                    1, 
+                    null,
+                    null
+                );
+
+                // Actualizar usuario
+                if ($this->updateUserData($id, $name, $lastname, $email, $newImage, $telephone, $rol, $ocupation, $department, $ghost_user, $email_secondary, $cellphone, $ext, $date_entry, $date_discharge, $employee_number, $hide_emails == 'on' ? 1 : 0, null, $ghost_user, $parent)) {
+                    return HelperUtility::redirectWithMessage("/user/edit/$id", 'Usuario actualizado exitosamente', 'success');
+                }
+            }else{
+
+                // Si cambio el parent actualizarlo en el ghost
+                if($parent != $actualUser->parent){
+                    $this->userModel->setNewParent($actualUser->has_ghost, $parent);
+                    if ($this->updateUserData($id, $name, $lastname, $email, $newImage, $telephone, $rol, $ocupation, $department, $actualUser->parent, $email_secondary, $cellphone, $ext, $date_entry, $date_discharge, $employee_number, $hide_emails == 'on' ? 1 : 0, $actualUser->ghost, $actualUser->has_ghost, $parent)) {
+                        return HelperUtility::redirectWithMessage("/user/edit/$id", 'Usuario actualizado exitosamente', 'success');
+                    }
+                }
+
+                // Actualizar usuario
+                if ($this->updateUserData($id, $name, $lastname, $email, $newImage, $telephone, $rol, $ocupation, $department, $actualUser->parent, $email_secondary, $cellphone, $ext, $date_entry, $date_discharge, $employee_number, $hide_emails == 'on' ? 1 : 0, $actualUser->ghost, $actualUser->has_ghost, $actualUser->real_parent)) {
+                    return HelperUtility::redirectWithMessage("/user/edit/$id", 'Usuario actualizado exitosamente', 'success');
+                }
+            }
+        }else{
+
+            // Verificar si tiene ghost
+            if($actualUser->has_ghost != null){
+
+                // Obtener el ghost
+                $ghost_user = $this->userModel->getUsers($actualUser->has_ghost);
+                
+                // Eliminar al ghost
+                $this->userModel->deleteGhost($actualUser->has_ghost);
+
+                // Elimina el ghost y cambia de parent
+                if($actualUser->parent != $parent){
+                    // Actualizar usuario
+                    if ($this->updateUserData($id, $name, $lastname, $email, $newImage, $telephone, $rol, $ocupation, $department, $parent, $email_secondary, $cellphone, $ext, $date_entry, $date_discharge, $employee_number, $hide_emails == 'on' ? 1 : 0, null, null, null)) {
+                        return HelperUtility::redirectWithMessage("/user/edit/$id", 'Usuario actualizado exitosamente', 'success');
+                    }
+                }
+
+                // Actualizar usuario
+                if ($this->updateUserData($id, $name, $lastname, $email, $newImage, $telephone, $rol, $ocupation, $department, $ghost_user->parent, $email_secondary, $cellphone, $ext, $date_entry, $date_discharge, $employee_number, $hide_emails == 'on' ? 1 : 0, null, null, null)) {
+                    return HelperUtility::redirectWithMessage("/user/edit/$id", 'Usuario actualizado exitosamente', 'success');
+                }
+            }
+
+            // Actualizar usuario
+            if ($this->updateUserData($id, $name, $lastname, $email, $newImage, $telephone, $rol, $ocupation, $department, $parent, $email_secondary, $cellphone, $ext, $date_entry, $date_discharge, $employee_number, $hide_emails == 'on' ? 1 : 0, $actualUser->ghost, $actualUser->has_ghost, null)) {
+                return HelperUtility::redirectWithMessage("/user/edit/$id", 'Usuario actualizado exitosamente', 'success');
+            }
         }
 
         return HelperUtility::redirectWithMessage("/user/edit/$id", lang('Errors.error_try_again_later'));
@@ -220,9 +313,9 @@ class Auth extends BaseController
     }
 
     // Función auxiliar para actualizar a un usuario
-    private function updateUserData(int $id, string $name, string $lastname, string $email, string $photo, string $telephone, string $rol, string $ocupation, $parent, $email_secondary, $cellphone, $ext, $date_entry, $date_discharge, $employee_number, $hide_emails): bool
+    private function updateUserData(int $id, string $name, string $lastname, string $email, string $photo, string $telephone, string $rol, string $ocupation, $department, $parent, $email_secondary, $cellphone, $ext, $date_entry, $date_discharge, $employee_number, $hide_emails, $ghost, $has_ghost, $real_parent): bool
     {
-        return $this->userModel->updateUser($id, $name, $lastname, $email, $photo, $telephone, $rol, $ocupation, $parent, $email_secondary, $cellphone, $ext, $date_entry, $date_discharge, $employee_number, $hide_emails);
+        return $this->userModel->updateUser($id, $name, $lastname, $email, $photo, $telephone, $rol, $ocupation, $department == 0 ? null : $department, $parent, $email_secondary, $cellphone, $ext, $date_entry, $date_discharge, $employee_number, $hide_emails, $ghost, $has_ghost, $real_parent);
     }
 
     private function handlePhotoUpload($photo) : bool

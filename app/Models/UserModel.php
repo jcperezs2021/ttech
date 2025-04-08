@@ -11,7 +11,7 @@ class UserModel extends Model{
     protected $useAutoIncrement   = true;
     protected $returnType         = "object";
     protected $useSoftDeletes     = true;
-    protected $allowedFields      = ['name', 'lastname', 'email', 'password', 'last_login', 'active', 'photo', 'parent', 'rol', 'ocupation', 'telephone', 'email_secondary', 'cellphone', 'ext', 'date_entry', 'date_discharge', 'employee_number', 'hide_emails'];
+    protected $allowedFields      = ['name', 'lastname', 'email', 'password', 'last_login', 'active', 'photo', 'parent', 'rol', 'ocupation', 'telephone', 'email_secondary', 'cellphone', 'ext', 'date_entry', 'date_discharge', 'employee_number', 'hide_emails', 'ghost', 'has_ghost', 'real_parent', 'department'];
     protected $useTimestamps      = true;
     protected $createdField       = 'created_at';
     protected $updatedField       = 'updated_at';
@@ -25,8 +25,9 @@ class UserModel extends Model{
 
         $this->join('ocupations', 'ocupations.id = users.ocupation')
              ->join('users as parent', 'parent.id = users.parent', 'left')
-             ->select('users.*, ocupations.name as ocupation_name, CONCAT(parent.name, " ", parent.lastname) as parent_name, CONCAT(users.name, " ", users.lastname) as complete_name');
-        
+             ->join('users as real_parent', 'real_parent.id = users.real_parent', 'left')
+             ->join('departments', 'departments.id = users.department', 'left')
+             ->select('users.*, ocupations.name as ocupation_name, CONCAT(parent.name, " ", parent.lastname) as parent_name, CONCAT(users.name, " ", users.lastname) as complete_name, CONCAT(real_parent.name, " ", real_parent.lastname) as real_parent_complete_name, departments.name as department_name');
         if($id !== null){
             return $this->find($id);
         }
@@ -50,7 +51,7 @@ class UserModel extends Model{
         return $this->where('email', $email)->first();
     }
 
-    public function createUser($name, $lastname, $email, $password, $photo, $telephone, $rol, $ocupation, $parent, $email_secondary, $cellphone, $ext, $date_entry, $employee_number, $hide_emails)
+    public function createUser($name, $lastname, $email, $password, $photo, $telephone, $rol, $ocupation, $department, $parent, $email_secondary, $cellphone, $ext, $date_entry, $employee_number, $hide_emails, $ghost, $has_ghost, $real_parent)
     {
         $data = [
             'name'        => $name,
@@ -61,6 +62,7 @@ class UserModel extends Model{
             'telephone'   => $telephone,
             'rol'         => $rol,
             'ocupation'   => $ocupation,
+            'department'  => $department,
             'parent'      => $parent,
             'email_secondary' => $email_secondary,
             'cellphone'   => $cellphone,
@@ -68,6 +70,9 @@ class UserModel extends Model{
             'date_entry'  => $date_entry,
             'employee_number' => $employee_number,
             'hide_emails' => $hide_emails,  
+            'ghost'       => $ghost,
+            'has_ghost'   => $has_ghost,
+            'real_parent' => $real_parent,
         ];
 
         return $this->insert($data);
@@ -85,6 +90,18 @@ class UserModel extends Model{
         return $this->update($id, [
             'password' => $password,
         ]);
+    }
+    
+    public function setNewParent($id, $parent)
+    {
+        return $this->update($id, [
+            'parent' => $parent,
+        ]);
+    }
+
+    public function deleteGhost($id)
+    {
+        return $this->delete($id, true);
     }
 
     public function setNewPhoto($id, $photo)
@@ -105,7 +122,7 @@ class UserModel extends Model{
         ]);
     }
     
-    public function updateUser($id, $name, $lastname, $email, $photo, $telephone, $rol, $ocupation, $parent, $email_secondary, $cellphone, $ext, $date_entry, $date_discharge, $employee_number, $hide_emails)
+    public function updateUser($id, $name, $lastname, $email, $photo, $telephone, $rol, $ocupation, $department, $parent, $email_secondary, $cellphone, $ext, $date_entry, $date_discharge, $employee_number, $hide_emails, $ghost, $has_ghost, $real_parent)
     {
         return $this->update($id, [
             'name'        => $name,
@@ -115,6 +132,7 @@ class UserModel extends Model{
             'telephone'   => $telephone,
             'rol'         => $rol,
             'ocupation'   => $ocupation,
+            'department'  => $department,
             'parent'      => $parent,
             'email_secondary' => $email_secondary,
             'cellphone'   => $cellphone,
@@ -123,6 +141,9 @@ class UserModel extends Model{
             'date_discharge' => $date_discharge,
             'employee_number' => $employee_number,
             'hide_emails' => $hide_emails,
+            'ghost'       => $ghost,
+            'has_ghost'   => $has_ghost,
+            'real_parent' => $real_parent,
         ]);
     }
 
@@ -160,7 +181,7 @@ class UserModel extends Model{
     public function getOrganizationChart()
     {
         $users = $this->join('ocupations', 'ocupations.id = users.ocupation')
-                ->select('users.id, CONCAT(users.name, " ", users.lastname) as name, ocupations.name as title, users.parent as pid, users.photo')
+                ->select('users.id, CONCAT(users.name, " ", users.lastname) as name, ocupations.name as title, users.parent as pid, users.photo, users.ghost')
                 ->where('users.active', 1)
                 ->findAll();
 
@@ -173,6 +194,7 @@ class UserModel extends Model{
                 'title' => $user->title,
                 'pid'   => $user->pid,
                 'img'   => base_url($user->photo), 
+                'ghost' => $user->ghost == 1 ? true : false,
                 'children' => []
             ];
         }
@@ -186,6 +208,45 @@ class UserModel extends Model{
                 if (isset($usersById[$user['pid']])) {
                     $usersById[$user['pid']]['children'][] = &$user;
                 }
+            }
+        }
+
+        // Devolver el nodo raíz
+        return $tree[0];
+    }
+    
+    public function getOrganizationChartByDepartment($department)
+    {
+
+        $users = $this->join('ocupations', 'ocupations.id = users.ocupation')
+            ->select('users.id, CONCAT(users.name, " ", users.lastname) as name, ocupations.name as title, users.parent as pid, users.photo, users.ghost')
+            ->where('users.active', 1)
+            ->where('users.department', $department)
+            ->findAll();
+
+        // Convertir el resultado en un arreglo asociativo con el ID del usuario como clave
+        $usersById = [];
+        foreach ($users as $user) {
+            $usersById[$user->id] = [
+            'id'    => $user->id,
+            'name'  => $user->name,
+            'title' => $user->title,
+            'pid'   => isset($usersById[$user->pid]) ? $user->pid : null,
+            'img'   => base_url($user->photo), 
+            'ghost' => $user->ghost == 1 ? true : false,
+            'children' => []
+            ];
+        }
+
+        // Construir la estructura del árbol
+        $tree = [];
+        foreach ($usersById as &$user) {
+            if ($user['pid'] === null) {
+            $tree[] = &$user;
+            } else {
+            if (isset($usersById[$user['pid']])) {
+                $usersById[$user['pid']]['children'][] = &$user;
+            }
             }
         }
 
