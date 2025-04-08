@@ -4,6 +4,7 @@ namespace App\Controllers;
 
 use App\Models\UserModel;
 use App\Models\OcupationModel;
+use App\Models\DepartmentModel;
 
 class User extends BaseController
 {
@@ -15,6 +16,7 @@ class User extends BaseController
         $this->lang             ->setLocale('es');
         $this->userModel        = new UserModel();
         $this->ocupationModel   = new OcupationModel();
+        $this->departmentModel  = new DepartmentModel();
     }
     
     public function index(): string
@@ -35,6 +37,7 @@ class User extends BaseController
                 .view('pages/admin/user/user-new',      [ 
                                                             'ocupations'   => $this->ocupationModel->getOcupations(),
                                                             'users'        => $this->userModel->getUsers(),
+                                                            'departments'  => $this->departmentModel->getDepartments(),
                                                             'csrfName'     => csrf_token(),
                                                             'csrfHash'     => csrf_hash()
                                                         ])
@@ -48,6 +51,7 @@ class User extends BaseController
         $data['user']       = $this->userModel->getUsers($id);
         $data['users']      = $this->userModel->getUsers();
         $data['ocupations'] = $this->ocupationModel->getOcupations();
+        $data['departments'] = $this->departmentModel->getDepartments();
         
         if ($data['user']) {
             return   

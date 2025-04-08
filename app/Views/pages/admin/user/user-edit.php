@@ -2,6 +2,7 @@
   $user       = $data['user'];
   $users      = $data['users'];
   $ocupations = $data['ocupations'];
+  $departments = $data['departments'];
 ?>
 <div class="container-fluid">
   <div class="row">
@@ -248,6 +249,17 @@
                   </div>
                 </div>
                 <div class="col-md-6 col-lg-4">
+                  <div class="mb-4">
+                    <label class="form-label">Selecciona departamento</label>
+                    <select class="form-select select2" name="department">
+                      <option value="<?= $user->department ?>"><?= $user->department_name ?></option>
+                      <?php foreach($departments as $department): ?>
+                        <option value="<?= $department->id ?>"><?= $department->name ?></option>
+                      <?php endforeach; ?>
+                    </select>
+                  </div>
+                </div>
+                <div class="col-md-6 col-lg-4">
                   <div class="row">
                     <div class="col-8">
                       <div class="">
@@ -290,7 +302,9 @@
                     <label class="form-check-label" for="ghost">Bajar un nivel en organigrama</label>
                   </div>
                 </div>
-
+              </div>
+              <hr>
+              <div class="row">
                 <div class="col-md-6 col-lg-4">
                   <div class="mb-4">
                     <label class="form-label">Rol <small style="color:red;">*</small></label>

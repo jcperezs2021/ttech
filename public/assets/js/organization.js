@@ -1,8 +1,31 @@
 $(document).ready(function() {
 
-    function showOrganization() {
+    $('.select2').select2({
+        placeholder: 'Departamento',
+        allowClear: true,
+    });
+
+    // Console log al cambiar el valor de un select
+    $('#department').on('change', function() {
+        console.log($(this).val());
+        var department = $(this).val();
+        if (department) {
+            showOrganization(department);
+        }
+        else {
+            showOrganization();
+        }
+    });
+
+
+    // Inicializa el organigrama
+    function showOrganization( department = null ) {
+        var api_url = base_url + 'organization/data';
+        if (department) {
+            api_url += '/department/' + department;
+        }
         $.ajax({
-            'url': base_url + 'organization/data',
+            'url': api_url,
             'dataType': 'json'
         })
         .done(function(data) {

@@ -192,44 +192,23 @@
             <hr>
             <div class="row">
               <div class="col-md-6 col-lg-4">
-                <div class="mb-3">
-                  <label class="form-label">Password <small style="color:red;">*</small></label>
-                  <div class="input-group">
-                    <span class="input-group-text"><i class="ti ti-lock"></i></span>
-                    <input 
-                      placeholder="Password"
-                      type="password" 
-                      id="password" 
-                      name="password" 
-                      class="form-control" 
-                      required=""
-                    >
-                  </div>
-                </div>
-              </div>
-              <div class="col-md-6 col-lg-4">
-                <div class="mb-3">
-                  <label class="form-label">Confirma Password <small style="color:red;">*</small></label>
-                  <div class="input-group">
-                    <span class="input-group-text"><i class="ti ti-lock"></i></span>
-                    <input 
-                      placeholder="Confirma Password"
-                      type="password" 
-                      id="password-confirm" 
-                      name="password-confirm" 
-                      class="form-control" 
-                      required=""
-                    >
-                  </div>
-                </div>
-              </div>
-              <div class="col-md-6 col-lg-4">
                 <div class="mb-4">
                   <label class="form-label">Selecciona puesto <small style="color:red;">*</small></label>
                   <select class="form-select select2" name="ocupation" required>
                     <option value="">Selecciona un puesto</option>
                     <?php foreach($ocupations as $ocupation): ?>
                       <option value="<?= $ocupation->id ?>"><?= $ocupation->name ?></option>
+                    <?php endforeach; ?>
+                  </select>
+                </div>
+              </div>
+              <div class="col-md-6 col-lg-4">
+                <div class="mb-4">
+                  <label class="form-label">Selecciona departamento</label>
+                  <select class="form-select select2" name="department" >
+                    <option value="">Selecciona un departamento</option>
+                    <?php foreach($departments as $department): ?>
+                      <option value="<?= $department->id ?>"><?= $department->name ?></option>
                     <?php endforeach; ?>
                   </select>
                 </div>
@@ -270,6 +249,9 @@
                   <label class="form-check-label" for="ghost">Bajar un nivel en organigrama</label>
                 </div>
               </div>
+            </div>
+            <hr>
+            <div class="row">
               <div class="col-md-6 col-lg-4">
                 <div class="mb-4">
                   <label class="form-label">Selecciona rol <small style="color:red;">*</small></label>
@@ -278,6 +260,38 @@
                     <option value="user">Usuario</option>
                     <option value="admin">Administrador</option>
                   </select>
+                </div>
+              </div>
+              <div class="col-md-6 col-lg-4">
+                <div class="mb-3">
+                  <label class="form-label">Password <small style="color:red;">*</small></label>
+                  <div class="input-group">
+                    <span class="input-group-text"><i class="ti ti-lock"></i></span>
+                    <input 
+                      placeholder="Password"
+                      type="password" 
+                      id="password" 
+                      name="password" 
+                      class="form-control" 
+                      required=""
+                    >
+                  </div>
+                </div>
+              </div>
+              <div class="col-md-6 col-lg-4">
+                <div class="mb-3">
+                  <label class="form-label">Confirma Password <small style="color:red;">*</small></label>
+                  <div class="input-group">
+                    <span class="input-group-text"><i class="ti ti-lock"></i></span>
+                    <input 
+                      placeholder="Confirma Password"
+                      type="password" 
+                      id="password-confirm" 
+                      name="password-confirm" 
+                      class="form-control" 
+                      required=""
+                    >
+                  </div>
                 </div>
               </div>
             </div>

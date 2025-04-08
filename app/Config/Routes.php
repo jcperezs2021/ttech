@@ -65,6 +65,7 @@ $routes->group('', ['filter' => 'auth:admin,user'], function($routes) {
     /* Organization */
     $routes->get('/organization', 'Organization::index');
     $routes->get('/organization/data', 'Organization::getOrganization');
+    $routes->get('/organization/data/department/(:num)', 'Organization::getOrganizationByDepartment/$1');
     
 });
 
@@ -91,6 +92,14 @@ $routes->group('', ['filter' => 'auth:admin'], function($routes) {
     $routes->post('/ocupation/new', 'Ocupation::createOcupation');
     $routes->post('/ocupation/edit', 'Ocupation::updateOcupation');
     $routes->post('/ocupation/delete', 'Ocupation::deleteOcupation');
+    
+    /* Department */
+    $routes->get('/department', 'Department::index');
+    $routes->get('/department/new', 'Department::newDepartment');
+    $routes->get('/department/edit/(:num)', 'Department::editDepartment/$1');
+    $routes->post('/department/new', 'Department::createDepartment');
+    $routes->post('/department/edit', 'Department::updateDepartment');
+    $routes->post('/department/delete', 'Department::deleteDepartment');
     
     /* Documents */
     $routes->get('/documents', 'Documents::documents');
