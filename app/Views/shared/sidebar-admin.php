@@ -104,6 +104,14 @@
           </a>
         </li>
         <li class="sidebar-item">
+          <a class="sidebar-link" href="<?= base_url('department') ?>" aria-expanded="false">
+            <span>
+                <i class="ti ti-directions"></i>
+            </span>
+            <span class="hide-menu">Departamentos</span>
+          </a>
+        </li>
+        <li class="sidebar-item">
           <a class="sidebar-link" href="<?= base_url('suggestions') ?>" aria-expanded="false">
             <span>
                 <i class="ti ti-mail-opened"></i>

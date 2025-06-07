@@ -2,6 +2,7 @@
   $user       = $data['user'];
   $users      = $data['users'];
   $ocupations = $data['ocupations'];
+  $departments = $data['departments'];
 ?>
 <div class="container-fluid">
   <div class="row">
@@ -248,15 +249,28 @@
                   </div>
                 </div>
                 <div class="col-md-6 col-lg-4">
+                  <div class="mb-4">
+                    <label class="form-label">Selecciona departamento</label>
+                    <select class="form-select select2" name="department">
+                      <option value="<?= $user->department ?>"><?= $user->department_name ?></option>
+                      <?php foreach($departments as $department): ?>
+                        <option value="<?= $department->id ?>"><?= $department->name ?></option>
+                      <?php endforeach; ?>
+                    </select>
+                  </div>
+                </div>
+                <div class="col-md-6 col-lg-4">
                   <div class="row">
                     <div class="col-8">
                       <div class="">
                         <label class="form-label">Selecciona jefe directo <small style="color:red;">*</small></label>
                         <select class="form-select select2" name="parent" id="parent" required <?= is_null($user->parent) ? 'disabled' : '' ?>>
-                          <option value="<?= $user->parent ?>"><?= $user->parent_name ?></option>
+                          <option value="<?= $user->parent ?>"><?= $user->has_ghost ? $user->real_parent_complete_name : $user->parent_name ?></option>
                           <?php foreach($users as $user_local): ?>
                           <?php if ($user_local->id != $user->id): ?>
-                            <option value="<?= $user_local->id ?>"><?= $user_local->complete_name ?></option>
+                            <?php if( !$user_local->ghost ): ?>
+                              <option value="<?= $user_local->id ?>"><?= $user_local->complete_name ?></option>
+                            <?php endif; ?>
                           <?php endif; ?>
                           <?php endforeach; ?>
                         </select>
@@ -272,7 +286,45 @@
                     </div>
                   </div>
                 </div>
-
+                <div class="col-md-6 col-lg-4 d-flex align-items-end">
+                  <div class="mb-3 form-check">
+                    <input 
+                      type="checkbox" 
+                      class="form-check-input" 
+                      id="ghost" 
+                      name="ghost" 
+                      <?php 
+                        if($user->has_ghost && $user->has_ghost != 0){
+                          echo 'checked';
+                        }
+                      ?>
+                    >
+                    <label class="form-check-label" for="ghost">Bajar nivel en organigrama</label>
+                  </div>
+                </div>
+                <?php if($user->has_ghost && $user->has_ghost != 0): ?>
+                <div class="col-md-6 col-lg-4 d-flex align-items-end">
+                  <div class="mb-3">
+                    <label class="form-label">Cantidad de niveles (máximo 5)</label>
+                    <div class="input-group">
+                      <span class="input-group-text"><i class="ti ti-number"></i></span>
+                        <input 
+                          type="number" 
+                          class="form-control" 
+                          id="niveles" 
+                          name="niveles" 
+                          max="5"
+                          min="1"
+                          oninput="this.value = this.value.replace(/[^0-9]/g, '');"
+                          value="<?= $user->niveles ?>"
+                        >
+                    </div>
+                  </div>
+                </div>
+              <?php endif; ?>
+              </div>
+              <hr>
+              <div class="row">
                 <div class="col-md-6 col-lg-4">
                   <div class="mb-4">
                     <label class="form-label">Rol <small style="color:red;">*</small></label>
