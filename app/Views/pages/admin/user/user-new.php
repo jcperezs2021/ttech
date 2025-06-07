@@ -246,7 +246,7 @@
                     id="ghost" 
                     name="ghost" 
                   >
-                  <label class="form-check-label" for="ghost">Bajar un nivel en organigrama</label>
+                  <label class="form-check-label" for="ghost">Bajar nivel en organigrama</label>
                 </div>
               </div>
             </div>

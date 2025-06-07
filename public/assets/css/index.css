@@ -556,7 +556,26 @@ a{
     padding: 0px !important;
     background-color:var(--blue-org) !important;
     height: 100px !important;
-    
+}
+.ghost__node {
+    padding: 0px !important;
+    background-color:var(--blue-org) !important;
+    height: 100px !important;
+}
+.ghost__node__niveles__1{
+    height: 100px !important;
+}
+.ghost__node__niveles__2{
+    height: 243px !important;
+}
+.ghost__node__niveles__3{
+    height: 387px !important;
+}
+.ghost__node__niveles__4{
+    height: 530px !important;
+}
+.ghost__node__niveles__5{
+    height: 673px !important;
 }
 .ghost__node>img{
     display: none !important;
@@ -593,4 +612,7 @@ a{
     #s__back{
         display: block !important;
     }
+}
+.orgchart .lines .downLine:last-child{
+    border-bottom: 2px solid var(--blue-org) !important;
 }

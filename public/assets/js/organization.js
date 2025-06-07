@@ -40,6 +40,7 @@ $(document).ready(function() {
                     }
                     if(data.ghost) {
                         $node.addClass('ghost__node');
+                        $node.addClass('ghost__node__niveles__' + data.niveles);
                     }else{
                         $node.addClass('normal__node');
                     }

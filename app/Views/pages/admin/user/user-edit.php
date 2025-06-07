@@ -299,9 +299,29 @@
                         }
                       ?>
                     >
-                    <label class="form-check-label" for="ghost">Bajar un nivel en organigrama</label>
+                    <label class="form-check-label" for="ghost">Bajar nivel en organigrama</label>
                   </div>
                 </div>
+                <?php if($user->has_ghost && $user->has_ghost != 0): ?>
+                <div class="col-md-6 col-lg-4 d-flex align-items-end">
+                  <div class="mb-3">
+                    <label class="form-label">Cantidad de niveles (máximo 5)</label>
+                    <div class="input-group">
+                      <span class="input-group-text"><i class="ti ti-number"></i></span>
+                        <input 
+                          type="number" 
+                          class="form-control" 
+                          id="niveles" 
+                          name="niveles" 
+                          max="5"
+                          min="1"
+                          oninput="this.value = this.value.replace(/[^0-9]/g, '');"
+                          value="<?= $user->niveles ?>"
+                        >
+                    </div>
+                  </div>
+                </div>
+              <?php endif; ?>
               </div>
               <hr>
               <div class="row">

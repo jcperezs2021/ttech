@@ -11,7 +11,7 @@ class UserModel extends Model{
     protected $useAutoIncrement   = true;
     protected $returnType         = "object";
     protected $useSoftDeletes     = true;
-    protected $allowedFields      = ['name', 'lastname', 'email', 'password', 'last_login', 'active', 'photo', 'parent', 'rol', 'ocupation', 'telephone', 'email_secondary', 'cellphone', 'ext', 'date_entry', 'date_discharge', 'employee_number', 'hide_emails', 'ghost', 'has_ghost', 'real_parent', 'department'];
+    protected $allowedFields      = ['name', 'lastname', 'email', 'password', 'last_login', 'active', 'photo', 'parent', 'rol', 'ocupation', 'telephone', 'email_secondary', 'cellphone', 'ext', 'date_entry', 'date_discharge', 'employee_number', 'hide_emails', 'ghost', 'has_ghost', 'real_parent', 'department', 'niveles'];
     protected $useTimestamps      = true;
     protected $createdField       = 'created_at';
     protected $updatedField       = 'updated_at';
@@ -51,7 +51,7 @@ class UserModel extends Model{
         return $this->where('email', $email)->first();
     }
 
-    public function createUser($name, $lastname, $email, $password, $photo, $telephone, $rol, $ocupation, $department, $parent, $email_secondary, $cellphone, $ext, $date_entry, $employee_number, $hide_emails, $ghost, $has_ghost, $real_parent)
+    public function createUser($name, $lastname, $email, $password, $photo, $telephone, $rol, $ocupation, $department, $parent, $email_secondary, $cellphone, $ext, $date_entry, $employee_number, $hide_emails, $ghost, $has_ghost, $real_parent, $niveles)
     {
         $data = [
             'name'        => $name,
@@ -73,6 +73,7 @@ class UserModel extends Model{
             'ghost'       => $ghost,
             'has_ghost'   => $has_ghost,
             'real_parent' => $real_parent,
+            'niveles'     => $niveles,
         ];
 
         return $this->insert($data);
@@ -122,7 +123,7 @@ class UserModel extends Model{
         ]);
     }
     
-    public function updateUser($id, $name, $lastname, $email, $photo, $telephone, $rol, $ocupation, $department, $parent, $email_secondary, $cellphone, $ext, $date_entry, $date_discharge, $employee_number, $hide_emails, $ghost, $has_ghost, $real_parent)
+    public function updateUser($id, $name, $lastname, $email, $photo, $telephone, $rol, $ocupation, $department, $parent, $email_secondary, $cellphone, $ext, $date_entry, $date_discharge, $employee_number, $hide_emails, $ghost, $has_ghost, $real_parent, $niveles)
     {
         return $this->update($id, [
             'name'        => $name,
@@ -144,6 +145,7 @@ class UserModel extends Model{
             'ghost'       => $ghost,
             'has_ghost'   => $has_ghost,
             'real_parent' => $real_parent,
+            'niveles'     => $niveles,
         ]);
     }
 
@@ -181,7 +183,7 @@ class UserModel extends Model{
     public function getOrganizationChart()
     {
         $users = $this->join('ocupations', 'ocupations.id = users.ocupation')
-                ->select('users.id, CONCAT(users.name, " ", users.lastname) as name, ocupations.name as title, users.parent as pid, users.photo, users.ghost')
+                ->select('users.id, CONCAT(users.name, " ", users.lastname) as name, ocupations.name as title, users.parent as pid, users.photo, users.ghost, users.niveles')
                 ->where('users.active', 1)
                 ->findAll();
 
@@ -195,6 +197,7 @@ class UserModel extends Model{
                 'pid'   => $user->pid,
                 'img'   => base_url($user->photo), 
                 'ghost' => $user->ghost == 1 ? true : false,
+                'niveles' => $user->niveles,
                 'children' => []
             ];
         }
@@ -219,7 +222,7 @@ class UserModel extends Model{
     {
 
         $users = $this->join('ocupations', 'ocupations.id = users.ocupation')
-            ->select('users.id, CONCAT(users.name, " ", users.lastname) as name, ocupations.name as title, users.parent as pid, users.photo, users.ghost')
+            ->select('users.id, CONCAT(users.name, " ", users.lastname) as name, ocupations.name as title, users.parent as pid, users.photo, users.ghost, users.niveles')
             ->where('users.active', 1)
             ->where('users.department', $department)
             ->findAll();
@@ -234,6 +237,7 @@ class UserModel extends Model{
             'pid'   => isset($usersById[$user->pid]) ? $user->pid : null,
             'img'   => base_url($user->photo), 
             'ghost' => $user->ghost == 1 ? true : false,
+            'niveles' => $user->niveles,
             'children' => []
             ];
         }
