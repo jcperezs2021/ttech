@@ -180,81 +180,104 @@ class UserModel extends Model{
         }, $users);
     }
 
-    public function getOrganizationChart()
+    private function buildOrganizationTree($users)
     {
-        $users = $this->join('ocupations', 'ocupations.id = users.ocupation')
-                ->select('users.id, CONCAT(users.name, " ", users.lastname) as name, ocupations.name as title, users.parent as pid, users.photo, users.ghost, users.niveles')
-                ->where('users.active', 1)
-                ->findAll();
-
-        // Convertir el resultado en un arreglo asociativo con el ID del usuario como clave
+        // 1. Construir arreglo asociativo
         $usersById = [];
         foreach ($users as $user) {
             $usersById[$user->id] = [
-                'id'    => $user->id,
-                'name'  => $user->name,
-                'title' => $user->title,
-                'pid'   => $user->pid,
-                'img'   => base_url($user->photo), 
-                'ghost' => $user->ghost == 1 ? true : false,
+                'id'      => $user->id,
+                'name'    => $user->name,
+                'title'   => $user->title,
+                'pid'     => $user->pid, // temporal, se ajusta después
+                'img'     => base_url($user->photo),
+                'ghost'   => $user->ghost == 1 ? true : false,
                 'niveles' => $user->niveles,
-                'children' => []
+                'children'=> []
             ];
         }
 
-        // Construir la estructura del árbol
-        $tree = [];
+        // 2. Ajustar pid si el padre no está en el arreglo
         foreach ($usersById as &$user) {
+            if ($user['pid'] !== null && !isset($usersById[$user['pid']])) {
+                $user['pid'] = null;
+            }
+        }
+        unset($user); // Rompe la referencia
+
+        // 3. Contar cuántos nodos raíz hay (pid == null)
+        $rootCount = 0;
+        foreach ($usersById as $user) {
             if ($user['pid'] === null) {
-                $tree[] = &$user;
-            } else {
-                if (isset($usersById[$user['pid']])) {
-                    $usersById[$user['pid']]['children'][] = &$user;
-                }
+                $rootCount++;
             }
         }
 
-        // Devolver el nodo raíz
-        return $tree[0];
+        // 4. Si hay más de uno, usar nodo raíz fake
+        if ($rootCount > 1) {
+            $rootUser = [
+                'id'      => 10000001,
+                'name'    => "Trantor Technologies",
+                'title'   => null,
+                'pid'     => null,
+                'img'     => base_url('assets/images/logos/logo-2.png'),
+                'ghost'   => false,
+                'ghost_p' => true,
+                'niveles' => null,
+                'children'=> []
+            ];
+
+            $usersById = [10000001 => $rootUser] + $usersById;
+
+            // Asignar el root fake como padre a los nodos raíz
+            foreach ($usersById as &$user) {
+                if ($user['id'] != 10000001 && $user['pid'] === null) {
+                    $user['pid'] = 10000001;
+                }
+            }
+            unset($user);
+        }
+
+        // 5. Construir el árbol
+        foreach ($usersById as &$user) {
+            if ($user['pid'] !== null && isset($usersById[$user['pid']])) {
+                $usersById[$user['pid']]['children'][] = &$user;
+            }
+        }
+        unset($user);
+
+        // 6. Devolver el nodo raíz (fake si hay varios, único si solo hay uno)
+        if (isset($usersById[10000001])) {
+            return $usersById[10000001];
+        } else {
+            // Solo uno, buscar el nodo raíz real
+            foreach ($usersById as $user) {
+                if ($user['pid'] === null) {
+                    return $user;
+                }
+            }
+        }
+        return null; // Por si muere
     }
-    
+
+    public function getOrganizationChart()
+    {
+        $users = $this->join('ocupations', 'ocupations.id = users.ocupation')
+            ->select('users.id, CONCAT(users.name, " ", users.lastname) as name, ocupations.name as title, users.parent as pid, users.photo, users.ghost, users.niveles')
+            ->where('users.active', 1)
+            ->findAll();
+
+        return $this->buildOrganizationTree($users);
+    }
+
     public function getOrganizationChartByDepartment($department)
     {
-
         $users = $this->join('ocupations', 'ocupations.id = users.ocupation')
             ->select('users.id, CONCAT(users.name, " ", users.lastname) as name, ocupations.name as title, users.parent as pid, users.photo, users.ghost, users.niveles')
             ->where('users.active', 1)
             ->where('users.department', $department)
             ->findAll();
 
-        // Convertir el resultado en un arreglo asociativo con el ID del usuario como clave
-        $usersById = [];
-        foreach ($users as $user) {
-            $usersById[$user->id] = [
-            'id'    => $user->id,
-            'name'  => $user->name,
-            'title' => $user->title,
-            'pid'   => isset($usersById[$user->pid]) ? $user->pid : null,
-            'img'   => base_url($user->photo), 
-            'ghost' => $user->ghost == 1 ? true : false,
-            'niveles' => $user->niveles,
-            'children' => []
-            ];
-        }
-
-        // Construir la estructura del árbol
-        $tree = [];
-        foreach ($usersById as &$user) {
-            if ($user['pid'] === null) {
-            $tree[] = &$user;
-            } else {
-            if (isset($usersById[$user['pid']])) {
-                $usersById[$user['pid']]['children'][] = &$user;
-            }
-            }
-        }
-
-        // Devolver el nodo raíz
-        return $tree[0];
+        return $this->buildOrganizationTree($users);
     }
 }

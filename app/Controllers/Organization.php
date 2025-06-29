@@ -23,7 +23,7 @@ class Organization extends BaseController
         return   view('shared/header',                              ['title'        => 'Organigrama'])
                 .view('shared/sidebar')
                 .view('pages/admin/organization/organization',      [
-                                                                        'org'          => $this->userModel->getOrganizationChart(),
+                                                                        // 'org'          => $this->userModel->getOrganizationChart(),
                                                                         'departments'  => $this->departmentModel->getDepartments(),
                                                                     ])
                 .view('shared/footer');
