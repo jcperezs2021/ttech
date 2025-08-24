@@ -15,6 +15,9 @@
                     <h6 class="fw-semibold mb-0">Nombre</h6>
                   </th>
                   <th class="border-bottom-0">
+                    <h6 class="fw-semibold mb-0">Jefe directo</h6>
+                  </th>
+                  <th class="border-bottom-0">
                     <h6 class="fw-semibold mb-0">E-mail</h6>
                   </th>
                   <th class="border-bottom-0">
@@ -46,14 +49,16 @@
                             src="<?= base_url( $user->photo) ?>"
                           />
                           <div class="ms-2">
-                            <h6 class="fw-semibold mb-1">
-                              <?= $user->name ?>
-                            </h6>
-                            <span class="fw-normal">
-                              <?= $user->lastname ?>
-                            </span>                          
+                            <p class="mb-0 fw-normal">
+                              <?= $user->name ?> <?= $user->lastname ?>
+                            </p>                   
                           </div>
                         </div>
+                      </td>
+                      <td class="border-bottom-0">
+                        <p class="mb-0 fw-normal">
+                          <?= $user->parent_name ?>
+                        </p>
                       </td>
                       <td class="border-bottom-0">
                         <p class="mb-0 fw-normal">
@@ -110,3 +115,18 @@
     </div>
   </div>
 </div>
+<script>
+  $('#dt_table_users').DataTable().destroy();
+  $('#dt_table_users').DataTable({
+      order: [[0, 'asc']],
+      language: {url: 'https://cdn.datatables.net/plug-ins/1.10.10/i18n/Spanish.json'},
+      dom: 'Bfrtip',
+      buttons: [
+        {
+          extend: 'colvis',
+          text: 'Columna personalizada',
+        },
+        'csv', 'excel'
+      ]
+  });
+</script>

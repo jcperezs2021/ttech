@@ -5,7 +5,13 @@
     <!-- Globales -->
     <script src="<?= base_url('assets/libs/bootstrap/dist/js/bootstrap.bundle.min.js') ?>"></script>
     <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/toastify-js"></script>
-    <script src="//cdn.datatables.net/2.1.7/js/dataTables.min.js"></script>
+
+    <?php if (strpos(uri_string(), 'directorio') !== false || strpos(uri_string(), 'ocupation') !== false || strpos(uri_string(), 'department') !== false || strpos(uri_string(), 'area') !== false): ?>
+      <!-- Datatable -->
+      <script src="//cdn.datatables.net/2.1.7/js/dataTables.min.js"></script>
+    <?php endif; ?>  
+
+
     <script src="<?= base_url('assets/js/sidebarmenu.js') ?>"></script>
     <script src="<?= base_url('assets/js/app.min.js') ?>"></script>
     <script src="<?= base_url('assets/js/utils.js') ?>"></script>
@@ -15,7 +21,7 @@
     <script src="<?= base_url('assets/js/files.js') ?>"></script>
   <?php endif; ?>  
 
-  <?php if (strpos(uri_string(), 'user') !== false || strpos(uri_string(), 'organization') !== false): ?>
+  <?php if (strpos(uri_string(), 'user/new') !== false || strpos(uri_string(), 'user/edit') !== false || strpos(uri_string(), 'organization') !== false): ?>
     <!-- Select2 -->
     <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
     <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>

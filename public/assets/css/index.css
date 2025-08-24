@@ -95,6 +95,9 @@ a{
 .mw-1600{
     max-width: 1400px !important;
 }
+.dataTables_filter{
+    margin-bottom: 25px;
+}
 /* TINF */
 .tinf__container{
     display: flex;

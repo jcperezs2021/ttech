@@ -10,13 +10,41 @@
   <title>Trantor Technologies | <?= esc($title) ?></title>
   
   <link rel="shortcut icon" type="image/png" href="<?= base_url('assets/images/logos/logo-2.png') ?>" />
-  <link rel="stylesheet" href="//cdn.datatables.net/2.1.7/css/dataTables.dataTables.min.css">
   <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/toastify-js/src/toastify.min.css">
   <link rel="stylesheet" href="<?= base_url('assets/css/styles.min.css') ?>" />
 
+<?php if (strpos(uri_string(), 'directorio') !== false || strpos(uri_string(), 'ocupation') !== false || strpos(uri_string(), 'department') !== false || strpos(uri_string(), 'area') !== false): ?>
+  <!-- Datatable -->
+  <link rel="stylesheet" href="//cdn.datatables.net/2.1.7/css/dataTables.dataTables.min.css">
+<?php endif; ?>  
 
   <!-- jQuery -->
   <script src="<?= base_url('assets/libs/jquery/dist/jquery.min.js') ?>"></script>
+
+  <?php if ( strpos(uri_string(), 'user' ) !== false  ): ?>
+    <!-- Datatable User -->
+
+    <!-- DataTables núcleo -->
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.13.6/css/jquery.dataTables.min.css">
+    <link rel="stylesheet" href="https://cdn.datatables.net/buttons/2.4.1/css/buttons.dataTables.min.css" />
+    <script src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js"></script>
+
+    <!-- Extensión Buttons -->
+    <link rel="stylesheet" href="https://cdn.datatables.net/buttons/2.4.1/css/buttons.dataTables.min.css">
+    <script src="https://cdn.datatables.net/buttons/2.4.1/js/dataTables.buttons.min.js"></script>
+
+    <!-- Botón de Column Visibility -->
+    <script src="https://cdn.datatables.net/buttons/2.4.1/js/buttons.colVis.min.js"></script>
+
+
+    <script src="https://cdn.datatables.net/buttons/2.4.1/js/dataTables.buttons.min.js"></script>
+    <script src="https://cdn.datatables.net/buttons/2.4.1/js/buttons.html5.min.js"></script>
+    <script src="https://cdn.datatables.net/buttons/2.4.1/js/buttons.colVis.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
+
+    
+  <?php endif; ?>  
+
 
 <?php if ( strpos(uri_string(), 'documentos' ) !== false || strpos(uri_string(), 'documents' ) !== false ): ?>
   <!-- JsTree -->
@@ -24,7 +52,7 @@
   <script src="https://cdn.jsdelivr.net/npm/jstree/dist/jstree.min.js"></script>
 <?php endif; ?>  
 
-<?php if (strpos(uri_string(), 'user') !== false || strpos(uri_string(), 'documents') !== false || strpos(uri_string(), 'trantor-informa') !== false): ?>
+<?php if (strpos(uri_string(), 'documents') !== false || strpos(uri_string(), 'trantor-informa') !== false): ?>
   <!-- FilePond -->
   <link href="https://unpkg.com/filepond/dist/filepond.css" rel="stylesheet">
   <link href="https://unpkg.com/filepond-plugin-image-preview/dist/filepond-plugin-image-preview.css" rel="stylesheet" />
