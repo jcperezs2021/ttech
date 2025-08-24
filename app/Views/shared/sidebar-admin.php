@@ -2,7 +2,7 @@
 <aside class="left-sidebar">
   <div>
     <div class="brand-logo d-flex align-items-center justify-content-between">
-      <a href="<?= base_url('trantor-informa') ?>" class="text-nowrap logo-img">
+      <a href="<?= base_url('trantor-technologies') ?>" class="text-nowrap logo-img">
         <img src="<?= base_url('assets/images/logos/logo-1.png') ?>" height="40" alt="" />
       </a>
       <div class="close-btn d-xl-none d-block sidebartoggler cursor-pointer" id="sidebarCollapse">
@@ -16,14 +16,6 @@
           <span class="hide-menu">Intranet</span>
         </li>
         <li class="sidebar-item">
-          <a class="sidebar-link" href="<?= base_url('trantor-informa') ?>" aria-expanded="false">
-            <span>
-                <i class="ti ti-flag"></i>
-            </span>
-            <span class="hide-menu">Trantor Informa</span>
-          </a>
-        </li>
-        <li class="sidebar-item">
           <a class="sidebar-link" href="<?= base_url('trantor-technologies') ?>" aria-expanded="false">
             <span>
                 <i class="ti ti-world"></i>
@@ -32,11 +24,19 @@
           </a>
         </li>
         <li class="sidebar-item">
+          <a class="sidebar-link" href="<?= base_url('trantor-informa') ?>" aria-expanded="false">
+            <span>
+                <i class="ti ti-flag"></i>
+            </span>
+            <span class="hide-menu">Trantor Informa</span>
+          </a>
+        </li>
+        <li class="sidebar-item">
           <a class="sidebar-link" href="<?= base_url('documentos') ?>" aria-expanded="false">
             <span>
                 <i class="ti ti-files"></i>
             </span>
-            <span class="hide-menu">Documentos</span>
+            <span class="hide-menu">Políticas internas</span>
           </a>
         </li>
         <li class="sidebar-item">
@@ -60,7 +60,7 @@
             <span>
                 <i class="ti ti-mailbox"></i>
             </span>
-            <span class="hide-menu">Quejas y sugerencias</span>
+            <span class="hide-menu">Buzón de quejas y sugerencias</span>
           </a>
         </li>
         <li class="sidebar-item">
@@ -92,7 +92,7 @@
             <span>
                 <i class="ti ti-file-analytics"></i>
             </span>
-            <span class="hide-menu">Documentos</span>
+            <span class="hide-menu">Políticas internas</span>
           </a>
         </li>
         <li class="sidebar-item">
@@ -112,11 +112,19 @@
           </a>
         </li>
         <li class="sidebar-item">
+          <a class="sidebar-link" href="<?= base_url('area') ?>" aria-expanded="false">
+            <span>
+                <i class="ti ti-directions"></i>
+            </span>
+            <span class="hide-menu">Areas</span>
+          </a>
+        </li>
+        <li class="sidebar-item">
           <a class="sidebar-link" href="<?= base_url('suggestions') ?>" aria-expanded="false">
             <span>
                 <i class="ti ti-mail-opened"></i>
             </span>
-            <span class="hide-menu">Quejas y sugerencias</span>
+            <span class="hide-menu">Buzón de quejas y sugerencias</span>
           </a>
         </li>
         <li class="sidebar-item">

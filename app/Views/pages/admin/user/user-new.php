@@ -213,6 +213,17 @@
                   </select>
                 </div>
               </div>
+              <div class="col-md-6 col-lg-4">
+                <div class="mb-4">
+                  <label class="form-label">Selecciona area</label>
+                  <select class="form-select select2" name="area" >
+                    <option value="">Selecciona area</option>
+                    <?php foreach($areas as $area): ?>
+                      <option value="<?= $area->id ?>"><?= $area->name ?></option>
+                    <?php endforeach; ?>
+                  </select>
+                </div>
+              </div>
               <div class="col-md-6 col-lg-4 mb-4">
                 <div class="row">
                   <div class="col-9">
@@ -258,6 +269,7 @@
                   <select class="form-select select2" name="rol" required>
                     <option value="">Selecciona un rol</option>
                     <option value="user">Usuario</option>
+                    <option value="operator">Operador</option>
                     <option value="admin">Administrador</option>
                   </select>
                 </div>

@@ -3,6 +3,7 @@
   $users      = $data['users'];
   $ocupations = $data['ocupations'];
   $departments = $data['departments'];
+  $areas      = $data['areas'];
 ?>
 <div class="container-fluid">
   <div class="row">
@@ -260,6 +261,17 @@
                   </div>
                 </div>
                 <div class="col-md-6 col-lg-4">
+                  <div class="mb-4">
+                    <label class="form-label">Selecciona area</label>
+                    <select class="form-select select2" name="area">
+                      <option value="<?= $user->area ?>"><?= $user->area_name ?></option>
+                      <?php foreach($areas as $area): ?>
+                        <option value="<?= $area->id ?>"><?= $area->name ?></option>
+                      <?php endforeach; ?>
+                    </select>
+                  </div>
+                </div>
+                <div class="col-md-6 col-lg-4">
                   <div class="row">
                     <div class="col-8">
                       <div class="">
@@ -323,7 +335,7 @@
                 </div>
               <?php endif; ?>
               </div>
-              <hr>
+              <hr class="mt-4">
               <div class="row">
                 <div class="col-md-6 col-lg-4">
                   <div class="mb-4">
@@ -333,12 +345,15 @@
                         <?php
                           if ($user->rol == 'admin') {
                             echo 'Administrador';
+                          } elseif ($user->rol == 'operator') {
+                            echo 'Operador';
                           } else {
                             echo 'Usuario';
                           }
                         ?>
                       </option>
                       <option value="user">Usuario</option>
+                      <option value="operator">Operador</option>
                       <option value="admin">Administrador</option>
                     </select>
                   </div>

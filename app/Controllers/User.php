@@ -5,6 +5,7 @@ namespace App\Controllers;
 use App\Models\UserModel;
 use App\Models\OcupationModel;
 use App\Models\DepartmentModel;
+use App\Models\AreaModel;
 
 class User extends BaseController
 {
@@ -17,6 +18,7 @@ class User extends BaseController
         $this->userModel        = new UserModel();
         $this->ocupationModel   = new OcupationModel();
         $this->departmentModel  = new DepartmentModel();
+        $this->areaModel        = new AreaModel();
     }
     
     public function index(): string
@@ -38,6 +40,7 @@ class User extends BaseController
                                                             'ocupations'   => $this->ocupationModel->getOcupations(),
                                                             'users'        => $this->userModel->getUsers(),
                                                             'departments'  => $this->departmentModel->getDepartments(),
+                                                            'areas'        => $this->areaModel->getAreas(),
                                                             'csrfName'     => csrf_token(),
                                                             'csrfHash'     => csrf_hash()
                                                         ])
@@ -52,6 +55,7 @@ class User extends BaseController
         $data['users']      = $this->userModel->getUsers();
         $data['ocupations'] = $this->ocupationModel->getOcupations();
         $data['departments'] = $this->departmentModel->getDepartments();
+        $data['areas']      = $this->areaModel->getAreas();
         
         if ($data['user']) {
             return   

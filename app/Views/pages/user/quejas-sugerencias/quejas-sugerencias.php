@@ -119,7 +119,7 @@
                 <?php if (session('success') !== null) : ?>
                 <div class="row mt-3">
                   <div class="col-12">
-                    <button type="submit" class="btn btn-primary w-100">Enviar otra sugerencia</button>
+                    <a href="<?= base_url('quejas-sugerencias') ?>" class="btn btn-primary w-100">Enviar otra sugerencia</a>
                   </div>
                 </div>
                 <?php endif; ?>

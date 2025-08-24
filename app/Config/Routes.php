@@ -18,9 +18,9 @@ $routes->group('', function($routes) {
 });
 
 /**************************************
- * ROL USUARIO Y ADMINISTRADOR
+ * ADMINISTRADOR y OPERADOR y USUARIO
 ***************************************/
-$routes->group('', ['filter' => 'auth:admin,user'], function($routes) {
+$routes->group('', ['filter' => 'auth:admin,operator,user'], function($routes) {
 
     /* Auth */
     $routes->get('/auth/logout', 'Auth::logout');
@@ -35,6 +35,38 @@ $routes->group('', ['filter' => 'auth:admin,user'], function($routes) {
     $routes->post('/profile/update/password', 'User::updatePassword');
     $routes->post('/profile/update/photo', 'User::updatePhoto');
     $routes->post('/profile/update/profile', 'User::updateProfile');
+
+    /* Organization */
+    $routes->get('/organization', 'Organization::index');
+    $routes->get('/organization/data', 'Organization::getOrganization');
+    $routes->get('/organization/data/department/(:num)', 'Organization::getOrganizationByDepartment/$1');
+    
+});
+
+
+/**************************************
+ * ADMINISTRADOR y OPERADOR 
+***************************************/
+$routes->group('', ['filter' => 'auth:admin,operator'], function($routes) {
+
+    /* Auth */
+    $routes->post('/auth/register', 'Auth::register');
+    $routes->post('/auth/user/update', 'Auth::updateUser');
+    $routes->post('/auth/user/active', 'Auth::activeUser');
+    $routes->post('/auth/user/inactive', 'Auth::inactiveUser');
+    
+    /* Users */
+    $routes->get('/user', 'User::index');
+    $routes->get('/user/new', 'User::newUser');
+    $routes->get('/user/edit/(:num)', 'User::editUser/$1');
+    
+});
+
+
+/**************************************
+ * ROL USUARIO Y ADMINISTRADOR
+***************************************/
+$routes->group('', ['filter' => 'auth:admin,user'], function($routes) {
 
     /* Trantor Technologies */
     $routes->get('/trantor-technologies', 'TrantorTechnologies::index');
@@ -62,29 +94,14 @@ $routes->group('', ['filter' => 'auth:admin,user'], function($routes) {
     /* Directorio */
     $routes->get('/directorio', 'Directorio::index');
 
-    /* Organization */
-    $routes->get('/organization', 'Organization::index');
-    $routes->get('/organization/data', 'Organization::getOrganization');
-    $routes->get('/organization/data/department/(:num)', 'Organization::getOrganizationByDepartment/$1');
-    
 });
+
 
 /**************************************
  * ADMINISTRADOR
 ***************************************/
 $routes->group('', ['filter' => 'auth:admin'], function($routes) {
     
-    /* Auth */
-    $routes->post('/auth/register', 'Auth::register');
-    $routes->post('/auth/user/update', 'Auth::updateUser');
-    $routes->post('/auth/user/active', 'Auth::activeUser');
-    $routes->post('/auth/user/inactive', 'Auth::inactiveUser');
-    
-    /* Users */
-    $routes->get('/user', 'User::index');
-    $routes->get('/user/new', 'User::newUser');
-    $routes->get('/user/edit/(:num)', 'User::editUser/$1');
-
     /* Ocupation */
     $routes->get('/ocupation', 'Ocupation::index');
     $routes->get('/ocupation/new', 'Ocupation::newOcupation');
@@ -93,6 +110,14 @@ $routes->group('', ['filter' => 'auth:admin'], function($routes) {
     $routes->post('/ocupation/edit', 'Ocupation::updateOcupation');
     $routes->post('/ocupation/delete', 'Ocupation::deleteOcupation');
     
+    /* Area */
+    $routes->get('/area', 'Area::index');
+    $routes->get('/area/new', 'Area::newArea');
+    $routes->get('/area/edit/(:num)', 'Area::editArea/$1');
+    $routes->post('/area/new', 'Area::createArea');
+    $routes->post('/area/edit', 'Area::updateArea');
+    $routes->post('/area/delete', 'Area::deleteArea');
+
     /* Department */
     $routes->get('/department', 'Department::index');
     $routes->get('/department/new', 'Department::newDepartment');

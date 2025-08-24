@@ -82,8 +82,8 @@
                           <?php
                             if ($user->rol == 'admin') {
                               echo 'Administrador';
-                            } elseif ($user->rol == 'extern-zpl') {
-                              echo 'Externo ZPL';
+                            } elseif ($user->rol == 'operator') {
+                              echo 'Operador';
                             } else {
                               echo 'Usuario';
                             }
