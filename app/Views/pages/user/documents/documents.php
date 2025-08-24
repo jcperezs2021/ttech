@@ -1,9 +1,9 @@
-<div class="container-fluid">
+<div class="container-fluid mw-1600">
   <div class="card documents__wrapper">
     <div class="card-body">
       <h5 class="card-title fw-semibold mb-4">Documentos</h5>
       <div class="row">
-        <div class="col-md-4 mb-4 mb-md-0">
+        <div class="col-lg-3 col-md-4 mb-4 mb-md-0">
           <div id="folderTree"></div>
         </div>
         <div class="col">

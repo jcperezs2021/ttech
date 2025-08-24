@@ -5,7 +5,7 @@
   $departments = $data['departments'];
   $areas      = $data['areas'];
 ?>
-<div class="container-fluid">
+<div class="container-fluid mw-1600">
   <div class="row">
     <div class="col-lg-12 d-flex align-items-stretch">
       <div class="card w-100">

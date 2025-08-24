@@ -107,7 +107,7 @@
               </div>
             </form>
         </div>  
-        <div class="col">
+        <div class="col mt-md-0 mt-4">
           <h6 class="fw-semibold mb-4">Actualizar contraseña</h6>
           <form id="updatePassword">
             <div class="mb-3">

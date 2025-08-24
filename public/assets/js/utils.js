@@ -124,3 +124,50 @@ $(document).ajaxStart(function() {
 }).ajaxStop(function() {
   setTimeout(hideLoader, 1200);
 });
+
+// Collapse sidebar on button click
+$(document).on('click', '#sidebar__collapse__btn', function(){
+  $("#left__sidebar").addClass("left-sidebar-collapse");
+  $("#body__wrapper").addClass("body-wrapper-collapse");
+  $("#app__header").addClass("app-header-collapse");
+  $("#sidebar__collapse__container").hide();
+  $("#sidebar__expand__container").show();
+  localStorage.setItem('sidebarCollapsed', 'true');
+});
+
+// Expand sidebar on button click
+$(document).on('click', '#sidebar__expand__btn', function(){
+  $("#left__sidebar").removeClass("left-sidebar-collapse");
+  $("#body__wrapper").removeClass("body-wrapper-collapse");
+  $("#app__header").removeClass("app-header-collapse");
+  $("#sidebar__expand__container").hide();
+  $("#sidebar__collapse__container").show();
+  localStorage.setItem('sidebarCollapsed', 'false');
+});
+
+// On page load, set sidebar state from localStorage without animation
+$(function() {
+  const isCollapsed = localStorage.getItem('sidebarCollapsed') === 'true';
+
+  // Temporarily disable transitions
+  $("#left__sidebar, #body__wrapper, #app__header").addClass('no-transition');
+
+  if (isCollapsed) {
+    $("#left__sidebar").addClass("left-sidebar-collapse");
+    $("#body__wrapper").addClass("body-wrapper-collapse");
+    $("#app__header").addClass("app-header-collapse");
+    $("#sidebar__collapse__container").hide();
+    $("#sidebar__expand__container").show();
+  } else {
+    $("#left__sidebar").removeClass("left-sidebar-collapse");
+    $("#body__wrapper").removeClass("body-wrapper-collapse");
+    $("#app__header").removeClass("app-header-collapse");
+    $("#sidebar__expand__container").hide();
+    $("#sidebar__collapse__container").show();
+  }
+
+  // Force reflow and then remove the no-transition class to restore transitions
+  setTimeout(function() {
+    $("#left__sidebar, #body__wrapper, #app__header").removeClass('no-transition');
+  }, 5);
+});

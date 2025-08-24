@@ -1,4 +1,4 @@
-<div class="container-fluid">
+<div class="container-fluid mw-1600">
   <div class="row">
     <div class="col-lg-12 d-flex align-items-stretch">
       <div class="card w-100">
@@ -44,7 +44,7 @@
                       <td class="border-bottom-0">
                         <div class="d-flex align-items-center">
                           <img
-                            class="rounded-circle" width="70" height="70"
+                            class="rounded-circle" width="50" height="50"
                             alt="<?= $user->name ?>"
                             src="<?= base_url( $user->photo) ?>"
                           />
