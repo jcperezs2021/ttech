@@ -5,24 +5,48 @@ $(document).ready(function() {
         allowClear: true,
     });
 
-    // Console log al cambiar el valor de un select
+    $('.select2area').select2({
+        placeholder: 'Area',
+        allowClear: true,
+    });
+
     $('#department').on('change', function() {
-        console.log($(this).val());
+        let area = $('#area').val();
+        if(area != ""){
+            $('#area').select2('data', null);
+        }
         var department = $(this).val();
         if (department) {
-            showOrganization(department);
+            showOrganization(department, null);
         }
         else {
             showOrganization();
         }
     });
 
+    $('#area').on('change', function() {
+        let department = $('#department').val();
+        if(department != ""){
+            $('#department').select2('data', null);
+        }
+        
+        var area = $(this).val();
+        if (area) {
+            showOrganization(null, area);
+        }
+        else {
+            showOrganization();
+        }
+    });
 
     // Inicializa el organigrama
-    function showOrganization( department = null ) {
+    function showOrganization( department = null, area = null ) {
         var api_url = base_url + 'organization/data';
         if (department) {
             api_url += '/department/' + department;
+        }
+        if (area) {
+            api_url += '/area/' + area;
         }
         $.ajax({
             'url': api_url,

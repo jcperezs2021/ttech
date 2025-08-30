@@ -283,4 +283,15 @@ class UserModel extends Model{
 
         return $this->buildOrganizationTree($users);
     }
+
+    public function getOrganizationChartByArea($area)
+    {
+        $users = $this->join('ocupations', 'ocupations.id = users.ocupation')
+            ->select('users.id, CONCAT(users.name, " ", users.lastname) as name, ocupations.name as title, users.parent as pid, users.photo, users.ghost, users.niveles')
+            ->where('users.active', 1)
+            ->where('users.area', $area)
+            ->findAll();
+
+        return $this->buildOrganizationTree($users);
+    }
 }
