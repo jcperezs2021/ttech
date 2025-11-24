@@ -11,7 +11,7 @@ class UserModel extends Model{
     protected $useAutoIncrement   = true;
     protected $returnType         = "object";
     protected $useSoftDeletes     = true;
-    protected $allowedFields      = ['name', 'lastname', 'email', 'password', 'last_login', 'active', 'photo', 'parent', 'rol', 'ocupation', 'telephone', 'email_secondary', 'cellphone', 'ext', 'date_entry', 'date_discharge', 'employee_number', 'hide_emails', 'ghost', 'has_ghost', 'real_parent', 'department', 'niveles', 'area'];
+    protected $allowedFields      = ['name', 'lastname', 'email', 'password', 'last_login', 'active', 'photo', 'parent', 'rol', 'ocupation', 'telephone', 'email_secondary', 'cellphone', 'ext', 'date_entry', 'date_discharge', 'employee_number', 'hide_emails', 'ghost', 'has_ghost', 'real_parent', 'department', 'niveles', 'area', 'reingreso'];
     protected $useTimestamps      = true;
     protected $createdField       = 'created_at';
     protected $updatedField       = 'updated_at';
@@ -165,6 +165,17 @@ class UserModel extends Model{
             'active' => 0,
         ]);
     }
+
+    public function reingresarUsuario($id, $date_entry)
+    {
+        return $this->update($id, [
+            'date_entry' => $date_entry,
+            'reingreso'  => 1,
+            'active'     => 1,
+            'date_discharge' => null,
+        ]);
+    }
+
 
     public function getOrganization()
     {

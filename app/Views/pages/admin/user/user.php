@@ -5,7 +5,10 @@
         <div class="card-body p-4">
           <div class="d-flex justify-content-between align-items-center">
             <h5 class="card-title fw-semibold m-0">Empleados</h5>
-            <a href="<?= base_url('user/new') ?>" class="btn btn-outline-primary d-block">Nuevo</a>
+            <div class="d-flex gap-2">
+              <button class="btn btn-outline-secondary" id="btnBuscar">Buscar</button>
+              <a href="<?= base_url('user/new') ?>" class="btn btn-outline-primary d-block">Nuevo</a>
+            </div>
           </div>
           <div class="mt-5 table-responsive directory">
             <table class="table text-nowrap table-hover mb-0 align-middle" id="dt_table_users">
@@ -32,9 +35,6 @@
                   <th class="border-bottom-0">
                     <h6 class="fw-semibold mb-0">Rol</h6>
                   </th>
-                  <th class="border-bottom-0">
-                    <h6 class="fw-semibold mb-0">Acción</h6>
-                  </th>
                 </tr>
               </thead>
               <tbody>
@@ -49,9 +49,9 @@
                             src="<?= base_url( $user->photo) ?>"
                           />
                           <div class="ms-2">
-                            <p class="mb-0 fw-normal">
+                            <a class="btn p-1 px-2" style="color:var(--primary);" href="<?= base_url('user/edit/'.$user->id) ?>">
                               <?= $user->name ?> <?= $user->lastname ?>
-                            </p>                   
+                            </a>
                           </div>
                         </div>
                       </td>
@@ -95,15 +95,6 @@
                           ?>
                         </p>
                       </td>
-                      <td class="border-bottom-0">
-                        <h6 class="fw-normal mb-0 fs-4">
-                          <a class="btn p-1 px-2" href="<?= base_url('user/edit/'.$user->id) ?>">
-                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="#5D87FF" width="24" height="24">
-                              <path stroke-linecap="round" stroke-linejoin="round" d="m16.862 4.487 1.687-1.688a1.875 1.875 0 1 1 2.652 2.652L6.832 19.82a4.5 4.5 0 0 1-1.897 1.13l-2.685.8.8-2.685a4.5 4.5 0 0 1 1.13-1.897L16.863 4.487Zm0 0L19.5 7.125" />
-                            </svg>
-                          </a>
-                        </h6>
-                      </td>
                     </tr>     
                   <?php endif ?>
                 <?php endforeach ?>
@@ -115,6 +106,37 @@
     </div>
   </div>
 </div>
+<div class="modal" id="searchUser" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="searchUser" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered ">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="searchUserText">Buscar empleado</h1>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body feed">
+        <p>Selecciona empleado</p>
+        <div class="mb-3">
+          <select name="userSearch" id="userSearch" class="form-select select2">
+            <option></option>
+            <?php foreach($users as $user): ?>
+              <?php if( !$user->ghost ): ?>
+                <option value="<?= $user->id ?>">
+                  <?= $user->name ?> <?= $user->lastname ?> - <?= $user->employee_number ?>
+                </option>
+              <?php endif ?>
+            <?php endforeach ?>
+          </select>
+        </div>
+        <div class="d-flex justify-content-end">
+          <button type="button" class="btn btn-outline-primary d-block ms-2" id="irUsuario">Ver empleado</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- Select2 -->
+<link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
+<script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
 <script>
   $('#dt_table_users').DataTable().destroy();
   $('#dt_table_users').DataTable({
@@ -128,5 +150,19 @@
         },
         'csv', 'excel'
       ]
+  });
+  $('#btnBuscar').on('click', function() {
+    $('#searchUser').modal('show');
+  });
+  $('.select2').select2({
+    placeholder: 'Empleado',
+    allowClear: true,
+    dropdownParent: $('#searchUser')
+  });
+  $('#irUsuario').on('click', function() {
+    var userId = $('#userSearch').val();
+    if(userId){
+      window.location.href = base_url + 'user/edit/' + userId;
+    }
   });
 </script>

@@ -190,7 +190,7 @@
               <div class="row">
                 <div class="col-md-6 col-lg-4">
                   <div class="mb-3">
-                    <label class="form-label">Fecha de ingreso <small style="color:red;">*</small></label>
+                    <label class="form-label">Fecha de ingreso <?= $user->reingreso == 1 ? '(Reingreso)' : '' ?> <small style="color:red;">*</small></label>
                     <div class="input-group">
                       <span class="input-group-text"><i class="ti ti-calendar"></i></span>
                         <input 
@@ -395,10 +395,42 @@
             <?php endif; ?>
             <?php if($user->active == 0): ?>
               <div class="d-flex">
-                <button type="submit" class="btn btn-outline-primary d-block" id="employeDischargeSave">Actualizar usuario</button>
+                <!-- <button type="submit" class="btn btn-outline-primary d-block" id="employeDischargeSave">Actualizar usuario</button> -->
+                <button type="button" class="btn btn-outline-danger d-block ms-2" id="employeActivate">Reingresar empleado</button>
               </div>
             <?php endif; ?>
           </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="modal" id="reactivarUsuario" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="reactivarUsuario" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered ">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="reactivarUsuarioText">Reingresar empleado</h1>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body feed">
+        <p>Selecciona fecha de reingreso para el empleado</p>
+        <div class="mb-3">
+          <label class="form-label">Fecha de ingreso <small style="color:red;">*</small></label>
+          <div class="input-group">
+            <span class="input-group-text"><i class="ti ti-calendar"></i></span>
+              <input 
+                type="date" 
+                id="date_re_entry" 
+                name="date_re_entry" 
+                class="form-control" 
+                required=""
+                max="<?= date('Y-m-d') ?>"
+              >
+          </div>
+        </div>
+        <div class="d-flex justify-content-end">
+          <button type="button" class="btn btn-outline-danger d-block ms-2" id="employeReactivate">Reingresar empleado y activar</button>
         </div>
       </div>
     </div>
@@ -466,5 +498,45 @@
       
     });
 
-  });
+    // Activar empleado modal
+    $('#employeActivate').on('click', function() {
+      $('#reactivarUsuario').modal('show');
+    });
+
+    // Reingresar empleado y activar
+    $('#employeReactivate').on('click', function() {
+
+      var id            = $('#id').val();
+      var date_re_entry = $('#date_re_entry').val();
+
+      if (date_re_entry === '') {
+        alert('Por favor, selecciona una fecha de reingreso.');
+        return;
+      }
+      
+      $.post({
+        url: baseUrl + '/reactivate',
+        data: {
+          id: id,
+          date_entry: date_re_entry,
+          [csrfName]: csrfHash
+        },
+        success: function(response) {
+          if(response.ok){
+            // Cerrar el modal
+            $('#reactivarUsuario').modal('hide');
+            // Recargar la página o actualizar la interfaz según sea necesario
+            location.reload();
+          } else {
+            alert('Ocurrió un error al reingresar el empleado.');
+          }
+        },
+        error: function(xhr, status, error) {
+          // Manejar errores
+          alert('Ocurrió un error al reingresar el empleado.');
+        }
+      });
+    });
+});
+
 </script>

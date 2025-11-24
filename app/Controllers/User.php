@@ -10,6 +10,11 @@ use App\Models\AreaModel;
 class User extends BaseController
 {
     protected $userModel;
+    protected $lang;
+    protected $ocupationModel;
+    protected $departmentModel;
+    protected $areaModel;
+    protected $session;
 
     public function __construct()
     {
@@ -222,6 +227,34 @@ class User extends BaseController
                 'message'       => lang('Errors.auth_invalid_image'),
             ]);
         }
+    }
+
+    public function reingresarUsuario()
+    {
+        $id         = $this->request->getPost('id');
+        $date_entry = $this->request->getPost('date_entry');
+
+        // Validar que los campos no esten vacios
+        if(!$this->checkEmptyField([ $id, $date_entry ])){
+            return $this->respondWithCsrf([
+                'ok'     => false,
+                'error'  => lang('Errors.missing_fields'),
+            ]); 
+        }
+
+        // Actualizar usuario en la base de datos
+        if($this->userModel->reingresarUsuario($id, $date_entry)){
+            return $this->respondWithCsrf([
+                'ok'            => true,
+                'message'       => lang('Success.user_reingreso_success'),
+            ]);
+        }
+
+        // En caso de error
+        return $this->respondWithCsrf([
+            'ok'            => false,
+            'message'       => lang('Errors.error_try_again_later'),
+        ]);
     }
 
     private function handlePhotoUpload($photo) : bool

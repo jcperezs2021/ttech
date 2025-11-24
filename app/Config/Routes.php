@@ -55,6 +55,7 @@ $routes->group('', ['filter' => 'auth:admin,operator'], function($routes) {
     $routes->post('/auth/user/update', 'Auth::updateUser');
     $routes->post('/auth/user/active', 'Auth::activeUser');
     $routes->post('/auth/user/inactive', 'Auth::inactiveUser');
+    $routes->post('/auth/user/reactivate', 'User::reingresarUsuario');
     
     /* Users */
     $routes->get('/user', 'User::index');

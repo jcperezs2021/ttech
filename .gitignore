@@ -128,8 +128,11 @@ nb-configuration.xml
 
 /.php-cs-fixer.php
 
+
 #-------------------------
 # Uploads
 #-------------------------
 public/uploads/files/*
 public/uploads/images/*
+
+*.sql
