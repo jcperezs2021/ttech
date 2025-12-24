@@ -74,7 +74,7 @@
             <div class="accordion-body px-0 py-1">
               <ul class="list-unstyled mb-0">
                 <li class="sidebar-item">
-                  <a class="sidebar-link" href="https://www.nstrantor.com.mx/intranet/hd_glpi/" aria-expanded="false" target="_blank">
+                  <a class="sidebar-link" href="https://nstrantor.com.mx/glpi/" aria-expanded="false" target="_blank">
                     <i class="ti ti-ticket"></i> GLPI
                   </a>
                 </li>
@@ -84,7 +84,7 @@
         </div>
       </div>
       <!-- Collapse Sidebar -->
-      <div class="sidebar__collapse" id="sidebar__collapse__container">
+      <!-- <div class="sidebar__collapse" id="sidebar__collapse__container">
         <div id="" class="accordion-collapse">
           <div class="accordion-body py-1">
             <ul class="list-unstyled mb-0">
@@ -96,9 +96,9 @@
             </ul>
           </div>
         </div>
-      </div>
+      </div> -->
       <!-- Expand Sidebar -->
-      <div class="sidebar__expand" id="sidebar__expand__container">
+      <!-- <div class="sidebar__expand" id="sidebar__expand__container">
         <div id="" class="accordion-collapse">
           <div class="accordion-body py-1">
             <ul class="list-unstyled mb-0">
@@ -110,7 +110,7 @@
             </ul>
           </div>
         </div>
-      </div>
+      </div> -->
     </nav>
   </div>
 </aside>

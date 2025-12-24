@@ -7,6 +7,24 @@
           <i class="ti ti-menu-2"></i>
         </a>
       </li>
+      <li class="nav-item d-none d-xl-block">
+        <a class="nav-link nav-icon-hover" href="#">
+          <div id="sidebar__collapse__container">
+            <div id="sidebar__collapse__btn">
+              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" height="24" width="24">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M3.75 5.25h16.5m-16.5 4.5h16.5m-16.5 4.5h16.5m-16.5 4.5h16.5"></path>
+              </svg>
+            </div>
+          </div>
+          <div id="sidebar__expand__container" style="display: none;">
+            <div id="sidebar__expand__btn">
+              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" height="24" width="24">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M3.75 5.25h16.5m-16.5 4.5h16.5m-16.5 4.5h16.5m-16.5 4.5h16.5"></path>
+              </svg>
+            </div>
+          </div>
+        </a>
+      </li>
       <li class="nav-item">
         <a class="nav-link nav-icon-hover" href="<?=base_url('/alerts')?>">
           <div id="bell__icon" style="display: none;">

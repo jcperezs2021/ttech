@@ -640,6 +640,7 @@ a{
 }
 .app-header-collapse{
     width: 100% !important;
+    padding-left: 295px;
 }
 .body-wrapper-collapse{
     margin-left: 0px !important;

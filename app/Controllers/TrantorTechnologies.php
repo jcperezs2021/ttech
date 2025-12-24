@@ -14,6 +14,7 @@ class TrantorTechnologies extends BaseController
         
         return   view('shared/header',                              ['title'     => 'Trantor Technologies'])
                 .view('shared/sidebar')
+                .view('shared/navbar')
                 .view('pages/user/trantor-technologies/trantor-technologies')
                 .view('shared/footer');
     }

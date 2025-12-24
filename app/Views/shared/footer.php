@@ -37,6 +37,11 @@
     <script src="<?= base_url('assets/js/user.js') ?>"></script>
   <?php endif; ?>
 
+  <?php if (strpos(uri_string(), 'directorio') !== false): ?>
+    <!-- Directorio -->
+    <script src="<?= base_url('assets/js/directorio.js') ?>"></script>
+  <?php endif; ?>
+
   <?php if (strpos(uri_string(), 'user/edit') !== false): ?>
     <!-- Usuario -->
     <script src="<?= base_url('assets/js/user-edit.js') ?>"></script>

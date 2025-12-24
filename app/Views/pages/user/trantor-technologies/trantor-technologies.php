@@ -1,5 +1,5 @@
 <!-- Parallax -->
-<section class="parallax-container" data-parallax-img="<?= base_url('/assets/ttech_lp/img/cableado.jpg') ?>">
+<section class="parallax-container pt-5" data-parallax-img="<?= base_url('/assets/ttech_lp/img/cableado.jpg') ?>">
   <div class="parallax-content section-xl context-dark text-center">
     <div class="container">
       <div class="row justify-content-center">
