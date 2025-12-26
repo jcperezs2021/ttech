@@ -34,7 +34,7 @@
               <tbody>
                 <?php if(empty($organigramas)): ?>
                   <tr>
-                    <td colspan="5" class="text-center py-4">
+                    <td colspan="4" class="text-center py-4">
                       <p class="text-muted">No hay organigramas creados aún</p>
                     </td>
                   </tr>
@@ -95,7 +95,6 @@
 
 <script>
 $(document).ready(function() {
-
   // Eliminar organigrama
   $('.btn-delete').on('click', function() {
     const id = $(this).data('id');
