@@ -185,6 +185,10 @@ class Auth extends BaseController
         // En caso de llegar date_discharge desactivar usuario
         if($date_discharge != ""){
             $this->userModel->inactiveUser($id);
+            // Buscar usuario ghost y desactivarlo
+            if($actualUser->has_ghost != null){
+                $this->userModel->inactiveUser($actualUser->has_ghost); 
+            }
         }
 
         // En caso de modificar la imagen eliminar la anterior y guardar la nueva

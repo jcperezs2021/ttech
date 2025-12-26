@@ -244,6 +244,13 @@ class User extends BaseController
 
         // Actualizar usuario en la base de datos
         if($this->userModel->reingresarUsuario($id, $date_entry)){
+
+            // Reingresar usuario ghost si existe
+            $actualUser = $this->userModel->getUsers($id);
+            if($actualUser->has_ghost != null){
+                $this->userModel->reingresarUsuario($actualUser->has_ghost, $date_entry); 
+            }
+
             return $this->respondWithCsrf([
                 'ok'            => true,
                 'message'       => lang('Success.user_reingreso_success'),
