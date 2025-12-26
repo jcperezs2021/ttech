@@ -6,7 +6,7 @@
     <script src="<?= base_url('assets/libs/bootstrap/dist/js/bootstrap.bundle.min.js') ?>"></script>
     <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/toastify-js"></script>
 
-    <?php if (strpos(uri_string(), 'directorio') !== false || strpos(uri_string(), 'ocupation') !== false || strpos(uri_string(), 'department') !== false || strpos(uri_string(), 'area') !== false): ?>
+    <?php if (strpos(uri_string(), 'directorio') !== false || strpos(uri_string(), 'ocupation') !== false || strpos(uri_string(), 'department') !== false || strpos(uri_string(), 'area') !== false || strpos(uri_string(), 'custom-organigram') !== false): ?>
       <!-- Datatable -->
       <script src="//cdn.datatables.net/2.1.7/js/dataTables.min.js"></script>
     <?php endif; ?>  
@@ -81,6 +81,11 @@
   <?php if (strpos(uri_string(), 'organization') !== false): ?>
     <!-- Organization -->
     <script src="<?= base_url('assets/js/organization.js') ?>"></script>
+  <?php endif; ?>  
+
+  <?php if (strpos(uri_string(), 'custom-organigram') !== false): ?>
+    <!-- Custom Organigram -->
+    <script src="<?= base_url('assets/js/custom-organigram.js') ?>"></script>
   <?php endif; ?>  
 
   </body> 

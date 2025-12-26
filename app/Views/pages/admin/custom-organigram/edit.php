@@ -25,16 +25,6 @@
               </div>
             </div>
 
-            <hr class="my-4">
-
-            <h6 class="fw-semibold mb-3">Empleados del Organigrama</h6>
-            
-            <div class="mb-3">
-              <button type="button" class="btn btn-outline-primary btn-sm" id="btnAddUser">
-                <i class="ti ti-plus"></i> Agregar Empleado
-              </button>
-            </div>
-
             <div id="usersContainer">
               <div class="table-responsive">
                 <table class="table table-bordered" id="tableUsers">
@@ -54,9 +44,12 @@
             </div>
 
             <div class="mt-4">
-              <button type="submit" class="btn btn-primary">
-                <i class="ti ti-device-floppy"></i> Actualizar Organigrama
-              </button>
+                <button type="button" class="btn btn-outline-primary me-2" id="btnAddUser">
+                    <i class="ti ti-plus"></i> Agregar Empleado
+                </button>
+                <button type="submit" class="btn btn-primary">
+                    <i class="ti ti-device-floppy"></i> Actualizar Organigrama
+                </button>
             </div>
           </form>
         </div>
@@ -103,7 +96,7 @@ $(document).ready(function() {
           </select>
         </td>
         <td>
-          <input type="number" class="form-control" name="users[${userRowCounter}][niveles]" value="${niveles}" min="0" max="10">
+          <input type="number" class="form-control" name="users[${userRowCounter}][niveles]" value="${niveles}" min="0" max="5">
         </td>
         <td class="text-center">
           <button type="button" class="btn btn-sm btn-outline-danger btn-remove-user" data-row-id="${userRowCounter}">

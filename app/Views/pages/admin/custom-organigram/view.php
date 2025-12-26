@@ -7,25 +7,27 @@
             <div class="col-12">
               <div class="d-flex justify-content-between align-items-center">
                 <h3 class="fw-semibold mb-0"><?= $organigrama->name ?></h3>
+                <?php if($organigrama->description): ?>
+                    <p class="text-muted mt-2"><?= $organigrama->description ?></p>
+                <?php endif; ?>
                 <div class="d-flex gap-2">
+                    <?php if(session()->get('user')->rol === 'admin'): ?>
                   <a href="<?= base_url('custom-organigram/edit/'.$organigrama->id) ?>" class="btn btn-outline-secondary">
                     <i class="ti ti-pencil"></i> Editar
                   </a>
+                    <?php endif; ?>
                   <a href="<?= base_url('custom-organigram') ?>" class="btn btn-outline-primary">
                     <i class="ti ti-arrow-left"></i> Volver
                   </a>
                 </div>
               </div>
-              <?php if($organigrama->description): ?>
-                <p class="text-muted mt-2"><?= $organigrama->description ?></p>
-              <?php endif; ?>
             </div>
           </div>
         </div>
       </div>
     </div>
   </div>
-  <div class="card b-s-none" style="padding-top: 120px !important;">
+  <div class="card b-s-none" style="padding-top: 60px !important;">
     <div id="chart-container" class="min__h__100">
       <div class="text-center py-5">
         <div class="spinner-border text-primary" role="status">
