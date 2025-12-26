@@ -1,0 +1,78 @@
+<?php
+
+namespace App\Models;
+
+use CodeIgniter\Model;
+
+class CustomOrganigramModel extends Model
+{
+    protected $table              = 'custom_organigramas';
+    protected $primaryKey         = 'id';
+    protected $useAutoIncrement   = true;
+    protected $returnType         = "object";
+    protected $useSoftDeletes     = true;
+    protected $allowedFields      = ['name', 'description', 'created_by', 'active'];
+    protected $useTimestamps      = true;
+    protected $createdField       = 'created_at';
+    protected $updatedField       = 'updated_at';
+    protected $deletedField       = 'deleted_at';
+    protected $validationRules    = [];
+    protected $validationMessages = [];
+    protected $skipValidation     = false;
+
+    /**
+     * Obtener todos los organigramas
+     */
+    public function getOrganigramas($id = null)
+    {
+        $this->join('users', 'users.id = custom_organigramas.created_by')
+             ->select('custom_organigramas.*, CONCAT(users.name, " ", users.lastname) as creator_name');
+        
+        if ($id !== null) {
+            return $this->find($id);
+        }
+
+        return $this->orderBy('created_at', 'DESC')->findAll();
+    }
+
+    /**
+     * Crear un nuevo organigrama
+     */
+    public function createOrganigrama($name, $description, $created_by)
+    {
+        $data = [
+            'name'        => $name,
+            'description' => $description,
+            'created_by'  => $created_by,
+        ];
+
+        return $this->insert($data);
+    }
+
+    /**
+     * Actualizar un organigrama
+     */
+    public function updateOrganigrama($id, $name, $description)
+    {
+        return $this->update($id, [
+            'name'        => $name,
+            'description' => $description,
+        ]);
+    }
+
+    /**
+     * Eliminar un organigrama
+     */
+    public function deleteOrganigrama($id)
+    {
+        return $this->delete($id);
+    }
+
+    /**
+     * Activar/Desactivar organigrama
+     */
+    public function toggleActive($id, $active)
+    {
+        return $this->update($id, ['active' => $active]);
+    }
+}

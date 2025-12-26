@@ -41,6 +41,12 @@ $routes->group('', ['filter' => 'auth:admin,operator,user'], function($routes) {
     $routes->get('/organization/data', 'Organization::getOrganization');
     $routes->get('/organization/data/department/(:num)', 'Organization::getOrganizationByDepartment/$1');
     $routes->get('/organization/data/area/(:num)', 'Organization::getOrganizationByArea/$1');
+
+    /* Custom Organigram */
+    $routes->get('/custom-organigram', 'CustomOrganigram::index');
+    $routes->get('/custom-organigram/create', 'CustomOrganigram::create');
+    $routes->get('/custom-organigram/view/(:num)', 'CustomOrganigram::view/$1');
+    $routes->get('/custom-organigram/data/(:num)', 'CustomOrganigram::getOrganigramData/$1');
     
 });
 
@@ -127,6 +133,14 @@ $routes->group('', ['filter' => 'auth:admin'], function($routes) {
     $routes->post('/department/new', 'Department::createDepartment');
     $routes->post('/department/edit', 'Department::updateDepartment');
     $routes->post('/department/delete', 'Department::deleteDepartment');
+
+    /* Custom Organigram - Admin routes */
+    $routes->get('/custom-organigram/edit/(:num)', 'CustomOrganigram::edit/$1');
+    $routes->post('/custom-organigram/store', 'CustomOrganigram::store');
+    $routes->post('/custom-organigram/update', 'CustomOrganigram::update');
+    $routes->post('/custom-organigram/delete', 'CustomOrganigram::delete');
+    $routes->post('/custom-organigram/add-user', 'CustomOrganigram::addUser');
+    $routes->post('/custom-organigram/remove-user', 'CustomOrganigram::removeUser');
     
     /* Documents */
     $routes->get('/documents', 'Documents::documents');
