@@ -87,8 +87,11 @@ $(document).ready(function() {
       // Limpiar el contenedor primero
       $('#chart-container').empty();
       
+      // Procesar los datos para convertir niveles en nodos ghost
+      const processedData = processNodeLevels(data);
+      
       $('#chart-container').orgchart({
-        'data': data,
+        'data': processedData,
         'nodeContent': 'title',
         'createNode': function($node, data) {
           if (data.img) {
@@ -110,6 +113,69 @@ $(document).ready(function() {
           <p class="text-danger">Error al renderizar el organigrama</p>
         </div>
       `);
+    }
+  }
+
+  // Función para procesar los niveles y crear nodos ghost
+  function processNodeLevels(node) {
+    if (!node) return null;
+
+    // Si el nodo tiene niveles > 0, crear nodos ghost intermedios
+    if (node.niveles && node.niveles > 0) {
+      // Crear el primer nodo ghost
+      let firstGhostNode = {
+        name: '',
+        title: '',
+        ghost: true,
+        niveles: 1,
+        children: []
+      };
+
+      // Crear cadena de nodos ghost
+      let currentNode = firstGhostNode;
+      for (let i = 1; i < node.niveles; i++) {
+        let ghostNode = {
+          name: '',
+          title: '',
+          ghost: true,
+          niveles: i + 1,
+          children: []
+        };
+        currentNode.children = [ghostNode];
+        currentNode = ghostNode;
+      }
+
+      // Agregar el nodo real al final de la cadena de ghosts
+      let actualNode = {
+        id: node.id,
+        name: node.name,
+        title: node.title || '',
+        img: node.img || '',
+        ghost: false
+      };
+
+      // Procesar los hijos del nodo original
+      if (node.children && node.children.length > 0) {
+        actualNode.children = node.children.map(child => processNodeLevels(child));
+      }
+
+      currentNode.children = [actualNode];
+      return firstGhostNode;
+    } else {
+      // No tiene niveles, procesar normalmente
+      let processedNode = {
+        id: node.id,
+        name: node.name,
+        title: node.title || '',
+        img: node.img || '',
+        ghost: false
+      };
+
+      if (node.children && node.children.length > 0) {
+        processedNode.children = node.children.map(child => processNodeLevels(child));
+      }
+
+      return processedNode;
     }
   }
 
