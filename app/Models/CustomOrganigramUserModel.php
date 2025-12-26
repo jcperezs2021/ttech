@@ -90,8 +90,9 @@ class CustomOrganigramUserModel extends Model
      */
     private function buildOrganizationTree($users)
     {
-        // 1. Construir arreglo asociativo
+        // 1. Construir arreglo asociativo primero sin procesar niveles
         $usersById = [];
+        
         foreach ($users as $user) {
             $usersById[$user->user_id] = [
                 'id'      => $user->user_id,
@@ -99,10 +100,40 @@ class CustomOrganigramUserModel extends Model
                 'title'   => $user->ocupation_name ?? 'Sin puesto',
                 'pid'     => $user->parent_id,
                 'img'     => base_url($user->photo),
+                'ghost'   => false,
                 'niveles' => $user->niveles,
+                'original_pid' => $user->parent_id,  // Guardar el parent original
                 'children'=> []
             ];
         }
+        
+        // 1.5. Procesar niveles e insertar UN nodo ghost por usuario con niveles
+        $ghostIdCounter = 20000000;
+        $ghostsToAdd = [];
+        
+        foreach ($usersById as $userId => &$user) {
+            if ($user['niveles'] > 0) {
+                // Crear UN SOLO nodo ghost con la altura correspondiente
+                $ghostId = $ghostIdCounter++;
+                $ghostsToAdd[$ghostId] = [
+                    'id'      => $ghostId,
+                    'name'    => '',
+                    'title'   => '',
+                    'pid'     => $user['original_pid'],
+                    'img'     => '',
+                    'ghost'   => true,
+                    'niveles' => $user['niveles'],  // El CSS determina la altura
+                    'children'=> []
+                ];
+                
+                // Actualizar el pid del usuario para que apunte al ghost
+                $user['pid'] = $ghostId;
+            }
+        }
+        unset($user);
+        
+        // Agregar los ghosts al array principal
+        $usersById = $usersById + $ghostsToAdd;
 
         // 2. Ajustar pid si el padre no está en el arreglo
         foreach ($usersById as &$user) {
@@ -128,7 +159,8 @@ class CustomOrganigramUserModel extends Model
                 'title'   => null,
                 'pid'     => null,
                 'img'     => base_url('assets/images/logos/logo-2.png'),
-                'niveles' => null,
+                'ghost'   => false,
+                'niveles' => 0,
                 'children'=> []
             ];
 

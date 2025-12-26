@@ -87,11 +87,8 @@ $(document).ready(function() {
       // Limpiar el contenedor primero
       $('#chart-container').empty();
       
-      // Procesar los datos para convertir niveles en nodos ghost
-      const processedData = processNodeLevels(data);
-      
       $('#chart-container').orgchart({
-        'data': processedData,
+        'data': data,
         'nodeContent': 'title',
         'createNode': function($node, data) {
           if (data.img) {
@@ -113,122 +110,6 @@ $(document).ready(function() {
           <p class="text-danger">Error al renderizar el organigrama</p>
         </div>
       `);
-    }
-  }
-
-  // Función para procesar los niveles y crear nodos ghost
-  function processNodeLevels(node) {
-    if (!node) return null;
-
-    // Si el nodo tiene niveles > 0, crear nodos ghost intermedios
-    if (node.niveles && node.niveles > 0) {
-      // Crear el primer nodo ghost
-      let firstGhostNode = {
-        name: '',
-        title: '',
-        ghost: true,
-        niveles: 1,
-        children: []
-      };
-
-      // Crear cadena de nodos ghost
-      let currentNode = firstGhostNode;
-      for (let i = 1; i < node.niveles; i++) {
-        let ghostNode = {
-          name: '',
-          title: '',
-          ghost: true,
-          niveles: i + 1,
-          children: []
-        };
-        currentNode.children = [ghostNode];
-        currentNode = ghostNode;
-      }
-
-      // Agregar el nodo real al final de la cadena de ghosts
-      let actualNode = {
-        id: node.id,
-        name: node.name,
-        title: node.title || '',
-        img: node.img || '',
-        ghost: false
-      };
-
-      // Procesar los hijos del nodo original
-      if (node.children && node.children.length > 0) {
-        actualNode.children = node.children.map(child => processNodeLevels(child));
-      }
-
-      currentNode.children = [actualNode];
-      return firstGhostNode;
-    } else {
-      // No tiene niveles, procesar normalmente
-      let processedNode = {
-        id: node.id,
-        name: node.name,
-        title: node.title || '',
-        img: node.img || '',
-        ghost: false
-      };
-
-      if (node.children && node.children.length > 0) {
-        processedNode.children = node.children.map(child => processNodeLevels(child));
-      }
-
-      return processedNode;
-    }
-  }
-
-  // Función para convertir el árbol al formato de jQuery OrgChart (sin niveles anidados)
-  function convertToOrgChartFormat(node) {
-    if (!node) return null;
-
-    let orgNode = {
-      name: node.name,
-      title: node.title || '',
-      img: node.img || '',
-      ghost: false
-    };
-
-    // Si tiene niveles, agregar nodos fantasma como hermanos con estructura especial
-    if (node.niveles && node.niveles > 0) {
-      // Crear estructura con nodos fantasma
-      let currentNode = orgNode;
-      
-      for (let i = 0; i < node.niveles; i++) {
-        let ghostNode = {
-          name: '',
-          title: '',
-          ghost: true,
-          niveles: i + 1,
-          children: []
-        };
-        currentNode.children = [ghostNode];
-        currentNode = ghostNode;
-      }
-      
-      // Agregar el nodo real como hijo del último fantasma
-      let realNode = {
-        name: node.name,
-        title: node.title || '',
-        img: node.img || '',
-        ghost: false
-      };
-      
-      // Si el nodo original tiene hijos, agregárselos al nodo real
-      if (node.children && node.children.length > 0) {
-        realNode.children = node.children.map(child => convertToOrgChartFormat(child));
-      }
-      
-      currentNode.children = [realNode];
-      
-      return orgNode;
-    } else {
-      // Procesar hijos normalmente
-      if (node.children && node.children.length > 0) {
-        orgNode.children = node.children.map(child => convertToOrgChartFormat(child));
-      }
-      return orgNode;
     }
   }
 });
