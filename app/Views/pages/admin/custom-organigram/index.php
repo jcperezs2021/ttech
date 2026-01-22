@@ -72,6 +72,12 @@
                              title="Editar">
                             <i class="ti ti-pencil"></i>
                           </a>
+                          <button class="btn btn-sm btn-outline-info btn-clone" 
+                                  data-id="<?= $organigrama->id ?>"
+                                  data-name="<?= $organigrama->name ?>"
+                                  title="Clonar">
+                            <i class="ti ti-copy"></i>
+                          </button>
                           <button class="btn btn-sm btn-outline-danger btn-delete" 
                                   data-id="<?= $organigrama->id ?>"
                                   data-name="<?= $organigrama->name ?>"
@@ -95,6 +101,44 @@
 
 <script>
 $(document).ready(function() {
+  // Clonar organigrama
+  $('.btn-clone').on('click', function() {
+    const id = $(this).data('id');
+    const name = $(this).data('name');
+
+    const newName = prompt(`Ingrese el nombre para el nuevo organigrama clonado de "${name}":`, `${name} (Copia)`);
+    
+    if (!newName || newName.trim() === '') {
+      return;
+    }
+
+    showLoader();
+    $.ajax({
+      url: '<?= base_url('custom-organigram/clone') ?>',
+      type: 'POST',
+      data: {
+        id: id,
+        new_name: newName.trim(),
+        <?= csrf_token() ?>: '<?= csrf_hash() ?>'
+      },
+      success: function(response) {
+        hideLoader();
+        if (response.status === 'success') {
+          showMessage('alert-success', response.message);
+          setTimeout(() => {
+            location.reload();
+          }, 1500);
+        } else {
+          showMessage('alert-danger', response.message);
+        }
+      },
+      error: function() {
+        hideLoader();
+        showMessage('alert-danger', 'Ocurrió un error al clonar el organigrama');
+      }
+    });
+  });
+
   // Eliminar organigrama
   $('.btn-delete').on('click', function() {
     const id = $(this).data('id');

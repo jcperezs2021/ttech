@@ -139,6 +139,7 @@ $routes->group('', ['filter' => 'auth:admin'], function($routes) {
     $routes->post('/custom-organigram/store', 'CustomOrganigram::store');
     $routes->post('/custom-organigram/update', 'CustomOrganigram::update');
     $routes->post('/custom-organigram/delete', 'CustomOrganigram::delete');
+    $routes->post('/custom-organigram/clone', 'CustomOrganigram::clone');
     $routes->post('/custom-organigram/add-user', 'CustomOrganigram::addUser');
     $routes->post('/custom-organigram/remove-user', 'CustomOrganigram::removeUser');
     

@@ -218,6 +218,76 @@ class CustomOrganigram extends BaseController
     }
 
     /**
+     * Clonar un organigrama existente
+     */
+    public function clone()
+    {
+        $id      = $this->request->getPost('id');
+        $newName = $this->request->getPost('new_name');
+
+        if (empty($id)) {
+            return $this->response->setJSON([
+                'status'  => 'error',
+                'message' => 'ID no proporcionado'
+            ]);
+        }
+
+        if (empty($newName)) {
+            return $this->response->setJSON([
+                'status'  => 'error',
+                'message' => 'El nombre del nuevo organigrama es requerido'
+            ]);
+        }
+
+        // Obtener el organigrama original
+        $originalOrganigrama = $this->customOrganigramModel->getOrganigramas($id);
+        
+        if (!$originalOrganigrama) {
+            return $this->response->setJSON([
+                'status'  => 'error',
+                'message' => 'Organigrama no encontrado'
+            ]);
+        }
+
+        // Crear el nuevo organigrama con el nombre proporcionado
+        $createdBy      = session('user')->id;
+        $newOrganigramaId = $this->customOrganigramModel->createOrganigrama(
+            $newName,
+            $originalOrganigrama->description,
+            $createdBy
+        );
+
+        if (!$newOrganigramaId) {
+            return $this->response->setJSON([
+                'status'  => 'error',
+                'message' => 'Error al crear el nuevo organigrama'
+            ]);
+        }
+
+        // Obtener todos los usuarios del organigrama original
+        $originalUsers = $this->customOrganigramUserModel->getUsersByOrganigrama($id);
+
+        // Clonar los usuarios al nuevo organigrama
+        if (!empty($originalUsers)) {
+            foreach ($originalUsers as $user) {
+                $this->customOrganigramUserModel->addUserToOrganigrama(
+                    $newOrganigramaId,
+                    $user->user_id,
+                    $user->parent_id,
+                    $user->niveles,
+                    $user->position_order
+                );
+            }
+        }
+
+        return $this->response->setJSON([
+            'status'  => 'success',
+            'message' => 'Organigrama clonado exitosamente',
+            'new_id'  => $newOrganigramaId
+        ]);
+    }
+
+    /**
      * Vista para visualizar un organigrama
      */
     public function view($id): string
