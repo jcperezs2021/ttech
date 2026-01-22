@@ -67,7 +67,7 @@ $(document).ready(function() {
   // Función para crear opciones de usuarios
   function getUserOptions() {
     return allUsers.map(user => 
-      `<option value="${user.id}">${user.name} ${user.lastname} - ${user.ocupation_name || 'Sin puesto'}</option>`
+      `<option value="${user.id}">${user.name} ${user.lastname} </option>`
     ).join('');
   }
 

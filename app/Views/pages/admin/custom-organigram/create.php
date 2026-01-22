@@ -68,7 +68,7 @@ $(document).ready(function() {
     const rowId = `user-row-${userRowCounter}`;
     
     const userOptions = users.map(user => 
-      `<option value="${user.id}">${user.name} ${user.lastname} - ${user.ocupation_name || 'Sin puesto'}</option>`
+      `<option value="${user.id}">${user.name} ${user.lastname} </option>`
     ).join('');
 
     const row = `
