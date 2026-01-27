@@ -587,6 +587,13 @@ a{
 .ghost__node__niveles__5{
     height: 673px !important;
 }
+.ghost__node__root{
+    height: 0 !important;
+    padding: 0 !important;
+    margin: 0 !important;
+    background-color: transparent !important;
+    border: 0 !important;
+}
 .ghost__node>img{
     display: none !important;
 }

@@ -194,7 +194,7 @@ class UserModel extends Model{
         }, $users);
     }
 
-    private function buildOrganizationTree($users)
+    private function buildOrganizationTree($users, $forceFakeRoot = false)
     {
         // 1. Construir arreglo asociativo
         $usersById = [];
@@ -227,8 +227,8 @@ class UserModel extends Model{
             }
         }
 
-        // 4. Si hay más de uno, usar nodo raíz fake
-        if ($rootCount > 1) {
+        // 4. Si hay más de uno, o se fuerza, usar nodo raíz fake
+        if ($rootCount > 1 || $forceFakeRoot) {
             $rootUser = [
                 'id'      => 10000001,
                 'name'    => "Trantor Technologies",
@@ -241,7 +241,9 @@ class UserModel extends Model{
                 'children'=> []
             ];
 
-            $usersById = [10000001 => $rootUser] + $usersById;
+            if (!isset($usersById[10000001])) {
+                $usersById = [10000001 => $rootUser] + $usersById;
+            }
 
             // Asignar el root fake como padre a los nodos raíz
             foreach ($usersById as &$user) {
@@ -260,9 +262,29 @@ class UserModel extends Model{
         }
         unset($user);
 
-        // 6. Devolver el nodo raíz (fake si hay varios, único si solo hay uno)
+        // 6. Ajuste: si el root fake tiene hijos ghost, colapsarlos
         if (isset($usersById[10000001])) {
-            return $usersById[10000001];
+            $rootId = 10000001;
+            $root = &$usersById[$rootId];
+
+            $newChildren = [];
+            foreach ($root['children'] as &$child) {
+                if (!empty($child['ghost'])) {
+                    $lifted = [];
+                    $this->collectNonGhostDescendants($child, $lifted);
+                    foreach ($lifted as $liftedNode) {
+                        $liftedNode['pid'] = $rootId;
+                        $newChildren[] = $liftedNode;
+                    }
+                } else {
+                    $newChildren[] = $child;
+                }
+            }
+            unset($child);
+
+            $root['children'] = $newChildren;
+
+            return $root;
         } else {
             // Solo uno, buscar el nodo raíz real
             foreach ($usersById as $user) {
@@ -272,6 +294,78 @@ class UserModel extends Model{
             }
         }
         return null; // Por si muere
+    }
+
+    private function collectNonGhostDescendants($node, &$result)
+    {
+        if (empty($node['ghost'])) {
+            $result[] = $node;
+            return;
+        }
+
+        foreach ($node['children'] as $child) {
+            $this->collectNonGhostDescendants($child, $result);
+        }
+    }
+
+    private function fetchUsersByIds($ids)
+    {
+        if (empty($ids)) {
+            return [];
+        }
+
+        return $this->db->table($this->table)
+            ->join('ocupations', 'ocupations.id = users.ocupation')
+            ->select('users.id, CONCAT(users.name, " ", users.lastname) as name, ocupations.name as title, users.parent as pid, users.photo, users.ghost, users.niveles')
+            ->whereIn('users.id', $ids)
+            ->where('users.active', 1)
+            ->get()
+            ->getResult();
+    }
+
+    private function addAncestorsToUsers($users)
+    {
+        $usersById = [];
+        $pendingParentIds = [];
+
+        foreach ($users as $user) {
+            $usersById[$user->id] = $user;
+            if ($user->pid !== null) {
+                $pendingParentIds[$user->pid] = true;
+            }
+        }
+
+        foreach (array_keys($usersById) as $existingId) {
+            unset($pendingParentIds[$existingId]);
+        }
+
+        while (!empty($pendingParentIds)) {
+            $idsToFetch = array_keys($pendingParentIds);
+            $pendingParentIds = [];
+
+            $parents = $this->fetchUsersByIds($idsToFetch);
+            foreach ($parents as $parent) {
+                if (!isset($usersById[$parent->id])) {
+                    $usersById[$parent->id] = $parent;
+                    if ($parent->pid !== null && !isset($usersById[$parent->pid])) {
+                        $pendingParentIds[$parent->pid] = true;
+                    }
+                }
+            }
+        }
+
+        return array_values($usersById);
+    }
+
+    private function markNonFilteredAsGhost($users, $visibleIds)
+    {
+        foreach ($users as $user) {
+            if (!isset($visibleIds[$user->id])) {
+                $user->ghost = 1;
+            }
+        }
+
+        return $users;
     }
 
     public function getOrganizationChart()
@@ -292,7 +386,14 @@ class UserModel extends Model{
             ->where('users.department', $department)
             ->findAll();
 
-        return $this->buildOrganizationTree($users);
+        $visibleIds = array_flip(array_map(function($user) {
+            return $user->id;
+        }, $users));
+
+        $users = $this->addAncestorsToUsers($users);
+        $users = $this->markNonFilteredAsGhost($users, $visibleIds);
+
+        return $this->buildOrganizationTree($users, true);
     }
 
     public function getOrganizationChartByArea($area)
@@ -303,6 +404,13 @@ class UserModel extends Model{
             ->where('users.area', $area)
             ->findAll();
 
-        return $this->buildOrganizationTree($users);
+        $visibleIds = array_flip(array_map(function($user) {
+            return $user->id;
+        }, $users));
+
+        $users = $this->addAncestorsToUsers($users);
+        $users = $this->markNonFilteredAsGhost($users, $visibleIds);
+
+        return $this->buildOrganizationTree($users, true);
     }
 }
