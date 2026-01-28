@@ -57,10 +57,17 @@ $(document).ready(function() {
             $('#chart-container').empty(); // Limpia el contenedor del organigrama
             $('#chart-container').orgchart({
                 'data': data,
-                'nodeContent': 'title',
+                'nodeTitle': 'title',
+                'nodeContent': null,
                 'createNode': function($node, data) {
-                    if (data.img) {
-                        $node.prepend('<img class="node-img" src="' + data.img + '" alt="' + data.name + '">');
+                    $node.find('.content').remove();
+                    var titleText = (data && typeof data.title !== 'undefined' && data.title !== null) ? String(data.title).trim() : '';
+                    if (!titleText || titleText.toLowerCase() === 'null') {
+                        if (typeof data.pid === 'undefined' || data.pid === null || data.pid === 0) {
+                            $node.find('.title').text('Trantor Technologies');
+                        } else {
+                            $node.find('.title').text('');
+                        }
                     }
                     if(data.ghost) {
                         $node.addClass('ghost__node');

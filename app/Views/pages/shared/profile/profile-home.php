@@ -39,6 +39,7 @@
                     value="<?= $user->name ?>"
                     class="form-control" 
                     required=""
+                    readonly
                   >
                 </div>
               </div>
@@ -53,6 +54,7 @@
                     value="<?= $user->lastname ?>"
                     name="lastname" 
                     class="form-control" 
+                    readonly
                   >
                 </div>
               </div>

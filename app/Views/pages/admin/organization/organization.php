@@ -1,4 +1,4 @@
-<div class="min__h__100">
+<div class="min__h__100 organization__page">
   <div class="container__organization">
     <div class="row">
       <div class="col-12">
