@@ -27,6 +27,11 @@
                   </a>
                 </li>
                 <li class="sidebar-item">
+                  <a class="sidebar-link" href="<?= base_url('custom-organigram') ?>">
+                    <i class="ti ti-hierarchy-2"></i> Organigramas Personalizados
+                  </a>
+                </li>
+                <li class="sidebar-item">
                   <a class="sidebar-link" href="<?=base_url('/auth/logout')?>" aria-expanded="false">
                     <span>
                         <i class="ti ti-login"></i>

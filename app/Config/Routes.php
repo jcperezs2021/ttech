@@ -42,11 +42,6 @@ $routes->group('', ['filter' => 'auth:admin,operator,user'], function($routes) {
     $routes->get('/organization/data/department/(:num)', 'Organization::getOrganizationByDepartment/$1');
     $routes->get('/organization/data/area/(:num)', 'Organization::getOrganizationByArea/$1');
 
-    /* Custom Organigram */
-    $routes->get('/custom-organigram', 'CustomOrganigram::index');
-    $routes->get('/custom-organigram/create', 'CustomOrganigram::create');
-    $routes->get('/custom-organigram/view/(:num)', 'CustomOrganigram::view/$1');
-    $routes->get('/custom-organigram/data/(:num)', 'CustomOrganigram::getOrganigramData/$1');
     
 });
 
@@ -67,6 +62,12 @@ $routes->group('', ['filter' => 'auth:admin,operator'], function($routes) {
     $routes->get('/user', 'User::index');
     $routes->get('/user/new', 'User::newUser');
     $routes->get('/user/edit/(:num)', 'User::editUser/$1');
+
+    /* Custom Organigram */
+    $routes->get('/custom-organigram', 'CustomOrganigram::index');
+    $routes->get('/custom-organigram/create', 'CustomOrganigram::create');
+    $routes->get('/custom-organigram/view/(:num)', 'CustomOrganigram::view/$1');
+    $routes->get('/custom-organigram/data/(:num)', 'CustomOrganigram::getOrganigramData/$1');
     
 });
 

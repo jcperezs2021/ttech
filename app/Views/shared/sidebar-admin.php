@@ -47,11 +47,6 @@
                   </a>
                 </li>
                 <li class="sidebar-item">
-                  <a class="sidebar-link" href="<?= base_url('custom-organigram') ?>">
-                    <i class="ti ti-hierarchy-2"></i> Organigramas Personalizados
-                  </a>
-                </li>
-                <li class="sidebar-item">
                   <a class="sidebar-link" href="<?= base_url('quejas-sugerencias') ?>">
                     <i class="ti ti-mailbox"></i> Buzón de quejas y sugerencias
                   </a>
