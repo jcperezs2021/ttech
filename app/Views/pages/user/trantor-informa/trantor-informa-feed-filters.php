@@ -242,6 +242,25 @@
         font-size: 1rem;
     }
     .feed-shortcut:hover .feed-shortcut__ext { color: var(--color-blue-600); }
+
+    /* Mobile: la columna deja de ser sidebar y pasa a bloque completo sobre el feed.
+       Nota: index.css oculta .tinf__card_filter <=768px, pero .feed-side-col se declara
+       después y gana; por eso aquí se define explícitamente el comportamiento móvil. */
+    @media (max-width: 768px) {
+        .feed-side-col {
+            display: flex;
+            width: 100%;
+            max-width: none;
+            margin-right: 0;
+            margin-bottom: 1rem;
+            position: static;
+            top: auto;
+        }
+        /* El saludo y el avatar ya están en el header móvil */
+        .feed-side__head { display: none; }
+        .feed-side__filters { padding-top: 0; }
+        .feed-side { padding: 1rem; }
+    }
 </style>
 
 <script>
