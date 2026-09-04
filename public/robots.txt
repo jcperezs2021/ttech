@@ -1,2 +1,15 @@
+# Intranet corporativa Trantor Technologies - acceso privado.
+#
+# IMPORTANTE: el rastreo se permite A PROPOSITO.
+# El sitio ya estaba indexado en Google (intranet.trantortechnologies.mx).
+# La desindexacion se hace con la etiqueta "noindex" que va en:
+#   - app/Views/shared/header.php  (<meta name="robots">)
+#   - public/.htaccess             (cabecera X-Robots-Tag)
+# Google solo puede LEER ese noindex si se le permite rastrear la pagina.
+# Un "Disallow: /" aqui bloquearia el rastreo y las URLs se quedarian
+# indexadas indefinidamente (sin descripcion, pero visibles).
+#
+# Una vez que las URLs desaparezcan de los resultados de busqueda,
+# se puede cambiar a "Disallow: /" para bloquear tambien el rastreo.
 User-agent: *
-Disallow: 
+Allow: /

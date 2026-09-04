@@ -2,6 +2,15 @@
 Options -Indexes
 
 # ----------------------------------------------------------------------
+# Bloqueo de indexacion (intranet privada)
+# Aplica a TODA respuesta, incluidos PDFs, imagenes y archivos de uploads,
+# que no pueden llevar la meta tag <meta name="robots">.
+# ----------------------------------------------------------------------
+<IfModule mod_headers.c>
+	Header always set X-Robots-Tag "noindex, nofollow, noarchive, nosnippet, noimageindex"
+</IfModule>
+
+# ----------------------------------------------------------------------
 # Rewrite engine
 # ----------------------------------------------------------------------
 
